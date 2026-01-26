@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보처리기사 필기 완벽 대비</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'noto': ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#6366f1',
+                        'primary-dark': '#4f46e5',
+                        'secondary': '#f59e0b',
+                        'success': '#10b981',
+                        'danger': '#ef4444',
+                        'dark': '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .subject-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .sidebar {
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+        }
+        .sidebar:not(.closed) {
+            transform: translateX(0);
+        }
+        .main-content {
+            transition: margin-left 0.3s ease;
+            margin-left: 0;
+        }
+        @media (min-width: 1024px) {
+            .sidebar:not(.closed) ~ .main-content {
+                margin-left: 288px; /* 18rem = 72 * 4px */
+            }
+        }
+        /* 스크롤바 스타일 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .badge-frequent {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .badge-difficult {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        .nav-item.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .concept-section {
+            border-left: 4px solid #6366f1;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-noto">
+    <!-- 헤더 -->
+    <header class="gradient-bg text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button id="menuToggle" class="text-2xl hover:bg-white/20 p-2 rounded-lg transition" title="메뉴 열기/닫기">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition" onclick="showSection('home')">
+                        <i class="fas fa-laptop-code text-3xl"></i>
+                        <div>
+                            <h1 class="text-xl font-bold">정보처리기사 필기</h1>
+                            <p class="text-xs opacity-80" id="dDayText">D-34 | 시험일: 2026년 3월 1일</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold" id="studyProgress">0%</p>
+                        <p class="text-xs opacity-80">학습 진도</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold" id="wrongCount">0</p>
+                        <p class="text-xs opacity-80">오답 문제</p>
+                    </div>
+                    <!-- 로그인/사용자 정보 -->
+                    <div id="authArea" class="flex items-center gap-3">
+                        <button onclick="showAuthModal('login')" id="loginBtn" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition">
+                            <i class="fas fa-sign-in-alt mr-2"></i>로그인
+                        </button>
+                        <div id="userInfo" class="hidden flex items-center gap-3">
+                            <span class="text-sm" id="userNameDisplay"></span>
+                            <button onclick="logout()" class="px-3 py-2 bg-red-500/80 hover:bg-red-500 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex pt-16">
+        <!-- 사이드바 -->
+        <aside id="sidebar" class="sidebar fixed w-72 h-[calc(100vh-64px)] bg-white shadow-xl z-40 overflow-y-auto closed">
+            <nav class="p-4">
+                <!-- 메인 메뉴 -->
+                <div class="mb-6">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">메인</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" onclick="showSection('home')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition active" data-section="home">
+                                <i class="fas fa-home w-5"></i>
+                                <span>홈</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('cbt')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="cbt">
+                                <i class="fas fa-edit w-5"></i>
+                                <span>CBT 문제풀이</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('wrong')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="wrong">
+                                <i class="fas fa-times-circle w-5"></i>
+                                <span>오답노트</span>
+                                <span class="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full" id="wrongBadge">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 개념 학습 -->
+                <div class="mb-6">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">개념 학습</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" onclick="showConcept(1)" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="concept1">
+                                <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-bold">1</span>
+                                <span class="text-sm">소프트웨어 설계</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showConcept(2)" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="concept2">
+                                <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">2</span>
+                                <span class="text-sm">소프트웨어 개발</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showConcept(3)" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="concept3">
+                                <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold">3</span>
+                                <span class="text-sm">데이터베이스 구축</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showConcept(4)" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="concept4">
+                                <span class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">4</span>
+                                <span class="text-sm">프로그래밍 언어 활용</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showConcept(5)" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 transition" data-section="concept5">
+                                <span class="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">5</span>
+                                <span class="text-sm">정보시스템 구축관리</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 학습 통계 -->
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-4">
+                    <h3 class="font-bold text-gray-800 mb-3">오늘의 학습</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">푼 문제</span>
+                            <span class="font-bold text-indigo-600" id="todaySolved">0문제</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">정답률</span>
+                            <span class="font-bold text-green-600" id="todayAccuracy">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all" id="progressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <main id="mainContent" class="main-content flex-1 p-6 min-h-[calc(100vh-64px)]">
+            <!-- 홈 섹션 -->
+            <section id="homeSection" class="max-w-6xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">안녕하세요! 👋</h2>
+                    <p class="text-gray-600">정보처리기사 필기 시험까지 <span class="font-bold text-indigo-600" id="homeDDay">34일</span> 남았습니다. 오늘도 화이팅!</p>
+                </div>
+
+                <!-- 과목별 카드 -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="subject-card card-hover rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer" onclick="showConcept(1)">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center">
+                                <i class="fas fa-drafting-compass text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">1과목</h3>
+                                <p class="text-sm text-gray-500">소프트웨어 설계</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs">요구사항</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs">UML</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs">UI설계</span>
+                        </div>
+                    </div>
+
+                    <div class="subject-card card-hover rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer" onclick="showConcept(2)">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                                <i class="fas fa-code text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">2과목</h3>
+                                <p class="text-sm text-gray-500">소프트웨어 개발</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs">테스트</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs">형상관리</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs">통합</span>
+                        </div>
+                    </div>
+
+                    <div class="subject-card card-hover rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer" onclick="showConcept(3)">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                                <i class="fas fa-database text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">3과목</h3>
+                                <p class="text-sm text-gray-500">데이터베이스 구축</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">SQL</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">정규화</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">트랜잭션</span>
+                        </div>
+                    </div>
+
+                    <div class="subject-card card-hover rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer" onclick="showConcept(4)">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                                <i class="fas fa-terminal text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">4과목</h3>
+                                <p class="text-sm text-gray-500">프로그래밍 언어 활용</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">C언어</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Java</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Python</span>
+                        </div>
+                    </div>
+
+                    <div class="subject-card card-hover rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer" onclick="showConcept(5)">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">5과목</h3>
+                                <p class="text-sm text-gray-500">정보시스템 구축관리</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">보안</span>
+                            <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">네트워크</span>
+                            <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">SW공학</span>
+                        </div>
+                    </div>
+
+                    <div class="subject-card card-hover rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer bg-gradient-to-br from-indigo-500 to-purple-600 text-white" onclick="showSection('cbt')">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                                <i class="fas fa-play text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">CBT 시작하기</h3>
+                                <p class="text-sm opacity-80">기출문제 풀어보기</p>
+                            </div>
+                        </div>
+                        <p class="text-sm opacity-90">과목별 기출문제를 풀고 실력을 확인해보세요!</p>
+                    </div>
+                </div>
+
+                <!-- 학습 팁 -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-400 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-lightbulb text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-2">💡 학습 TIP</h3>
+                            <p class="text-gray-700 text-sm leading-relaxed">
+                                정보처리기사 필기는 <strong>과목당 40점 이상, 평균 60점 이상</strong>이면 합격입니다.
+                                암기 위주의 1, 5과목은 시험 직전에 집중적으로, 이해 위주의 2, 3, 4과목은 미리미리 학습하세요!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 개념 학습 섹션 -->
+            <section id="conceptSection" class="max-w-4xl mx-auto hidden">
+                <div id="conceptContent"></div>
+            </section>
+
+            <!-- CBT 섹션 -->
+            <section id="cbtSection" class="max-w-4xl mx-auto hidden">
+                <!-- 과목 선택 화면 -->
+                <div id="cbtSelect">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">CBT 문제풀이</h2>
+                    <p class="text-gray-600 mb-8">과목을 선택하고 기출문제를 풀어보세요.</p>
+
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <button onclick="startCBT(1)" class="card-hover bg-white rounded-2xl p-6 text-left shadow-lg border-2 border-transparent hover:border-indigo-500 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-indigo-600">1</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">소프트웨어 설계</h3>
+                                    <p class="text-sm text-gray-500">20문제</p>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="startCBT(2)" class="card-hover bg-white rounded-2xl p-6 text-left shadow-lg border-2 border-transparent hover:border-purple-500 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-purple-600">2</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">소프트웨어 개발</h3>
+                                    <p class="text-sm text-gray-500">20문제</p>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="startCBT(3)" class="card-hover bg-white rounded-2xl p-6 text-left shadow-lg border-2 border-transparent hover:border-blue-500 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-blue-600">3</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">데이터베이스 구축</h3>
+                                    <p class="text-sm text-gray-500">20문제</p>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="startCBT(4)" class="card-hover bg-white rounded-2xl p-6 text-left shadow-lg border-2 border-transparent hover:border-green-500 transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-green-600">4</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">프로그래밍 언어 활용</h3>
+                                    <p class="text-sm text-gray-500">20문제</p>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="startCBT(5)" class="card-hover bg-white rounded-2xl p-6 text-left shadow-lg border-2 border-transparent hover:border-orange-500 transition md:col-span-2">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-orange-600">5</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">정보시스템 구축관리</h3>
+                                    <p class="text-sm text-gray-500">20문제</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <button onclick="startCBT(0)" class="w-full card-hover bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl p-6 shadow-lg">
+                        <div class="flex items-center justify-center gap-4">
+                            <i class="fas fa-random text-2xl"></i>
+                            <div>
+                                <h3 class="font-bold text-lg">전과목 랜덤 모의고사</h3>
+                                <p class="text-sm opacity-80">100문제 | 실전처럼 연습하기</p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- 문제 풀이 화면 -->
+                <div id="cbtQuiz" class="hidden">
+                    <!-- 상단 진행바 -->
+                    <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-600" id="quizSubject">1과목: 소프트웨어 설계</span>
+                            <span class="text-sm font-medium text-gray-600" id="quizProgress">1 / 20</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all" id="quizProgressBar" style="width: 5%"></div>
+                        </div>
+                    </div>
+
+                    <!-- 문제 카드 -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm font-medium" id="questionNumber">문제 1</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm" id="questionYear">2023년 1회</span>
+                        </div>
+                        <p class="text-lg text-gray-800 leading-relaxed mb-6" id="questionText">
+                            문제가 여기에 표시됩니다.
+                        </p>
+
+                        <!-- 보기 -->
+                        <div class="space-y-3" id="answerOptions">
+                            <!-- 답안 옵션들이 여기에 동적으로 생성됩니다 -->
+                        </div>
+
+                        <!-- 제출 버튼 -->
+                        <button id="submitBtn" onclick="submitAnswer()" class="w-full mt-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:opacity-90 transition disabled:opacity-50" disabled>
+                            제출하기
+                        </button>
+
+                        <!-- 결과 영역 -->
+                        <div id="resultArea" class="hidden mt-6">
+                            <div id="resultBox" class="rounded-xl p-4 mb-4">
+                                <!-- 정답/오답 결과 -->
+                            </div>
+                            <div id="explanationBox" class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-bold text-gray-800 mb-2"><i class="fas fa-book-open mr-2"></i>해설</h4>
+                                <p class="text-gray-700 leading-relaxed" id="explanationText"></p>
+                            </div>
+                            <div class="flex gap-4 mt-4">
+                                <button id="goToConceptBtn" onclick="goToConcept()" class="flex-1 bg-amber-500 text-white py-3 rounded-xl font-bold hover:bg-amber-600 transition hidden">
+                                    <i class="fas fa-book mr-2"></i>관련 개념 보기
+                                </button>
+                                <button onclick="nextQuestion()" class="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-bold hover:opacity-90 transition">
+                                    다음 문제 <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 문제 목록 버튼 -->
+                    <button onclick="showQuestionList()" class="w-full bg-white text-gray-700 py-3 rounded-xl font-medium hover:bg-gray-50 transition shadow">
+                        <i class="fas fa-list mr-2"></i>문제 목록 보기
+                    </button>
+                </div>
+
+                <!-- 결과 화면 -->
+                <div id="cbtResult" class="hidden">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-trophy text-white text-4xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">테스트 완료!</h2>
+                        <p class="text-gray-600 mb-6" id="resultSubject">1과목: 소프트웨어 설계</p>
+
+                        <div class="grid grid-cols-3 gap-4 mb-8">
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-3xl font-bold text-indigo-600" id="resultScore">85</p>
+                                <p class="text-sm text-gray-500">점수</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-3xl font-bold text-green-600" id="resultCorrect">17</p>
+                                <p class="text-sm text-gray-500">정답</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="text-3xl font-bold text-red-600" id="resultWrong">3</p>
+                                <p class="text-sm text-gray-500">오답</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button onclick="showSection('wrong')" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold hover:bg-red-600 transition">
+                                <i class="fas fa-times-circle mr-2"></i>오답노트 보기
+                            </button>
+                            <button onclick="showSection('cbt')" class="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-bold hover:opacity-90 transition">
+                                <i class="fas fa-redo mr-2"></i>다시 풀기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 오답노트 섹션 -->
+            <section id="wrongSection" class="max-w-4xl mx-auto hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">오답노트</h2>
+                <p class="text-gray-600 mb-6">틀린 문제들을 복습하고 관련 개념을 확인하세요.</p>
+
+                <div id="wrongNoteList" class="space-y-4">
+                    <!-- 오답 목록이 여기에 동적으로 생성됩니다 -->
+                </div>
+
+                <div id="emptyWrongNote" class="text-center py-12">
+                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check-circle text-gray-300 text-4xl"></i>
+                    </div>
+                    <p class="text-gray-500">아직 틀린 문제가 없습니다.</p>
+                    <p class="text-sm text-gray-400">CBT를 풀어보세요!</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 오버레이 -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-30 hidden" onclick="closeSidebar()"></div>
+
+    <!-- 로그인/회원가입 모달 -->
+    <div id="authModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative">
+            <!-- 모달 헤더 -->
+            <div class="gradient-bg p-6 text-white text-center">
+                <i class="fas fa-laptop-code text-4xl mb-2"></i>
+                <h2 class="text-xl font-bold" id="authModalTitle">로그인</h2>
+                <p class="text-sm opacity-80">정보처리기사 필기 학습 시스템</p>
+            </div>
+
+            <!-- 로그인 폼 -->
+            <div id="loginForm" class="p-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">아이디</label>
+                        <input type="text" id="loginId" placeholder="아이디를 입력하세요"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+                        <input type="password" id="loginPw" placeholder="비밀번호를 입력하세요"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                    </div>
+                    <div id="loginError" class="text-red-500 text-sm hidden"></div>
+                    <button onclick="login()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-bold hover:opacity-90 transition">
+                        로그인
+                    </button>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-500">계정이 없으신가요?
+                        <button onclick="showAuthModal('register')" class="text-indigo-600 font-medium hover:underline">회원가입</button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 회원가입 폼 -->
+            <div id="registerForm" class="p-6 hidden">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">아이디</label>
+                        <input type="text" id="registerId" placeholder="영어 + 숫자 조합"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                        <p class="text-xs text-gray-400 mt-1">영어와 숫자를 조합하여 4~20자</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+                        <input type="password" id="registerPw" placeholder="영어 + 숫자 + 특수문자"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                        <p class="text-xs text-gray-400 mt-1">영어, 숫자, 특수문자 각 1개 이상 (8~20자)</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호 확인</label>
+                        <input type="password" id="registerPwConfirm" placeholder="비밀번호 재입력"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                    </div>
+                    <div id="registerError" class="text-red-500 text-sm hidden"></div>
+                    <div id="registerSuccess" class="text-green-500 text-sm hidden"></div>
+                    <button onclick="register()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-bold hover:opacity-90 transition">
+                        회원가입
+                    </button>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-500">이미 계정이 있으신가요?
+                        <button onclick="showAuthModal('login')" class="text-indigo-600 font-medium hover:underline">로그인</button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 닫기 버튼 -->
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/80 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
