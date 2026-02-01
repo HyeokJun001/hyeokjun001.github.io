@@ -119,7 +119,7 @@
                         <i class="fas fa-laptop-code text-3xl"></i>
                         <div>
                             <h1 class="text-xl font-bold">정보처리기사 필기</h1>
-                            <p class="text-xs opacity-80" id="dDayText">D-34 | 시험일: 2026년 3월 1일</p>
+                            <p class="text-xs opacity-80 cursor-pointer hover:underline" id="dDayText" onclick="event.stopPropagation(); showDDayModal();" title="클릭하여 시험일 변경">D-34 | 시험일: 2026년 3월 1일</p>
                         </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
             <section id="homeSection" class="max-w-6xl mx-auto">
                 <div class="mb-8">
                     <h2 class="text-3xl font-bold text-gray-800 mb-2">안녕하세요! 👋</h2>
-                    <p class="text-gray-600">정보처리기사 필기 시험까지 <span class="font-bold text-indigo-600" id="homeDDay">34일</span> 남았습니다. 오늘도 화이팅!</p>
+                    <p class="text-gray-600">정보처리기사 필기 시험까지 <span class="font-bold text-indigo-600 cursor-pointer hover:underline" id="homeDDay" onclick="showDDayModal()" title="클릭하여 시험일 변경">34일</span> 남았습니다. 오늘도 화이팅!</p>
                 </div>
 
                 <!-- 과목별 카드 -->
@@ -632,6 +632,35 @@
 
             <!-- 닫기 버튼 -->
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/80 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- D-Day 설정 모달 -->
+    <div id="dDayModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden relative">
+            <div class="gradient-bg p-6 text-white text-center">
+                <i class="fas fa-calendar-alt text-4xl mb-2"></i>
+                <h2 class="text-xl font-bold">시험일 설정</h2>
+                <p class="text-sm opacity-80">나만의 D-Day를 설정하세요</p>
+            </div>
+            <div class="p-6">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">시험 예정일</label>
+                    <input type="date" id="examDateInput"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-center text-lg">
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="closeDDayModal()" class="flex-1 px-4 py-3 bg-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-300 transition">
+                        취소
+                    </button>
+                    <button onclick="saveDDay()" class="flex-1 px-4 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition">
+                        저장
+                    </button>
+                </div>
+            </div>
+            <button onclick="closeDDayModal()" class="absolute top-4 right-4 text-white/80 hover:text-white text-xl">
                 <i class="fas fa-times"></i>
             </button>
         </div>

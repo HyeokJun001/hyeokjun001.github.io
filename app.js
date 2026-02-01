@@ -52,8 +52,36 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // D-Day 계산
+function getExamDate() {
+    const saved = localStorage.getItem('examDate');
+    if (saved) {
+        return new Date(saved);
+    }
+    // 기본값: 2026년 3월 1일
+    return new Date('2026-03-01');
+}
+
+function setExamDate(dateString) {
+    localStorage.setItem('examDate', dateString);
+    updateDDay();
+}
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}년 ${month}월 ${day}일`;
+}
+
+function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function updateDDay() {
-    const examDate = new Date('2026-03-01'); // 시험일: 2026년 3월 1일
+    const examDate = getExamDate();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     examDate.setHours(0, 0, 0, 0);
@@ -63,14 +91,15 @@ function updateDDay() {
 
     const dDayText = document.getElementById('dDayText');
     const homeDDay = document.getElementById('homeDDay');
+    const formattedDate = formatDate(examDate);
 
     if (dDayText) {
         if (diffDays > 0) {
-            dDayText.textContent = `D-${diffDays} | 시험일: 2026년 3월 1일`;
+            dDayText.textContent = `D-${diffDays} | 시험일: ${formattedDate}`;
         } else if (diffDays === 0) {
-            dDayText.textContent = `D-Day! | 시험일: 2026년 3월 1일`;
+            dDayText.textContent = `D-Day! | 시험일: ${formattedDate}`;
         } else {
-            dDayText.textContent = `시험 종료 | 2026년 3월 1일`;
+            dDayText.textContent = `시험 종료 | ${formattedDate}`;
         }
     }
 
@@ -82,6 +111,25 @@ function updateDDay() {
         } else {
             homeDDay.textContent = `종료`;
         }
+    }
+}
+
+// D-Day 설정 모달
+function showDDayModal() {
+    document.getElementById('dDayModal').classList.remove('hidden');
+    const examDate = getExamDate();
+    document.getElementById('examDateInput').value = formatDateForInput(examDate);
+}
+
+function closeDDayModal() {
+    document.getElementById('dDayModal').classList.add('hidden');
+}
+
+function saveDDay() {
+    const dateInput = document.getElementById('examDateInput').value;
+    if (dateInput) {
+        setExamDate(dateInput);
+        closeDDayModal();
     }
 }
 
