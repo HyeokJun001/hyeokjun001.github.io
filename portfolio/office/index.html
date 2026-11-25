@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>양혁준 · 포트폴리오 (사무실 버전)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
+<style>
+  :root { --wall: #a9d3ec; --floor: #e7c597; --ink: #2a2440; --paper: #fffaf0; --desk: #9c5b34; --leaf: #4f9a5b; --sun: #ffd25e; --line: #2a2440; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: Pretendard, "Malgun Gothic", sans-serif; background: #f6e7cf; color: var(--ink); line-height: 1.6; word-break: keep-all; }
+  .pix { font-family: "Galmuri11", "Galmuri9", monospace; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .bar .name { font-size: 18px; }
+  .bar .ctrl { display: flex; gap: 8px; }
+  .pbtn { font-family: "Galmuri11", monospace; font-size: 14px; background: var(--paper); color: var(--ink); border: 3px solid var(--ink); padding: 6px 12px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); }
+  .pbtn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+  .pbtn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+
+  .stage { position: relative; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); background: var(--wall); }
+  canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+  .hot { position: absolute; transform: translate(-50%, -100%); background: none; border: 0; cursor: pointer; padding: 0; }
+  .hot span { display: block; font-family: "Galmuri11", monospace; font-size: clamp(10px, 1.1vw, 14px); background: var(--paper); border: 2px solid var(--ink); padding: 2px 7px; white-space: nowrap; transition: transform .12s; }
+  .hot:hover span, .hot:focus-visible span { transform: translateY(-3px); background: var(--sun); }
+  .hot::after { content: ""; display: block; width: 0; height: 0; margin: 0 auto; border: 6px solid transparent; border-top-color: var(--ink); }
+
+  .intro { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; padding: 48px 0 30px; }
+  .intro h1 { font-size: clamp(28px, 3.6vw, 44px); line-height: 1.2; letter-spacing: -0.03em; font-weight: 800; }
+  .intro p { font-size: 17px; margin-top: 16px; max-width: 32em; }
+  .log { background: var(--paper); border: 3px solid var(--ink); padding: 16px 18px; font-size: 14px; max-height: 260px; overflow: hidden; }
+  .log h2 { font-size: 14px; margin-bottom: 8px; }
+  .log ul { padding: 0; }
+  .log li { list-style: none; padding: 4px 0; border-bottom: 2px dotted #d7c6a6; }
+  .log li b { font-weight: 700; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 3px solid var(--ink); background: var(--paper); margin: 10px 0 60px; }
+  .stats div { padding: 18px 20px; }
+  .stats div + div { border-left: 3px solid var(--ink); }
+  .stats b { display: block; font-family: "Galmuri11", monospace; font-size: 26px; }
+  .stats span { font-size: 14px; color: #5a5270; }
+
+  dialog { margin: auto; border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); padding: 0; max-width: 720px; width: calc(100% - 32px); background: var(--paper); color: var(--ink); }
+  dialog::backdrop { background: rgba(42,36,64,.45); }
+  dialog[open] { animation: pop .18s steps(3); }
+  @keyframes pop { from { transform: scale(.92); } to { transform: none; } }
+  .dh { display: flex; justify-content: space-between; align-items: center; background: var(--sun); border-bottom: 4px solid var(--ink); padding: 10px 16px; font-size: 18px; }
+  .db { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .db img { width: 100%; border: 3px solid var(--ink); }
+  .db ul { padding-left: 18px; }
+  .db li { margin-bottom: 6px; font-size: 15px; }
+  .db a { color: var(--ink); font-weight: 700; }
+  footer { padding: 0 0 50px; font-size: 14px; }
+
+  @media (max-width: 860px) {
+    .intro { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats div:nth-child(3) { border-left: 0; }
+    .stats div:nth-child(n+3) { border-top: 3px solid var(--ink); }
+    .db { grid-template-columns: 1fr; }
+    .hot span { font-size: 10px; padding: 1px 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
+</style>
+<style>
+  .vswitch { position: fixed; left: 16px; bottom: 16px; z-index: 100; display: flex; gap: 2px; padding: 4px; background: rgba(26,21,48,.92); border-radius: 999px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); font: 600 13px/1 Pretendard, "Malgun Gothic", sans-serif; }
+  .vswitch span { color: #9a93b8; padding: 8px 6px 8px 10px; }
+  .vswitch a { color: #e7e3f7; text-decoration: none; padding: 8px 12px; border-radius: 999px; transition: background .15s; }
+  .vswitch a:hover { background: rgba(255,255,255,.12); }
+  .vswitch a[aria-current="page"] { background: #fff; color: #1a1530; }
+  .vswitch a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  @media print { .vswitch { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar"><span class="name pix">양혁준의 작업실</span><div class="ctrl"><button class="pbtn" id="pause" type="button" aria-pressed="false">멈춤</button><a class="pbtn" href="mailto:yhjun5413@gmail.com" style="text-decoration:none">연락하기</a></div></div>
+  <div class="stage" id="stage">
+    <canvas id="c" width="320" height="150" aria-label="책상 다섯 개가 있는 픽셀 사무실. 책상마다 프로젝트가 놓여 있고 캐릭터가 돌아다닙니다."></canvas>
+  </div>
+  <section class="intro">
+    <div>
+      <h1>책상마다 실제로 운영한 프로젝트가 있습니다</h1>
+      <p>프론트엔드 개발자 양혁준입니다. 위 사무실은 Canvas로 직접 그렸습니다. 이름표를 누르면 그 책상에서 한 일을 볼 수 있습니다. 가운데에서 일하는 캐릭터들은 제가 만든 AI 에이전트 팀입니다.</p>
+    </div>
+    <div class="log" aria-live="polite"><h2 class="pix">지금 작업실에서</h2><ul id="log"></ul></div>
+  </section>
+  <div class="stats">
+    <div><b>1,500+</b><span>프로모터 실제 이용자</span></div>
+    <div><b>47</b><span>혼자 만든 화면</span></div>
+    <div><b>187</b><span>배포 전 자동 점검</span></div>
+    <div><b>13</b><span>AI 에이전트 팀원</span></div>
+  </div>
+  <footer>yhjun5413@gmail.com · github.com/HyeokJun001</footer>
+</div>
+
+<dialog id="dlg" aria-labelledby="dTitle"><div class="dh"><span class="pix" id="dTitle"></span><button class="pbtn" id="close" type="button">닫기</button></div><div class="db"><img id="dImg" alt=""><div><ul id="dList"></ul><p style="margin-top:10px"><a id="dLink" href="#">사이트 열기</a></p></div></div></dialog>
+
+<script>
+const P = {
+  promotor: { t: '프로모터', img: '../img/promotor-pc.png', url: 'https://promotor.kr', li: ['기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포', '실제 이용 1,500명 이상, 채용 확정 100건 이상 (회사 공개 수치)', 'Supabase에서 REST API로 바꿀 때 화면 코드는 그대로 두고 전환', '배포 전 자동 점검 187개, 실패하면 운영에 올라가지 않음'] },
+  ai: { t: 'AI 컴퍼니', img: '../img/ai_company_05_meeting.png', url: '../#ai', li: ['Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀', '8주 동안 프로젝트 15건, 업무 완료 262건', '업무 기록 2,487건을 Canvas 픽셀 사무실에서 재생', '이 페이지의 사무실도 같은 방식으로 그림'] },
+  ju: { t: '회사 홈페이지', img: '../img/jucompany-pc.png', url: 'https://jucompany.co.kr', li: ['방향이 다른 시안 3개를 제안하고 선택안 제작·오픈', '문의는 서버에서 담당자 메일로 바로 전달, IP당 분당 5회 제한', '문의함·실적 관리자 화면, 1년 지난 문의 자동 삭제'] },
+  valora: { t: 'VALORA', img: '../img/valora-pc.png', url: 'https://valora.kr', li: ['12개 페이지를 한국어·영어로 구성', 'Three.js로 제품 디스펜서 3D', 'Supabase 관리자 화면, 행 단위 접근 권한(RLS)'] },
+  soli: { t: '솔이', img: '../img/soli-pc.png', url: 'https://tarosoli.com', li: ['사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영', '누적 약 40명 이용, 실결제 발생', '실결제 첫날 결제 검증 401을 추적해 원인 해결'] },
+};
+// logical canvas 320x150
+const desks = [
+  { id: 'promotor', x: 40, y: 92 }, { id: 'ju', x: 92, y: 120 }, { id: 'ai', x: 160, y: 96 }, { id: 'valora', x: 228, y: 120 }, { id: 'soli', x: 280, y: 92 },
+];
+const cv = document.getElementById('c'), cx = cv.getContext('2d'), stage = document.getElementById('stage');
+desks.forEach(d => {
+  const b = document.createElement('button'); b.className = 'hot'; b.type = 'button';
+  b.style.left = (d.x / 320 * 100) + '%'; b.style.top = ((d.y - 22) / 150 * 100) + '%';
+  b.innerHTML = `<span>${P[d.id].t}</span>`; b.setAttribute('aria-haspopup', 'dialog');
+  b.addEventListener('click', () => openP(d.id)); stage.appendChild(b);
+});
+const dlg = document.getElementById('dlg');
+function openP(id) { const p = P[id]; dTitle.textContent = p.t; dImg.src = p.img; dImg.alt = p.t + ' 화면'; dList.innerHTML = p.li.map(x => `<li>${x}</li>`).join(''); dLink.href = p.url; dLink.style.display = p.url === '#' ? 'none' : ''; dlg.showModal(); }
+document.getElementById('close').onclick = () => dlg.close();
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+function R(x, y, w, h, c) { cx.fillStyle = c; cx.fillRect(Math.round(x), Math.round(y), w, h); }
+function room(t) {
+  R(0, 0, 320, 64, '#a9d3ec'); R(0, 60, 320, 4, '#7fb0cf');
+  for (let i = 0; i < 4; i++) { const wx = 24 + i * 78; R(wx, 12, 40, 28, '#e9f6ff'); R(wx, 12, 40, 2, '#2a2440'); R(wx, 38, 40, 2, '#2a2440'); R(wx, 12, 2, 28, '#2a2440'); R(wx + 38, 12, 2, 28, '#2a2440'); R(wx + 19, 12, 2, 28, '#2a2440'); }
+  R(268, 18, 10, 10, '#ffd25e');
+  for (let y = 64; y < 150; y += 8) { R(0, y, 320, 8, (y / 8) % 2 ? '#e7c597' : '#e1bd8d'); for (let x = ((y / 8) % 2) * 20; x < 320; x += 40) R(x, y, 1, 8, '#cfa772'); }
+  [[8, 52], [306, 52]].forEach(([x, y]) => { R(x, y + 4, 8, 8, '#b8693b'); R(x - 2, y - 8, 12, 12, '#4f9a5b'); R(x + 2, y - 12, 4, 6, '#3d7d48'); });
+  R(150, 30, 20, 14, '#2a2440'); R(152, 32, 16, 10, (Math.floor(t / 500) % 2) ? '#7ee0a5' : '#5fc98a');
+}
+function desk(d, t) {
+  R(d.x - 16, d.y - 6, 32, 10, '#9c5b34'); R(d.x - 16, d.y - 6, 32, 2, '#b8744a'); R(d.x - 14, d.y + 4, 3, 8, '#6f3d22'); R(d.x + 11, d.y + 4, 3, 8, '#6f3d22');
+  R(d.x - 7, d.y - 16, 14, 10, '#2a2440'); R(d.x - 6, d.y - 15, 12, 8, d.id === 'ai' ? '#ffd25e' : '#bfe3ff'); R(d.x - 1, d.y - 6, 2, 1, '#2a2440');
+  if (Math.floor(t / 400 + d.x) % 3 === 0) R(d.x - 4, d.y - 12, 6, 1, '#2a2440');
+}
+function person(x, y, shirt, hair, t, walking) {
+  const bob = walking ? (Math.floor(t / 150) % 2) : 0;
+  R(x - 3, y - 14 - bob, 6, 5, '#f2c8a0'); R(x - 3, y - 15 - bob, 6, 2, hair);
+  R(x - 4, y - 9 - bob, 8, 7, shirt); R(x - 3, y - 2, 2, 3 - (walking && bob ? 1 : 0), '#2a2440'); R(x + 1, y - 2, 2, 3 - (walking && !bob ? 1 : 0), '#2a2440');
+}
+const team = [[146, 102, '#e07a5f', '#2a2440'], [174, 102, '#3d7dd8', '#6b3e26'], [152, 110, '#8a5cd6', '#2a2440'], [168, 110, '#2f9e6e', '#d9a441']];
+const route = ['promotor', 'ai', 'ju', 'valora', 'soli', 'ai'];
+const notes = { promotor: '프로모터 배포 전 점검 187개 통과', ai: 'AI 팀 회의: 오늘 할 일 정리', ju: '회사 홈페이지 문의함 확인', valora: 'VALORA 한·영 문구 맞춤', soli: '솔이 결제 로그 확인' };
+let me = { x: 40, y: 100 }, leg = 0, wait = 0, paused = false, last = 0;
+const logEl = document.getElementById('log');
+function addLog(s) { const li = document.createElement('li'); const now = new Date(); li.innerHTML = `<b class="pix">${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}</b> ${s}`; logEl.prepend(li); while (logEl.children.length > 6) logEl.lastChild.remove(); }
+addLog(notes.promotor);
+function frame(t) {
+  const dt = Math.min(50, t - last); last = t;
+  if (!paused) {
+    const target = desks.find(d => d.id === route[(leg + 1) % route.length]); const tx = target.x, ty = target.y + 10;
+    if (wait > 0) wait -= dt; else {
+      const dx = tx - me.x, dy = ty - me.y, dist = Math.hypot(dx, dy);
+      if (dist < 1) { leg = (leg + 1) % route.length; wait = 1600; addLog(notes[target.id]); }
+      else { const s = Math.min(dist, dt * 0.045); me.x += dx / dist * s; me.y += dy / dist * s; }
+    }
+  }
+  room(t); desks.forEach(d => desk(d, t));
+  team.forEach(([x, y, s, h], i) => person(x, y, s, h, t + i * 300, false));
+  person(me.x, me.y, '#ffd25e', '#2a2440', t, !paused && wait <= 0);
+  R(me.x - 6, me.y - 24, 12, 6, '#fffaf0'); R(me.x - 6, me.y - 24, 12, 1, '#2a2440'); cx.fillStyle = '#2a2440'; cx.font = '6px Galmuri9, monospace'; cx.fillText('나', me.x - 3, me.y - 19);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+const pauseBtn = document.getElementById('pause');
+pauseBtn.onclick = () => { paused = !paused; pauseBtn.textContent = paused ? '움직이기' : '멈춤'; pauseBtn.setAttribute('aria-pressed', paused); };
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) pauseBtn.click();
+</script>
+<nav class="vswitch" aria-label="포트폴리오 버전"><span>버전</span><a href="../">앱</a><a href="../console/">콘솔</a><a href="../office/" aria-current="page">사무실</a></nav>
+</body>
+</html>
