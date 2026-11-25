@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="양혁준 포트폴리오 — 개발·운영·기획을 한 흐름으로 해 온 개발자. 프로모터(실이용 1,500명+), AI 에이전트 팀, 홈페이지 제작.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<meta property="og:title" content="양혁준 포트폴리오">
+<meta property="og:description" content="만들고, 운영하고, 문서로 남기는 개발자">
+<meta property="og:image" content="img/promotor-pc.png">
+<title>양혁준 포트폴리오</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #16191d; --sub: #5b616a; --line: #d9d6cf; --paper: #faf8f4;
+    --accent: #1f4d3f; --accent-soft: #e6eee9; --warn: #8a5a12;
+    --font: "Pretendard", "Pretendard Variable", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); color: var(--ink); background: #e9e6e0; font-size: 10pt; line-height: 1.6; word-break: keep-all; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 16mm 14mm; background: var(--paper); margin: 0 auto 8mm; position: relative; overflow: hidden; page-break-after: always; display: flex; flex-direction: column; }
+  .page:last-child { page-break-after: auto; }
+  @media print { body { background: none; } .page { margin: 0; } }
+  .folio { position: absolute; bottom: 8mm; left: 16mm; right: 16mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--sub); letter-spacing: .02em; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+
+  /* cover */
+  .cover-top { font-size: 8.5pt; letter-spacing: .18em; color: var(--sub); text-transform: uppercase; }
+  .cover h1 { font-size: 30pt; line-height: 1.18; letter-spacing: -.02em; font-weight: 800; }
+  .hero { display: grid; grid-template-columns: 1fr 34mm; gap: 8mm; align-items: end; margin: 14mm 0 6mm; }
+  .photo img { width: 34mm; height: 47.6mm; object-fit: cover; display: block; border: 1px solid var(--line); }
+  .photo figcaption { font-size: 9pt; font-weight: 700; margin-top: 1.5mm; }
+  .photo figcaption span { display: block; font-size: 7.5pt; font-weight: 400; color: var(--sub); }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); margin: 9mm 0 0; border-top: 2px solid var(--ink); }
+  .kpis div { padding: 4mm 3mm 4mm 0; border-bottom: 1px solid var(--line); }
+  .kpis b { display: block; font-size: 19pt; line-height: 1.15; color: var(--accent); font-weight: 800; letter-spacing: -.02em; }
+  .kpis span { font-size: 8pt; color: var(--sub); line-height: 1.45; display: block; margin-top: 1mm; }
+  .cover .index { border-top: 0; }
+  .cover .index-row { padding: 2.6mm 0; }
+  .cover h1 em { font-style: normal; color: var(--accent); }
+  .cover .lead { font-size: 11.5pt; color: #2b3036; max-width: 150mm; }
+  .contact { margin-top: 8mm; font-size: 9pt; color: var(--sub); display: flex; flex-wrap: wrap; gap: 2mm 6mm; }
+  .index { margin-top: auto; border-top: 2px solid var(--ink); }
+  .index-row { display: grid; grid-template-columns: 12mm 1fr 52mm; gap: 4mm; padding: 4mm 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .index-row .no { font-weight: 800; color: var(--accent); }
+  .index-row b { font-size: 11pt; }
+  .index-row .meta { font-size: 8.5pt; color: var(--sub); text-align: right; }
+  .index-row p { font-size: 9pt; color: var(--sub); }
+
+  /* project pages */
+  .head { display: grid; grid-template-columns: 1fr auto; align-items: end; border-bottom: 2px solid var(--ink); padding-bottom: 3mm; }
+  .head .no { font-size: 8pt; letter-spacing: .16em; color: var(--accent); font-weight: 700; }
+  .head h2 { font-size: 20pt; letter-spacing: -.01em; line-height: 1.2; }
+  .head .url { font-size: 9pt; color: var(--sub); text-align: right; }
+  .role { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 4mm 0; border: 1px solid var(--line); }
+  .role div { padding: 2.2mm 3mm; border-right: 1px solid var(--line); }
+  .role div:last-child { border-right: 0; }
+  .role dt { font-size: 7.5pt; color: var(--sub); }
+  .role dd { font-size: 9pt; font-weight: 600; }
+  .shots { display: grid; gap: 3mm; margin-bottom: 4mm; }
+  .shots.three { grid-template-columns: 1fr 1fr 30mm; }
+  .shots.two { grid-template-columns: 1fr 42mm; }
+  .shots figure { background: #fff; border: 1px solid var(--line); overflow: hidden; }
+  .shots img { width: 100%; display: block; }
+  .shots.three img { height: 43mm; object-fit: cover; object-position: top; }
+  .shots.two img { height: 84mm; object-fit: cover; object-position: top; }
+  .shots { align-items: start; }
+  .shots figcaption { font-size: 7pt; color: var(--sub); padding: 1mm 2mm; border-top: 1px solid var(--line); }
+  .cols { display: grid; grid-template-columns: 1fr 58mm; gap: 7mm; flex: 1; }
+  h3 { font-size: 10.5pt; margin: 0 0 1.5mm; }
+  h3 + ul, h3 + p { margin-bottom: 3.5mm; }
+  ul { list-style: none; }
+  li { position: relative; padding-left: 3.5mm; margin-bottom: 1.2mm; font-size: 9.2pt; }
+  li::before { content: ""; position: absolute; left: 0; top: .72em; width: 1.6mm; height: 1px; background: var(--ink); }
+  .side { border-left: 1px solid var(--line); padding-left: 5mm; }
+  .num { margin-bottom: 3.5mm; }
+  .num b { display: block; font-size: 19pt; line-height: 1.1; color: var(--accent); font-weight: 800; letter-spacing: -.02em; }
+  .num span { font-size: 8pt; color: var(--sub); }
+  .stack { font-size: 8.5pt; color: var(--sub); margin-top: 2mm; }
+  .tag { display: inline-block; font-size: 7.5pt; padding: .3mm 2mm; background: var(--accent-soft); color: var(--accent); border-radius: 1mm; margin: 0 1mm 1mm 0; font-weight: 600; }
+  .note { font-size: 8pt; color: var(--sub); margin-top: 2mm; }
+
+  /* lessons */
+  .lesson { border: 1px solid var(--line); background: #fff; padding: 5mm; margin-bottom: 5mm; }
+  .lesson .k { font-size: 7.5pt; letter-spacing: .14em; color: var(--warn); font-weight: 700; }
+  .lesson h3 { font-size: 12pt; margin: 1mm 0 3mm; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .steps div { font-size: 9pt; }
+  .steps dt { font-size: 7.5pt; color: var(--sub); font-weight: 700; margin-bottom: 1mm; }
+  .shots.ai { grid-template-columns: 1.45fr 1fr; }
+  .shots.ai img { height: 84mm; object-fit: cover; object-position: left top; }
+  .shots.ai figure:last-child img { object-position: center top; }
+  .shots.soli { grid-template-columns: 1fr 36mm 46mm; }
+  .shots.soli img { height: 78mm; object-fit: cover; object-position: top; }
+  .soli-facts { padding-left: 1mm; }
+  .soli-facts .num b { font-size: 16pt; }
+  .soli-facts li { font-size: 8.5pt; }
+  h3.sec { font-size: 12pt; border-top: 2px solid var(--ink); padding-top: 3mm; margin: 2mm 0 3mm; }
+  .lesson { padding: 4mm 5mm; margin-bottom: 4mm; }
+  .lesson h3 { font-size: 11pt; margin: 1mm 0 2mm; }
+  .steps div { font-size: 8.7pt; }
+  .gap { border-top: 2px solid var(--ink); padding-top: 4mm; margin-top: auto; }
+
+  .shots.wide { grid-template-columns: 1fr 1fr; }
+  .shots.wide img { height: 62mm; object-fit: cover; object-position: top; }
+  .shots.dev { grid-template-columns: 1fr 34mm 1fr; }
+  .shots.dev img { height: 70mm; object-fit: cover; object-position: top; }
+  .shots.ai { grid-template-columns: 1.45fr 1fr; }
+  .shots.ai img { height: 74mm; object-fit: cover; object-position: left top; }
+  .shots.ai figure:last-child img { object-position: center top; }
+  .shots.trio { grid-template-columns: 1fr 1fr 1fr; }
+  .shots.trio img { height: 56mm; object-fit: cover; object-position: top; }
+  .shots.tall img { height: 100mm; }
+  .pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin: 2mm 0 4mm; }
+  .pipe div { border: 1px solid var(--line); background: #fff; padding: 2.4mm 2.6mm; font-size: 8.3pt; position: relative; }
+  .pipe div + div { border-left: 0; }
+  .pipe div b { display: block; font-size: 9pt; color: var(--accent); }
+  .pipe div.stop { background: #fbf1e6; }
+  .case { display: grid; grid-template-columns: 22mm 1fr; gap: 1.5mm 4mm; font-size: 9pt; margin-bottom: 4mm; }
+  .case dt { font-size: 8pt; color: var(--sub); font-weight: 700; padding-top: .3mm; }
+  .case dd b { color: var(--accent); }
+  h3.sec { font-size: 11.5pt; border-top: 2px solid var(--ink); padding-top: 3mm; margin: 3mm 0 3mm; }
+  .contact a.dl { background: var(--ink); color: #fff; padding: .6mm 3mm; border: 0; border-radius: 1mm; }
+  a:hover { color: var(--accent); }
+  @media screen { body { padding: 8mm 0; } .page { box-shadow: 0 2px 18px rgba(0,0,0,.08); } }
+  @media print { .contact a.dl { display: none; } }
+  @media screen and (max-width: 820px) {
+    body { font-size: 15px; padding: 0; background: var(--paper); }
+    .page { width: 100%; height: auto; padding: 28px 18px 48px; margin: 0; box-shadow: none; border-bottom: 8px solid #e9e6e0; }
+    .folio { position: static; margin-top: 20px; }
+    .cover h1 { font-size: 30px; }
+    .hero { grid-template-columns: 1fr 88px; gap: 14px; margin: 18px 0; }
+    .photo img { width: 88px; height: 123px; }
+    .kpis { grid-template-columns: 1fr 1fr; }
+    .kpis b { font-size: 22px; }
+    .index-row { grid-template-columns: 28px 1fr; }
+    .index-row .meta { display: none; }
+    .head { grid-template-columns: 1fr; gap: 6px; }
+    .head h2 { font-size: 22px; }
+    .head .url { text-align: left; }
+    .role { grid-template-columns: 1fr 1fr; }
+    .role div:nth-child(2) { border-right: 0; }
+    .role div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .shots, .shots.dev, .shots.wide, .shots.ai, .shots.trio { grid-template-columns: 1fr; }
+    .shots img, .shots.dev img, .shots.wide img, .shots.ai img, .shots.trio img { height: auto; max-height: 420px; }
+    .cols { grid-template-columns: 1fr; gap: 14px; }
+    .side { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 12px; }
+    .pipe { grid-template-columns: 1fr; }
+    .pipe div + div { border-left: 1px solid var(--line); border-top: 0; }
+    .case { grid-template-columns: 1fr; }
+    li, .steps div, .case, .pipe div { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. 표지 -->
+<section class="page cover">
+  <div class="cover-top">Portfolio · 개발 · 운영 · 기획 · 2026.11</div>
+  <div class="hero">
+    <h1>만들고, 운영하고,<br><em>문서로 남기는</em><br>개발자</h1>
+    <figure class="photo"><img src="img/photo.jpg" alt="양혁준 증명사진"><figcaption>양혁준<span>HyeokJun Yang</span></figcaption></figure>
+  </div>
+  <p class="lead">실사용자 1,500명이 넘는 인력매칭 플랫폼 '프로모터'의 프론트엔드를 혼자 맡아, 화면설계서와 기능명세서를 쓰고, 개발하고, 장애를 추적하고, 배포를 자동화했습니다. 개발, 운영, 기획 순서로 정리했습니다.</p>
+  <div class="contact">
+    <a href="mailto:yhjun5413@gmail.com">yhjun5413@gmail.com</a><a href="https://github.com/HyeokJun001">github.com/HyeokJun001</a><span>서울 근무 가능</span><a class="dl" href="yanghyeokjun-portfolio.pdf" download>PDF 내려받기</a>
+  </div>
+
+  <div class="kpis">
+    <div><b>1,500명+</b><span>프로모터 실제 이용자<br>(2026.11.11, 회사 공개 수치)</span></div>
+    <div><b>100건+</b><span>프로모터 채용 확정<br>(2026.11.11)</span></div>
+    <div><b>47개</b><span>혼자 설계·구현·배포한 화면<br>(3개 포털)</span></div>
+    <div><b>명령 한 줄</b><span>점검 17건 → 빌드 → 배포 →<br>운영 반영 확인 자동화</span></div>
+    <div><b>137장</b><span>실제 화면 캡처를 담은<br>화면설계서 (화면 42개)</span></div>
+    <div><b>15건</b><span>직접 만든 AI 에이전트 팀이<br>8주간 수행한 사내 프로젝트</span></div>
+  </div>
+
+  <div class="index">
+    <div class="index-row"><span class="no">01</span><div><b>프로그램 개발 및 유지보수</b><p>3개 포털 · REST API 전환 · 인증 통합 · 웹·앱 공용 코드</p></div><span class="meta">promotor.kr</span></div>
+    <div class="index-row"><span class="no">02</span><div><b>시스템 및 서비스 운영</b><p>장애 원인 추적 · 배포 자동화 · 실사용 개선 사례 · 이용 가이드</p></div><span class="meta">운영 2026.05~11</span></div>
+    <div class="index-row"><span class="no">03</span><div><b>서비스·시스템 기획과 문서화</b><p>화면설계서 · 기능명세서 · FE↔BE 설계 규격 · Figma</p></div><span class="meta">요구사항→문서</span></div>
+    <div class="index-row"><span class="no">04</span><div><b>AI 컴퍼니: AI 에이전트 13명의 사내 제작팀</b><p>Claude Code 에이전트·예약 루틴 · 업무 완료 262건</p></div><span class="meta">생성형 AI 활용</span></div>
+    <div class="index-row"><span class="no">05</span><div><b>기획부터 오픈까지 한 그 밖의 작업</b><p>회사 홈페이지 · 브랜드 사이트 · AI 상담 서비스(실결제)</p></div><span class="meta">1인 풀사이클</span></div>
+  </div>
+  <div class="folio"><span>양혁준 포트폴리오 · hyeokjun001.github.io/portfolio</span><span>1 / 6</span></div>
+</section>
+
+<!-- 2. 개발 -->
+<section class="page">
+  <div class="head">
+    <div><div class="no">01 · 프로그램 개발 및 유지보수</div><h2>프로모터: 3개 포털을 혼자 만들다</h2></div>
+    <div class="url">promotor.kr · 웹·Android·iOS<br>2026.05 ~ 11</div>
+  </div>
+  <dl class="role">
+    <div><dt>내 역할</dt><dd>프론트엔드 단독</dd></div>
+    <div><dt>협업</dt><dd>백엔드 1명·디자이너·대표</dd></div>
+    <div><dt>범위</dt><dd>기업·구직자·관리자 포털</dd></div>
+    <div><dt>성과</dt><dd>실이용 1,500명+ · 채용 100건+</dd></div>
+  </dl>
+  <div class="shots dev">
+    <figure><img src="img/promotor-pc.png" alt="프로모터 메인"><figcaption>비회원 메인 (1440px)</figcaption></figure>
+    <figure><img src="img/promotor-mo.png" alt="프로모터 모바일"><figcaption>모바일</figcaption></figure>
+    <figure><img src="img/worker-4-contract.webp" alt="전자 근로계약 화면"><figcaption>전자 근로계약 화면 (데모 데이터)</figcaption></figure>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>프론트엔드 UI 구현과 백엔드 API 연동</h3>
+      <ul>
+        <li>공고 등록부터 지원, 채용 확정, 전자 근로계약, 출퇴근 기록, 정산까지 이어지는 3개 포털 화면 47개를 설계·구현·배포했습니다.</li>
+        <li><b>REST API 전환:</b> Supabase 직접 조회를 Spring Boot REST API로 바꿀 때, 데이터 훅과 화면 사이에 응답 변환 어댑터를 두어 화면 코드는 그대로 두고 훅 단위로 점진 전환했습니다.</li>
+        <li><b>인증 통합:</b> 웹(HttpOnly 쿠키)과 앱(Bearer 토큰)의 서로 다른 인증을 하나의 API 클라이언트로 묶고, 여러 요청이 동시에 토큰을 갱신하던 경합을 1회 갱신으로 정리했습니다.</li>
+      </ul>
+      <h3>기존 시스템 고도화</h3>
+      <ul>
+        <li>디자이너의 새 디자인을 기능 플래그 뒤에서 만들고, 운영을 멈추지 않고 계정 유형별로 전환했습니다.</li>
+        <li>STOMP/SockJS 실시간 알림과 폴링으로 현장 이벤트(노쇼·결근·긴급 대체)를 놓치지 않게 했습니다.</li>
+        <li>Capacitor로 같은 웹 코드를 Google Play·App Store 앱으로 출시하고, 현장 QR 출퇴근 링크가 앱에서 바로 열리게 연결했습니다.</li>
+      </ul>
+    </div>
+    <aside class="side">
+      <div class="num"><b>47 · 44 · 25</b><span>화면 · 공통 컴포넌트 · 데이터 훅(React Query)</span></div>
+      <div class="num"><b>2 → 1</b><span>웹·앱 인증 방식을 하나의 API 클라이언트로</span></div>
+      <div class="num"><b>2개 스토어</b><span>Google Play · App Store 출시</span></div>
+      <div class="stack"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">TanStack Query</span><span class="tag">Zustand</span><span class="tag">REST API</span><span class="tag">Capacitor</span></div>
+    </aside>
+  </div>
+  <div class="folio"><span>01 · 프로그램 개발</span><span>2 / 6</span></div>
+</section>
+
+<!-- 3. 운영 -->
+<section class="page">
+  <div class="head">
+    <div><div class="no">02 · 시스템 및 서비스 운영</div><h2>장애는 고치고, 다시 안 생기게 만든다</h2></div>
+    <div class="url">트러블슈팅 · 자동화<br>사용자 문의 대응</div>
+  </div>
+
+  <h3 class="sec" style="margin-top:5mm">사례 1 · 신규 가입 실패 장애의 두 겹 원인 추적</h3>
+  <dl class="case">
+    <dt>무슨 일이</dt><dd>운영 중 신규 가입이 서버 단계에서 실패하고 있는 것을 발견했습니다.</dd>
+    <dt>원인 분석</dt><dd>응답 코드부터 확인해 원인이 두 겹임을 찾았습니다. ① 백엔드가 약관 동의 이력을 필수로 바꿨는데 프론트엔드가 동의값을 보내지 않아 <b>400</b> ② DB에 활성 약관이 <b>0건</b>이라 서버가 약관을 찾지 못함 (관리자 화면에 약관 등록 기능이 없어 아무도 몰랐음)</dd>
+    <dt>조치</dt><dd>프론트엔드가 동의값을 보내도록 수정하고, 가입 화면 문구 그대로 약관 3종을 서버에 등록한 뒤 운영 환경에서 실제 요청으로 휴대폰 인증 단계까지 통과하는 것을 확인했습니다.</dd>
+    <dt>재발 방지</dt><dd>가입 경로를 바꿀 때마다 운영 환경에서 동의값을 포함한 요청으로 확인하는 절차를 만들었습니다.</dd>
+  </dl>
+
+  <h3 class="sec">사례 2 · 배포 반복 업무 자동화</h3>
+  <p style="font-size:9pt;margin-bottom:2mm">업로드가 조용히 실패해 운영에 옛 파일이 남았던 일을 계기로, 사람 손으로 하던 점검과 배포를 명령 한 줄(<code>npm run deploy</code>)로 묶었습니다.</p>
+  <div class="pipe">
+    <div><b>① 자동 점검</b>가짜 서버로 e2e 17건 실행</div>
+    <div class="stop"><b>실패 시 중단</b>운영에 올라가지 않음</div>
+    <div><b>② 빌드</b>Vite 번들 생성</div>
+    <div><b>③ 업로드</b>배포 버전 ID 확인</div>
+    <div><b>④ 반영 확인</b>운영 사이트가 새 파일을 주는지 최대 60초 재확인</div>
+  </div>
+
+  <h3 class="sec">사례 3 · 실사용 기반 개선과 사용자 문의 줄이기</h3>
+  <div class="shots wide">
+    <figure><img src="img/worker-5-attendance.webp" alt="출퇴근 체크 화면"><figcaption>구직자 출퇴근 체크: 근무 시간대에만 출근 인증 (데모 데이터)</figcaption></figure>
+    <figure><img src="img/company-5-attendance.webp" alt="이용 가이드"><figcaption>기업 출퇴근 현황과 역할별 이용 가이드 (데모 데이터)</figcaption></figure>
+  </div>
+  <ul>
+    <li>실사용에서 나온 문제 6건을 문제→원인→개선→결과로 정리해 고쳤습니다. 예: 근무 7시간 전에도 출근 사진이 올라가던 문제 → 근무 시작 30분 전부터만 체크하도록 시간 제한 추가 → 정상 근무 시간대에만 출근 인증</li>
+    <li>"사용 방법을 몰라서 못 쓰는 서비스가 없게" 하라는 요청에 역할별 가이드 창을 만들고, 화면이 바뀌면 Playwright 스크립트로 이미지를 다시 찍게 했습니다.</li>
+  </ul>
+  <div class="folio"><span>02 · 시스템 및 서비스 운영</span><span>3 / 6</span></div>
+</section>
+
+<!-- 4. 기획·문서화 -->
+<section class="page">
+  <div class="head">
+    <div><div class="no">03 · 서비스·시스템 기획</div><h2>요구사항을 문서로 맞추다</h2></div>
+    <div class="url">화면설계서 · 기능명세서<br>FE↔BE 설계 규격</div>
+  </div>
+  <p style="font-size:9pt;margin:5mm 0 2mm">화면설계서는 화면마다 다섯 항목으로 적고, 실제 화면 캡처(데스크톱·모바일)를 붙였습니다.</p>
+  <div class="pipe">
+    <div><b>여는 법</b>메뉴·버튼·딥링크 URL</div>
+    <div><b>목적</b>이 화면이 하는 일 한 줄</div>
+    <div><b>구성요소</b>입력·버튼·리스트의 타입·동작·검증</div>
+    <div><b>화면 전환</b>어떤 트리거가 어디로 가는지</div>
+    <div><b>상태·예외</b>빈 상태·로딩·에러·권한</div>
+  </div>
+  <p style="font-size:9pt;margin:2mm 0 2mm">기능 설계 규격(예: 급구·긴급 대체)은 이 순서로 씁니다.</p>
+  <div class="pipe">
+    <div><b>목표</b>해결할 현장 문제</div>
+    <div><b>핵심 원칙</b>판정 주체·대상·단위</div>
+    <div><b>전체 흐름</b>사용자 단계별 동작</div>
+    <div><b>API 계약</b>요청·응답·상태값</div>
+    <div><b>책임 분담</b>FE·BE·엣지 케이스</div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>요구사항 정의서·화면 설계서·기능 명세서</h3>
+      <ul>
+        <li>새로 합류한 디자이너가 화면을 그대로 재현·재설계할 수 있게, 실제 코드 기준으로 화면 42개를 정의했습니다. 화면마다 여는 법(메뉴·딥링크), 목적, 구성요소(타입·동작·검증), 화면 전환, 상태·예외(빈 상태·로딩·에러·권한)를 적었습니다.</li>
+        <li>기능명세서(프로세스·플로우 42개)와 상태 전이 49개(트리거→결과)를 같은 화면 ID로 묶어 한 문서로 만들었습니다.</li>
+        <li>Figma에 현 구현 화면 36개와 디자인 시스템(색 10토큰·글자 6단계·컴포넌트 20종)을 정리했습니다.</li>
+      </ul>
+      <h3>현업 요구 → 기능 설계</h3>
+      <ul>
+        <li>노쇼가 나면 바로 대체 인력을 부를 수 있어야 한다는 현장 요구를 급구 기능으로 설계했습니다. 노쇼 판정 주체, 호출 대상, 배정 단위(근무회차), 알림 단계를 원칙으로 먼저 정하고, API 계약과 FE·BE 책임 분담까지 문서로 합의한 뒤 개발했습니다.</li>
+        <li>백엔드 교체 전에는 두 데이터 모델의 차이를 측정해 갭 분석 문서와 통합 요청으로 정리하고 한 번에 합의했습니다.</li>
+      </ul>
+    </div>
+    <aside class="side">
+      <div class="num"><b>42개</b><span>화면 정의 (4개 포털 + 모달)</span></div>
+      <div class="num"><b>137장</b><span>실제 화면 캡처 (데스크톱·모바일)</span></div>
+      <div class="num"><b>42 · 49</b><span>프로세스·플로우 · 상태 전이</span></div>
+      <div class="num"><b>36 · 20</b><span>Figma 화면 · 컴포넌트</span></div>
+      <div class="stack"><span class="tag">요구사항 정의</span><span class="tag">와이어프레임</span><span class="tag">API 계약</span><span class="tag">Figma</span></div>
+    </aside>
+  </div>
+  <div class="folio"><span>03 · 기획과 문서화</span><span>4 / 6</span></div>
+</section>
+
+<!-- 5. AI 컴퍼니 -->
+<section class="page">
+  <div class="head">
+    <div><div class="no">04 · 생성형 AI 활용</div><h2>AI 컴퍼니: 13명짜리 사내 AI 제작팀</h2></div>
+    <div class="url">2026.09 구축 · 대표 실사용<br>사무실 화면 Vercel 배포</div>
+  </div>
+  <dl class="role">
+    <div><dt>내 역할</dt><dd>설계·구현·운영 단독</dd></div>
+    <div><dt>사용자</dt><dd>대표 (업무 지시)</dd></div>
+    <div><dt>운영 기간</dt><dd>2026.09.29 ~ 11.23 (8주)</dd></div>
+    <div><dt>에이전트</dt><dd>Claude Code 서브에이전트 13명</dd></div>
+  </dl>
+  <div class="shots ai">
+    <figure><img src="img/ai_company_05_meeting.png" alt="AI 컴퍼니 사무실 회의 화면"><figcaption>사무실 화면: 회의 진행, 프로젝트 보드, 대표 결정 대기, 최근 결과물</figcaption></figure>
+    <figure><img src="img/ai_company_03_staff.png" alt="직원 관리"><figcaption>직원 관리: 팀·역할별 에이전트 채용·해고</figcaption></figure>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>어떻게 만들었나</h3>
+      <ul>
+        <li><b>에이전트 13명:</b> PM과 기획·검증·제작·디자인·법률·개발 6개 팀. 역할, 보고 대상, 결과물 기준을 Claude Code 서브에이전트 정의로 나눴습니다.</li>
+        <li><b>자동 운영:</b> 예약 루틴으로 하루 세 번(09·13·17시) 정기 회의, 회의 사이에는 매시 업무 루틴이 다음 단계로 일을 넘깁니다. 대표가 채팅으로 지시하면 바로 회의가 열립니다.</li>
+        <li><b>품질 관리:</b> 단계마다 검증팀이 반대 관점 검토와 수치·오탈자 검수를 하고, 중요한 단계는 대표 승인 없이 넘어가지 않습니다.</li>
+        <li><b>화면:</b> 업무 기록을 이벤트 로그로 남기고 서버리스 API와 Canvas로 픽셀 사무실에서 재생합니다.</li>
+      </ul>
+      <h3>무엇을 만들었나 (8주, 15건)</h3>
+      <ul>
+        <li>홈페이지 2, IR 덱 2, 서비스 소개·내부 보고·발표 PPT 3, 법률·완성도 점검 4, BI·CI 2, 신제품 기획·판매 페이지 2</li>
+      </ul>
+    </div>
+    <aside class="side">
+      <div class="num"><b>시간당 1.7건</b><span>업무 완료 (작업이 있던 151시간, 완료 262건)</span></div>
+      <div class="num"><b>20~40분</b><span>법률·허점 점검 요청부터 완료 보고까지</span></div>
+      <div class="num"><b>109 · 76</b><span>대표 지시 · 회의 횟수</span></div>
+      <div class="stack"><span class="tag">Claude Code</span><span class="tag">서브에이전트</span><span class="tag">예약 루틴</span><span class="tag">Vercel Functions</span><span class="tag">Canvas</span></div>
+      <p class="note">수치는 업무 기록 2,487건을 집계한 값입니다.</p>
+    </aside>
+  </div>
+  <div class="folio"><span>04 · AI 컴퍼니</span><span>5 / 6</span></div>
+</section>
+
+<!-- 6. 그 밖의 작업 -->
+<section class="page">
+  <div class="head">
+    <div><div class="no">05 · 기획부터 오픈까지</div><h2>그 밖의 작업</h2></div>
+    <div class="url">아이디어 기획 → 개발 → 운영<br>1인 풀사이클</div>
+  </div>
+  <div class="shots trio" style="margin-top:4mm">
+    <figure><img src="img/jucompany-pc.png" alt="제이유컴퍼니 홈페이지"><figcaption>jucompany.co.kr (2026.11 오픈)</figcaption></figure>
+    <figure><img src="img/valora-pc.png" alt="VALORA"><figcaption>valora.kr (2026.11 배포)</figcaption></figure>
+    <figure><img src="img/soli-pc.png" alt="솔이"><figcaption>tarosoli.com (1인 운영)</figcaption></figure>
+  </div>
+  <h3 class="sec">회사 홈페이지 · jucompany.co.kr</h3>
+  <ul>
+    <li>대표 요청을 받아 방향이 다른 시안 3개를 만들고, 선택된 안을 제작·오픈했습니다. 견적 문의는 종류를 고르면 필요한 칸만 나타나게 했습니다.</li>
+    <li>문의는 서버(Cloudflare Worker)에서 담당자 메일로 바로 전달하고 IP당 분당 5회로 제한했습니다. 문의함·실적 관리자 화면(D1 DB)과 1년 지난 문의 자동 삭제 작업을 만들었습니다.</li>
+  </ul>
+  <h3 class="sec">브랜드 사이트 · valora.kr</h3>
+  <ul>
+    <li>12개 페이지를 한국어·영어로 구성하고, 상품·배너·공지는 관리자 화면에서 수정하게 했습니다.</li>
+    <li>PostgreSQL(Supabase) RLS 정책을 SQL로 작성해 공개 항목만 비로그인 조회, 등록·수정은 관리자만 가능하게 했고, 1년 지난 문의는 DB 예약 작업으로 매일 삭제합니다.</li>
+  </ul>
+  <h3 class="sec">AI 상담 서비스 · 솔이 (tarosoli.com)</h3>
+  <ul>
+    <li>React·FastAPI·PostgreSQL·LLM API로 기획, 개발, 배포, 결제, 고객 응대까지 혼자 운영합니다. 누적 약 40명이 이용했고 실결제가 발생했습니다.</li>
+    <li>실결제 오픈 날 결제 검증이 401로 실패했을 때 응답 코드별로 추적해 원인(결제사 API 비밀키 미발급)을 찾아 해결하고, 결제부터 환불까지 다시 검증했습니다.</li>
+  </ul>
+  <h3 class="sec">교육 · 수상</h3>
+  <ul>
+    <li>광주 인공지능사관학교 6기 AI 모델링(컴퓨터비전) 수료, <b>최종 프로젝트 최우수상</b> (2025)</li>
+  </ul>
+  <div class="folio"><span>05 · 그 밖의 작업</span><span>6 / 6</span></div>
+</section>
+
+</body>
+</html>
