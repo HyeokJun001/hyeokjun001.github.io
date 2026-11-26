@@ -110,6 +110,6 @@ export const BOOTHS = [
       <ul><li>ResNet50과 EfficientNet-B4의 특징을 이어 붙인 CNN 앙상블 + ViT-B/16을 확률 평균(Soft Voting)으로 합친 하이브리드</li><li>클래스 불균형(약 17배)은 가중 Focal Loss로, 털은 U-Net 마스크 + LaMa 인페인팅으로 지운 뒤 분류</li><li>Grad-CAM++로 모델이 어디를 보고 판단했는지 의사에게 보여 줌</li></ul>
       <h3>내가 맡은 것</h3>
       <ul><li>의사용 대시보드와 진단 흐름 화면(React)</li><li>담당 환자 목록 API, Grad-CAM 결과 표시 연동</li><li>Docker 환경 구성과 문제 해결, 팀 협업(브랜치·PR) 조율</li></ul>
-      <p class="links"><a href="https://github.com/earlydot25-cloud/early-dot-project" target="_blank" rel="noopener">${I('git-branch')}GitHub 저장소</a></p>`,
+      <p class="links"><a href="../earlydot/app/">${I('smartphone')}다시 만든 화면 눌러 보기</a><a href="https://github.com/earlydot25-cloud/early-dot-project" target="_blank" rel="noopener">${I('git-branch')}GitHub 저장소</a></p>`,
   },
 ];

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1d33">
+<title>EARLY DOT 다시 만들기 | 양혁준 포트폴리오</title>
+<meta name="description" content="AI 피부암 진단 보조 서비스 EARLY DOT의 환자·의사·관리자 화면을 포트폴리오용으로 다시 설계하고 구현한 모바일 화면. 견본 데이터로 직접 눌러 볼 수 있습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="app.css">
+<style>
+  html, body { height: 100%; }
+  body { font-family: Pretendard, "Malgun Gothic", sans-serif; background: #e9edf3; color: #0f1d33; -webkit-font-smoothing: antialiased; }
+  .stage { min-height: 100%; display: grid; grid-template-columns: minmax(300px, 420px) auto; justify-content: center; align-items: center; gap: 64px; padding: 36px 28px; }
+  .side h1 { font-size: 34px; line-height: 1.2; letter-spacing: -.035em; margin: 12px 0 14px; }
+  .side .back { font-weight: 700; font-size: 14.5px; }
+  .side p { color: #3b4659; line-height: 1.7; font-size: 15.5px; }
+  .side .facts { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 22px; }
+  .side .facts span { font-size: 12.5px; background: #fff; border: 1px solid #d5dde8; padding: 3px 10px; border-radius: 999px; }
+  .side h2 { font-size: 14px; color: #64748b; margin-bottom: 8px; }
+  .jump { display: grid; gap: 6px; }
+  .jump button { display: flex; align-items: center; gap: 10px; text-align: left; background: #fff; border: 1px solid #d5dde8; border-radius: 12px; padding: 10px 12px; cursor: pointer; font-size: 14px; transition: border-color .15s, transform .15s; }
+  .jump button:hover { border-color: #2a5ca8; transform: translateX(2px); }
+  .jump button[aria-current="true"] { border-color: #0f1d33; box-shadow: inset 3px 0 0 #0f1d33; }
+  .jump .ic { width: 20px; height: 20px; color: #2a5ca8; } .jump small { color: #64748b; margin-left: auto; font-size: 12px; }
+  .side .src { font-size: 12.5px; color: #64748b; margin-top: 18px; line-height: 1.6; }
+  .side .src a { color: #2a5ca8; }
+  .phone { width: 390px; height: min(844px, calc(100vh - 48px)); min-height: 640px; border-radius: 52px; padding: 12px; background: #0b1220; box-shadow: 0 50px 80px -40px rgba(15,29,51,.6), inset 0 0 0 2px #2a3446; position: relative; }
+  .screen { position: relative; height: 100%; border-radius: 41px; overflow: hidden; background: #f6f8fb; display: flex; flex-direction: column; }
+  .status { flex: none; height: 34px; display: flex; justify-content: space-between; align-items: center; padding: 0 26px 0 30px; font-size: 13px; font-weight: 700; background: #f6f8fb; }
+  .status i { width: 92px; height: 24px; border-radius: 14px; background: #0b1220; margin-top: 4px; }
+  .status span:last-child { letter-spacing: 1px; }
+  #app { flex: 1; min-height: 0; }
+  .mini { display: none; }
+  @media (max-width: 860px) {
+    .stage { display: block; padding: 0; }
+    .side { display: none; }
+    .phone { width: 100%; height: 100dvh; min-height: 0; border-radius: 0; padding: 0; background: none; box-shadow: none; }
+    .screen { border-radius: 0; }
+    .status { display: none; }
+    .mini:not([hidden]) { display: flex; position: fixed; right: 12px; top: 12px; z-index: 30; align-items: center; gap: 4px; background: rgba(15,29,51,.85); color: #fff; font-size: 12px; padding: 6px 10px; border-radius: 999px; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <section class="side" aria-labelledby="t">
+    <a class="back" href="../">← EARLY DOT 사례로</a>
+    <h1 id="t">EARLY DOT,<br>화면을 다시 만들었습니다</h1>
+    <p>2025년 팀 프로젝트로 만든 AI 피부암 진단 보조 서비스의 환자·의사·관리자 화면을, 포트폴리오용으로 혼자 다시 설계하고 구현했습니다. 방향이 다른 시안 3개 중 의사 화면과 가장 잘 이어지는 '진료 차트' 안을 골랐습니다.</p>
+    <div class="facts"><span>화면 16개</span><span>바닐라 JS 모듈 · 빌드 없음</span><span>주소 기반 화면 이동</span><span>환자 → 의사 → 환자로 이어지는 소견 흐름</span></div>
+    <h2>바로 가 보기</h2>
+    <div class="jump" id="jump">
+      <button type="button" data-role="patient" data-hash="#/home"><svg class="ic"><use href="../../img/icons.svg#layout-dashboard"/></svg>환자 홈<small>요약 · 최근 진단</small></button>
+      <button type="button" data-role="patient" data-hash="#/body"><svg class="ic"><use href="../../img/icons.svg#camera"/></svg>촬영부터 결과까지<small>부위 → 촬영 → 분석</small></button>
+      <button type="button" data-role="patient" data-hash="#/result/r1"><svg class="ic"><use href="../../img/icons.svg#scan-search"/></svg>진단 결과<small>히트맵 · 확률</small></button>
+      <button type="button" data-role="doctor" data-hash="#/doctor"><svg class="ic"><use href="../../img/icons.svg#stethoscope"/></svg>의사 소견함<small>위험도 높은 순</small></button>
+      <button type="button" data-role="doctor" data-hash="#/review/r7"><svg class="ic"><use href="../../img/icons.svg#pen-line"/></svg>소견 작성<small>위험도 다시 매기기</small></button>
+      <button type="button" data-role="admin" data-hash="#/admin"><svg class="ic"><use href="../../img/icons.svg#id-card"/></svg>관리자 가입 승인<small>면허 확인</small></button>
+    </div>
+    <p class="src">이름·병원·피부 사진은 모두 견본입니다(사진은 코드로 그림). AI 결과도 실제 모델이 아니라 미리 정한 값입니다. 원래 서비스 구조와 모델은 <a href="../">사례 페이지</a>에, 코드는 <a href="https://github.com/HyeokJun001/hyeokjun001.github.io/tree/main/portfolio/earlydot/app">여기</a>에 있습니다.</p>
+  </section>
+  <div class="phone" aria-label="휴대폰 화면">
+    <div class="screen">
+      <div class="status" aria-hidden="true"><span>9:41</span><i></i><span>▮▮▮</span></div>
+      <div id="app"></div>
+      <div id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+<a class="mini" id="mini" href="../" hidden>← 사례로</a>
+<script type="module">
+import { login } from './js/data.js';
+import './js/main.js';
+const jump = document.getElementById('jump');
+jump.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  login(b.dataset.role);
+  if (location.hash === b.dataset.hash) dispatchEvent(new HashChangeEvent('hashchange')); else location.hash = b.dataset.hash;
+});
+const mini = document.getElementById('mini');
+const mark = hash => { jump.querySelectorAll('button').forEach(b => b.setAttribute('aria-current', String(b.dataset.hash === hash))); mini.hidden = hash !== '#/login'; };
+addEventListener('ed:route', e => mark(e.detail.hash));
+mark(location.hash || '#/login'); // 휴대폰에서 '사례로'는 첫 화면에만(다른 화면에선 위쪽 버튼과 겹침)
+</script>
+</body>
+</html>
