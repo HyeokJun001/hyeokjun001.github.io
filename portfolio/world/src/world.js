@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 
 export const WALK_RADIUS = 19;
-export const POLE = { x: 0, z: 0 };
+export const POLE = { x: 0, z: 0, mesh: null };
 const blockers = []; // { x, z, r }
 export const groundY = () => 0;
 export const heightAt = groundY;
@@ -98,9 +98,9 @@ function trees(scene, occluders) {
 
 function lights(scene, booths, cz, occluders) {
   // 가운데 기둥에서 부스 지붕으로 늘어진 줄 전구(점광원 없이 빛나는 구슬만)
-  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 6, 8), mat('#2c2244'));
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 6, 8), mat('#2c2244', { transparent: true }));
   pole.position.set(0, 3, cz); pole.castShadow = true; scene.add(pole); blockers.push({ x: 0, z: cz, r: 0.15 });
-  POLE.x = 0; POLE.z = cz; // 기둥은 가늘어서 가림 판정 대신, 카메라가 기둥 속에 들어가지만 않게 look.js에서 밀어낸다
+  POLE.x = 0; POLE.z = cz; POLE.mesh = pole; // 기둥은 가늘어서 가림 판정 대신, 카메라가 가까이 오면 look.js에서 흐리게 숨긴다
   const pts = [];
   for (const b of booths) {
     const a = new THREE.Vector3(0, 5.8, cz), e = new THREE.Vector3(b.x, 3.3, b.z);

@@ -187,7 +187,7 @@ function update(dt, t) {
   const dir = keyDirection();
   player.update(dt, t, dir, dir?.run);
   look.update(dt);
-  look.setLift(boards.update(dt, t, player.pos, camera));
+  boards.update(dt, t, player.pos, camera);
   staff?.update(dt, t, player.pos);
   const b = nearBooth();
   if (b !== lastAct) {

@@ -4,7 +4,9 @@ import * as THREE from 'three';
 
 const W = 768, H = 432, TICKER = 54;
 const SHOW_DIST = 7.5; // m
-const Y = 4.75; // 전광판 가운데 높이
+const Y = 3.42; // 전광판 가운데 높이: 간판 바로 위(평소 시점에서 위를 올려다보지 않아도 보이게)
+const SIZE = 0.72; // 전광판 크기 배율
+const FRONT = 1.0; // 부스 가운데에서 광장 쪽으로 당기는 거리(m). 깊이 검사를 끄고 그려서 지붕에 묻히지 않는다
 const SLIDE = 2.6; // 초
 const FADE = 0.45;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -40,9 +42,9 @@ export function createBillboards(scene, booths) {
     group.add(glow, frame, screen);
     // 줄 전구가 전광판 앞을 지나가도 가리지 않게 맨 위에 그린다(가까운 한 개만 켜지므로 겹칠 일이 없다)
     [glow, frame, screen].forEach((m, k) => { m.material.depthTest = false; m.renderOrder = 10 + k; });
-    // 부스 앞쪽(광장 쪽)으로 조금 당겨 지붕 위에 건다
+    // 부스 앞쪽(광장 쪽)으로 당겨 간판 바로 위에 건다
     const fx = (b.at.x - b.x) / 2.9, fz = (b.at.z - b.z) / 2.9;
-    group.position.set(b.x + fx * 0.9, Y, b.z + fz * 0.9);
+    group.position.set(b.x + fx * FRONT, Y, b.z + fz * FRONT);
     group.scale.setScalar(0.001);
     group.visible = false;
     scene.add(group);
@@ -139,26 +141,22 @@ export function createBillboards(scene, booths) {
   }
 
   return {
-    // 반환값: 지금 켜진 정도(0~1) — 카메라가 그만큼 위를 올려다본다
     update(dt, t, pos, camera) {
       let near = null, nd = SHOW_DIST;
       for (const bd of boards) { const d = Math.hypot(pos.x - bd.b.x, pos.z - bd.b.z); if (d < nd) { nd = d; near = bd; } }
-      let lift = 0;
       for (const bd of boards) {
         const { b, group } = bd;
         const want = bd === near ? 1 : 0;
         bd.show += (want - bd.show) * Math.min(1, dt * (want ? 4.5 : 7));
         if (!want && bd.show < 0.02) { if (group.visible) { group.visible = false; bd.show = 0; bd.clock = 0; } continue; }
         group.visible = true;
-        const s = reduce ? bd.show : Math.max(0.001, easeOutBack(bd.show));
+        const s = SIZE * (reduce ? bd.show : Math.max(0.001, easeOutBack(bd.show)));
         group.scale.set(s, s, s);
         bd.mats.forEach((m, k) => (m.opacity = (k === 0 ? 0.45 : 1) * Math.min(1, bd.show * 1.4)));
         group.position.y = Y + (reduce ? 0 : Math.sin(t * 1.6 + b.x) * 0.06);
         group.rotation.y = Math.atan2(camera.position.x - group.position.x, camera.position.z - group.position.z); // 늘 카메라를 본다
         draw(bd, dt);
-        lift = Math.max(lift, bd.show);
       }
-      return lift;
     },
   };
 }

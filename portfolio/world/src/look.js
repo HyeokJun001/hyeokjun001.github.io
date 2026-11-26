@@ -69,16 +69,14 @@ export function createLook({ canvas, camera, player, occluders }) {
     want.copy(head).addScaledVector(dir, -near).addScaledVector(right, mouseMode ? 0.5 : 0);
     camera.position.copy(want);
     camera.position.y = Math.max(want.y, groundY(want.x, want.z) + 0.35);
-    // 가운데 기둥 속으로 들어가지 않게 바깥으로 살짝 밀어낸다
-    const px = camera.position.x - POLE.x, pz = camera.position.z - POLE.z, pd = Math.hypot(px, pz);
-    if (pd < 0.5 && pd > 1e-4) { camera.position.x = POLE.x + px / pd * 0.5; camera.position.z = POLE.z + pz / pd * 0.5; }
-    // 전광판이 켜지면 위를 올려다본다. 걷는 중에는 올리지 않고, 멈추면 천천히 올라간다
-    const liftWant = player.walking ? 0 : lift;
-    liftNow += (liftWant - liftNow) * Math.min(1, dt * 1.6);
-    camera.lookAt(camera.position.clone().addScaledVector(dir, 10).add(lookUp.set(0, liftNow * 2.1, 0)));
+    // 카메라가 가운데 기둥에 가까우면 기둥이 화면을 덮으니 흐리게 숨긴다(0.6m 안이면 안 보임, 1.8m부터 다 보임)
+    if (POLE.mesh) {
+      const o = clamp((Math.hypot(camera.position.x - POLE.x, camera.position.z - POLE.z) - 0.6) / 1.2, 0, 1);
+      POLE.mesh.material.opacity = o; POLE.mesh.visible = o > 0.02;
+    }
+    camera.lookAt(camera.position.clone().addScaledVector(dir, 10));
   }
-  let lift = 0, liftNow = 0, yawGoal = null;
-  const lookUp = new THREE.Vector3();
+  let yawGoal = null;
 
   return {
     mouseMode,
@@ -88,7 +86,6 @@ export function createLook({ canvas, camera, player, occluders }) {
     turn: v => (yawGoal = v),
     lock: () => canvas.requestPointerLock?.()?.catch?.(() => {}),
     unlock: () => document.pointerLockElement === canvas && document.exitPointerLock(),
-    setLift: v => (lift = v),
     update,
   };
 }
