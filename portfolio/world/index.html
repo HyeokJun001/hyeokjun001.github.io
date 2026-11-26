@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>양혁준 · 포트폴리오 (행사장 버전)</title>
+<meta name="description" content="걸어 다니며 보는 3D 포트폴리오 행사장. 부스마다 실제로 운영한 프로젝트가 있습니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<style>
+  :root { --ink: #241c33; --paper: #fffaf2; --violet: #6d3ce0; --line: #e8dfd0; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #f0c39c; font-family: Pretendard, "Malgun Gothic", sans-serif; color: var(--ink); word-break: keep-all; -webkit-font-smoothing: antialiased; }
+  #c { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  :focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+  button { font: inherit; cursor: pointer; }
+
+  /* 시작 화면 */
+  #intro { position: fixed; inset: 0; display: grid; place-items: center; background: linear-gradient(180deg, rgba(36,28,51,.15), rgba(36,28,51,.55)); padding: 20px; }
+  .card { background: var(--paper); border-radius: 18px; padding: 28px 30px; max-width: 520px; width: 100%; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+  .card h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -0.03em; }
+  .card > p { margin: 0 0 18px; color: #5b5170; }
+  .keys { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14.5px; margin: 0 0 20px; }
+  .keys dt { font-weight: 700; }
+  .keys dd { margin: 0; color: #4a4160; }
+  body.mouse .touch-only, body:not(.mouse) .mouse-only { display: none; }
+  kbd { font: 600 12px/1 Pretendard, sans-serif; border: 1.5px solid currentColor; border-bottom-width: 3px; border-radius: 5px; padding: 2px 6px; }
+  #bar { height: 6px; background: #eadfcd; border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+  #bar i { display: block; height: 100%; width: 0; background: var(--violet); transition: width .2s; }
+  #loading { font-size: 13px; color: #6b6280; margin: 0 0 16px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 10px; border: 1.5px solid var(--ink); background: #fff; color: var(--ink); font-weight: 700; font-size: 15px; text-decoration: none; transition: transform .15s, background .15s, color .15s; }
+  .btn.solid { background: var(--ink); color: #fff; }
+  .btn:hover:not(:disabled) { transform: translateY(-1px); }
+  .btn:disabled { opacity: .45; cursor: progress; }
+
+  /* 화면 위 버튼들 */
+  #hud { position: fixed; left: 0; right: 0; top: 0; display: flex; align-items: center; gap: 8px; padding: 12px 14px; pointer-events: none; }
+  #hud > * { pointer-events: auto; }
+  #hud .title { font-weight: 800; background: rgba(255,250,242,.9); padding: 7px 12px; border-radius: 10px; margin-right: auto; font-size: 14.5px; }
+  .chip { border: 0; background: rgba(36,28,51,.86); color: #fff; padding: 8px 13px; border-radius: 999px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .chip:hover { background: var(--ink); }
+  .hint { position: fixed; left: 50%; bottom: 18px; translate: -50% 0; background: rgba(36,28,51,.7); color: #fff; font-size: 13px; padding: 6px 12px; border-radius: 999px; pointer-events: none; transition: opacity .3s; }
+  body.locked .hint.unlocked { opacity: 0; }
+  #act { position: fixed; left: 50%; bottom: 64px; translate: -50% 0; background: var(--violet); color: #fff; border: 0; border-radius: 999px; padding: 13px 22px; font-size: 16px; box-shadow: 0 16px 30px -12px rgba(60,30,140,.7); animation: pop .25s cubic-bezier(.2,.8,.2,1); }
+  #act kbd { margin-left: 6px; border-color: rgba(255,255,255,.7); }
+  @keyframes pop { from { transform: translateY(8px) scale(.96); opacity: 0; } }
+
+  /* 조이스틱 (소원숲) */
+  #stick { position: fixed; left: 70px; top: calc(100% - 170px); width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%; border: 2px solid rgba(255,250,242,.55); opacity: .55; pointer-events: none; transition: opacity .15s; }
+  #stick.on { opacity: 1; background: rgba(36,28,51,.3); }
+  #stick-knob { position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(255,250,242,.8); }
+  #stick::after { content: '걷기'; position: absolute; left: 50%; top: 100%; translate: -50% 6px; font-size: 11px; color: rgba(255,250,242,.9); white-space: nowrap; }
+  #stick.on::after { content: none; }
+  body.mouse #stick, #hud[hidden] ~ #stick { display: none; }
+
+  /* 패널 */
+  dialog { border: 0; border-radius: 18px; padding: 0; width: min(760px, calc(100vw - 24px)); max-height: calc(100vh - 32px); background: var(--paper); color: var(--ink); box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); }
+  dialog::backdrop { background: rgba(36,28,51,.5); }
+  dialog[open] { animation: rise .25s cubic-bezier(.2,.8,.2,1); }
+  @keyframes rise { from { transform: translateY(14px); opacity: 0; } }
+  .d-head { position: sticky; top: 0; display: flex; align-items: center; gap: 10px; padding: 16px 20px; background: var(--paper); border-bottom: 1px solid var(--line); z-index: 1; }
+  .d-head h2 { margin: 0; font-size: 21px; letter-spacing: -0.02em; }
+  .d-head small { color: #6b6280; font-size: 13.5px; margin-right: auto; }
+  .d-body { padding: 18px 22px 24px; font-size: 15.5px; line-height: 1.65; }
+  .d-body .lead { font-size: 17px; margin-top: 0; }
+  .d-body ul, .d-body ol { padding-left: 20px; }
+  .d-body h3 { font-size: 17px; margin: 22px 0 6px; }
+  .nums { list-style: none; padding: 0 !important; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--ink); }
+  .nums li { padding: 12px 10px 4px 0; font-size: 13px; color: #6b6280; }
+  .nums b { display: block; font-size: 22px; color: var(--ink); letter-spacing: -0.02em; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+  .shots.two { grid-template-columns: 1fr 1fr; }
+  figure { margin: 0; }
+  figure img { width: 100%; border-radius: 10px; border: 1px solid var(--line); display: block; }
+  figcaption { font-size: 12.5px; color: #6b6280; margin-top: 4px; }
+  .term { background: #16122a; color: #b7f0cf; border-radius: 10px; padding: 14px; font: 12.5px/1.6 Consolas, monospace; white-space: pre-wrap; }
+  .cards { display: grid; gap: 14px; }
+  .cards a { display: grid; grid-template-columns: 200px 1fr; grid-template-rows: auto 1fr; column-gap: 14px; text-decoration: none; color: inherit; padding: 8px; border-radius: 12px; transition: background .15s; }
+  .cards a:hover { background: #f3ebdd; }
+  .cards figure { grid-row: span 2; }
+  .cards b { font-size: 17px; align-self: end; }
+  .cards span { color: #6b6280; font-size: 14px; }
+  .about { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start; }
+  .about img { width: 120px; height: auto; border-radius: 12px; }
+  .links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .links a { font-weight: 700; color: var(--violet); }
+  .d-foot { padding: 0 22px 22px; }
+  #l-items { list-style: none; margin: 0; padding: 10px 14px 18px; }
+  #l-items li { display: flex; gap: 8px; align-items: stretch; padding: 4px 0; }
+  .l-open { flex: 1; text-align: left; background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .l-open:hover { border-color: var(--ink); }
+  .l-open b { display: block; font-size: 16px; }
+  .l-open span { font-size: 13.5px; color: #6b6280; }
+  .l-walk { border: 1.5px solid var(--ink); background: var(--ink); color: #fff; border-radius: 12px; padding: 0 14px; font-weight: 600; }
+  #nogl { position: fixed; inset: 0; display: grid; place-items: center; padding: 20px; background: #f0c39c; }
+
+  @media (max-width: 640px) {
+    #hud .title { display: none; }
+    #hud { justify-content: flex-end; }
+    .shots { grid-template-columns: 1fr 1fr; }
+    .cards a { grid-template-columns: 110px 1fr; }
+    .nums b { font-size: 18px; }
+    .about { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="3D 행사장. 부스마다 프로젝트가 있습니다. 목록 보기 버튼으로 걷지 않고도 모든 내용을 볼 수 있습니다."></canvas>
+
+<div id="intro">
+  <div class="card" role="dialog" aria-labelledby="t">
+    <h1 id="t">양혁준 포트폴리오 행사장</h1>
+    <p>부스마다 실제로 만들고 운영한 프로젝트가 있습니다. 걸어가서 부스 앞에 서면 내용이 열립니다.</p>
+    <dl class="keys mouse-only"><dt>마우스</dt><dd>시점 돌리기 (Esc로 커서 풀기)</dd><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>걷기 · <kbd>Shift</kbd> 뛰기</dd><dt><kbd>E</kbd></dt><dd>부스 앞에서 내용 보기 · <kbd>L</kbd> 목록</dd></dl>
+    <dl class="keys touch-only"><dt>왼쪽 아래</dt><dd>누른 채 끌면 걷기, 끝까지 밀면 뛰기</dd><dt>화면 끌기</dt><dd>둘러보기</dd><dt>부스 누르기</dt><dd>앞까지 걸어가서 내용 열기</dd></dl>
+    <div id="bar" aria-hidden="true"><i></i></div>
+    <p id="loading" role="status">캐릭터를 불러오는 중…</p>
+    <div class="row"><button class="btn solid" id="enter" type="button" disabled>들어가기</button><a class="btn" href="../">2D로 보기</a></div>
+  </div>
+</div>
+
+<div id="hud" hidden>
+  <span class="title">양혁준 포트폴리오 행사장</span>
+  <button class="chip" id="open-list" type="button">목록 보기</button>
+  <a class="chip" href="../">2D로 보기</a>
+</div>
+<p class="hint unlocked mouse-only">화면을 누르면 마우스로 둘러볼 수 있어요</p>
+<button id="act" type="button" hidden></button>
+<div id="stick" aria-hidden="true"><div id="stick-knob"></div></div>
+
+<dialog id="panel" aria-labelledby="p-title">
+  <div class="d-head"><h2 id="p-title"></h2><small id="p-sub"></small><button class="btn" id="p-close" type="button">닫기</button></div>
+  <div class="d-body" id="p-body"></div>
+  <div class="d-foot"><a class="btn solid" id="p-more" href="../">2D 포트폴리오에서 자세히</a></div>
+</dialog>
+<dialog id="list" aria-labelledby="l-title">
+  <div class="d-head"><h2 id="l-title">전체 부스</h2><small>걷지 않고 바로 볼 수 있어요</small><button class="btn" id="l-close" type="button">닫기</button></div>
+  <ul id="l-items"></ul>
+</dialog>
+<div id="nogl" hidden><div class="card"><h1>이 브라우저에서는 3D를 열 수 없어요</h1><p>WebGL을 쓸 수 없는 환경입니다. 같은 내용을 2D 포트폴리오에서 볼 수 있어요.</p><a class="btn solid" href="../">2D 포트폴리오로 가기</a></div></div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

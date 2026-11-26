@@ -525,6 +525,6 @@ function show(n, focus) { tabs.forEach((t, k) => { t.setAttribute('aria-selected
 tabs.forEach((t, k) => { t.addEventListener('click', () => show(k)); t.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); show((k + 1) % 5, true); } if (e.key === 'ArrowLeft') { e.preventDefault(); show((k + 4) % 5, true); } }); });
 show(0);
 </script>
-<nav class="vswitch" aria-label="포트폴리오 버전"><span>버전</span><a href="./" aria-current="page">앱</a><a href="./console/">콘솔</a><a href="./office/">사무실</a></nav>
+<nav class="vswitch" aria-label="포트폴리오 버전"><span>버전</span><a href="./" aria-current="page">앱</a><a href="./console/">콘솔</a><a href="./office/">사무실</a><a href="./world/">행사장 3D</a></nav>
 </body>
 </html>
