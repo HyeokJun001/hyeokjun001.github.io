@@ -73,6 +73,10 @@ export function createBillboards(scene, booths) {
         g.fillText(line.trim(), 34, y);
         g.fillStyle = 'rgba(255,255,255,.55)'; g.font = '600 22px Pretendard, sans-serif'; g.fillText(`${k + 1} / ${n}`, 36, y + 50);
         g.globalAlpha = 1;
+      } else if (b.reel.images[k][2] === 'light') {
+        // 어두운 글씨 로고: 흰 판을 깔고 그 위에 올린다
+        g.globalAlpha = alpha; g.fillStyle = '#ffffff'; g.beginPath(); g.roundRect(40, 40, W - 80, H - TICKER - 80, 18); g.fill(); g.globalAlpha = 1;
+        contain(g, im, 90, 80, W - 180, H - TICKER - 160, alpha);
       } else contain(g, im, 18, 14, W - 36, H - TICKER - 26, alpha);
       g.restore();
     };
