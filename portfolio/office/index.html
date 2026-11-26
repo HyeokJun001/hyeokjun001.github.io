@@ -76,7 +76,14 @@
   .hot span .ic { width: 1.2em; height: 1.2em; }
   .store { border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
   .dx { grid-column: 1 / -1; }
-  .dx .stores { margin-bottom: 12px; }
+  a.store { text-decoration: none; transition: border-color .15s, transform .15s; }
+  a.store:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .qrs { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-top: 10px; }
+  .qr { margin: 0; text-align: center; font-size: 11px; font-weight: 600; line-height: 1.3; opacity: .85; }
+  .qr img { display: block; width: 92px; height: 92px; padding: 4px; background: #fff; border: 3px solid var(--ink); border-radius: 0; margin-bottom: 3px; }
+  .qr-cap { margin: 0 0 18px; font-size: 11.5px; line-height: 1.4; opacity: .7; }
+  @media (hover: none) { .qrs { display: none; } } /* 휴대폰: 화면 속 QR은 못 찍으니 숨기고 배지 링크만 */
+  .dx .qrs { margin: 10px 0 14px; }
   .flow { margin: 0; padding: 14px; border: 3px solid var(--ink); background: #fff; }
   .flow figcaption { font-family: "Galmuri11", monospace; font-size: 13px; margin-bottom: 10px; }
   .flow-row + .flow-row { border-top: 3px dotted #d7c6a6; }
@@ -145,16 +152,19 @@ const IC = id => `<svg class="ic" aria-hidden="true"><use href="../img/icons.svg
 const ARROW = `<span class="ar">${IC('arrow-right')}</span>`;
 // 구조도: rows = [[ [아이콘|아이콘들, 이름, 설명, 강조?], ... ], ...]
 const flow = (cap, rows) => `<figure class="flow"><figcaption>${cap}</figcaption>${rows.map(r => `<div class="flow-row">${r.map(([ics, b, sm, hot]) => `<div class="nd${hot ? ' key' : ''}"><span class="nd-i">${[].concat(ics).map(IC).join('')}</span><b>${b}</b>${sm ? `<small>${sm}</small>` : ''}</div>`).join(ARROW)}</div>`).join('')}</figure>`;
-const STORES = `<span class="stores"><span class="store"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></span><span class="store"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></span></span>`;
+const STORE_P = [['android', 'Android', 'Google Play', 'https://play.google.com/store/apps/details?id=com.jucompany.promotor', 'promotor-android'], ['ios', 'iOS', 'App Store', 'https://apps.apple.com/kr/app/id6827445911', 'promotor-ios']];
+const STORE_S = [['android', 'Android', 'Google Play', 'https://play.google.com/store/apps/details?id=com.tarosoli.app', 'soli-android']];
+// 스토어 배지(링크) + PC에서만 보이는 QR
+const APPS = (name, list) => `<span class="stores">${list.map(([ic, os, shop, url]) => `<a class="store" href="${url}" target="_blank" rel="noopener" aria-label="${name} ${os} 앱 (${shop})">${IC(ic)}<span>${os}<small>${shop}</small></span></a>`).join('')}</span><div class="qrs" aria-hidden="true">${list.map(s => `<figure class="qr"><img src="../img/qr/${s[4]}.svg" alt="" width="92" height="92" loading="lazy"><figcaption>${s[1]}</figcaption></figure>`).join('')}<p class="qr-cap">휴대폰 카메라로 찍으면<br>설치 화면으로 갑니다</p></div>`;
 const P = {
   promotor: { ic: 'monitor-smartphone', t: '프로모터', img: '../img/promotor-pc.png', url: 'https://promotor.kr', li: ['기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포', '실제 이용 1,500명 이상, 채용 확정 100건 이상 (회사 공개 수치)', 'Supabase에서 REST API로 바꿀 때 화면 코드는 그대로 두고 전환', '배포 전 자동 점검 187개, 실패하면 운영에 올라가지 않음'],
-    extra: () => STORES + flow('구조', [[['monitor-smartphone', 'React 화면', '47개'], ['layers', '어댑터', '백엔드 교체 흡수', true], ['server', 'REST API'], ['database', 'DB']], [['globe', '웹'], ['package', 'Capacitor', '앱으로 포장', true], [['android', 'ios'], '2개 스토어']]]) },
+    extra: () => APPS('프로모터', STORE_P) + flow('구조', [[['monitor-smartphone', 'React 화면', '47개'], ['layers', '어댑터', '백엔드 교체 흡수', true], ['server', 'REST API'], ['database', 'DB']], [['globe', '웹'], ['package', 'Capacitor', '앱으로 포장', true], [['android', 'ios'], '2개 스토어']]]) },
   ai: { ic: 'bot', t: 'AI 컴퍼니', img: '../img/ai_company_05_meeting.png', url: '../#ai', li: ['Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀', '8주 동안 프로젝트 15건, 업무 완료 262건', '업무 기록 2,487건을 Canvas 픽셀 사무실에서 재생', '이 페이지의 사무실도 같은 방식으로 그림'],
     extra: () => flow('일이 흘러가는 순서', [[['user-check', '대표 지시'], ['messages-square', '회의', '09·13·17시'], ['pen-line', '기획·제작', '6개 팀', true], ['shield-check', '검증팀'], ['circle-check', '대표 승인']]]) },
   ju: { ic: 'globe', t: '회사 홈페이지', img: '../img/jucompany-pc.png', url: 'https://jucompany.co.kr', li: ['방향이 다른 시안 3개를 제안하고 선택안 제작·오픈', '문의는 서버에서 담당자 메일로 바로 전달, IP당 분당 5회 제한', '문의함·실적 관리자 화면, 1년 지난 문의 자동 삭제'] },
   valora: { ic: 'package', t: 'VALORA', img: '../img/valora-pc.png', url: 'https://valora.kr', li: ['12개 페이지를 한국어·영어로 구성', 'Three.js로 제품 디스펜서 3D', 'Supabase 관리자 화면, 행 단위 접근 권한(RLS)'] },
   soli: { ic: 'sparkles', t: '솔이', img: '../img/soli-pc.png', url: 'https://tarosoli.com', li: ['사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영', '누적 약 40명 이용, 실결제 발생', '실결제 첫날 결제 검증 401을 추적해 원인 해결'],
-    extra: () => flow('구조', [[['monitor-smartphone', 'React 화면'], ['server', 'FastAPI 서버', '', true], [['database', 'sparkles', 'credit-card'], 'DB · LLM · 결제']]]) },
+    extra: () => APPS('솔이', STORE_S) + flow('구조', [[['monitor-smartphone', 'React 화면'], ['server', 'FastAPI 서버', '', true], [['database', 'sparkles', 'credit-card'], 'DB · LLM · 결제']]]) },
 };
 // logical canvas 320x150
 const desks = [

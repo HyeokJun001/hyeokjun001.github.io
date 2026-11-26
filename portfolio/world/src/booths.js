@@ -8,7 +8,11 @@ const nums = items => `<ul class="nums">${items.map(([i, b, t]) => `<li><span cl
 // 구조도: rows = [[ [아이콘|아이콘들, 이름, 설명, 강조?], ... ], ...]
 const node = ([ics, b, sm, hot]) => `<div class="nd${hot ? ' hot' : ''}"><span class="nd-i">${[].concat(ics).map(I).join('')}</span><b>${b}</b>${sm ? `<small>${sm}</small>` : ''}</div>`;
 const flow = (cap, rows) => `<figure class="flow"><figcaption>${cap}</figcaption>${rows.map(r => `<div class="flow-row">${r.map(node).join(`<span class="ar">${I('arrow-right')}</span>`)}</div>`).join('')}</figure>`;
-const STORES = `<span class="stores"><span class="store">${I('android')}<span>Android<small>Google Play</small></span></span><span class="store">${I('ios')}<span>iOS<small>App Store</small></span></span></span>`;
+const STORE_P = [['android', 'Android', 'Google Play', 'https://play.google.com/store/apps/details?id=com.jucompany.promotor', 'promotor-android'], ['ios', 'iOS', 'App Store', 'https://apps.apple.com/kr/app/id6827445911', 'promotor-ios']];
+const STORE_S = [['android', 'Android', 'Google Play', 'https://play.google.com/store/apps/details?id=com.tarosoli.app', 'soli-android']];
+// 스토어 배지(링크) + PC에서만 보이는 QR
+const APPS = (name, list) => `<span class="stores">${list.map(([ic, os, shop, url]) => `<a class="store" href="${url}" target="_blank" rel="noopener" aria-label="${name} ${os} 앱 (${shop})">${I(ic)}<span>${os}<small>${shop}</small></span></a>`).join('')}</span><div class="qrs" aria-hidden="true">${list.map(s => `<figure class="qr"><img src="../img/qr/${s[4]}.svg" alt="" width="92" height="92" loading="lazy"><figcaption>${s[1]}</figcaption></figure>`).join('')}<p class="qr-cap">휴대폰 카메라로 찍으면<br>설치 화면으로 갑니다</p></div>`;
+const STORES = APPS('프로모터', STORE_P);
 
 export const BOOTHS = [
   {
@@ -69,6 +73,7 @@ export const BOOTHS = [
     reel: { images: [['../img/soli/home-mo.webp', '가입 없이 무료 사주 풀이'], ['../img/soli-pc.png', '정밀 만세력 + AI 상담'], ['../img/soli/ilju.webp', '60일주 풀이 페이지'], ['../img/soli/tools.webp', '무료 도구 · 만세력 계산기'], ['../img/soli/blog.webp', '명리·타로 지식창고'], ['../img/soli/pricing.webp', '포스 충전 · 카카오페이 결제']] },
     html: `<p class="lead">기획, 개발, 배포, 결제, 고객 응대까지 혼자 만들고 운영하는 사주·타로 AI 상담 서비스입니다. 생년월일과 태어난 시각을 넣으면 실제 천체력 기준 만세력으로 사주를 계산하고, 그 위에 AI 상담을 얹습니다.</p>
       ${nums([['users', '약 40명', '누적 이용자'], ['credit-card', '실결제', '카카오페이 등 간편결제(포트원)'], ['user-check', '1인', '기획부터 고객 응대까지']])}
+      <div class="app-get">${APPS('솔이', STORE_S)}</div>
       <div class="shots">${img('soli/home-mo.webp', '솔이 첫 화면', '첫 화면: 가입 없이 무료 풀이')}${img('soli/ilju.webp', '갑진일주 풀이 페이지', '60일주 풀이')}${img('soli/tools.webp', '무료 도구 모음', '무료 도구')}</div>
       <h3>무엇을 하나</h3>
       <ul><li><b>가입 없이 무료로</b>: 생년월일·성별만 넣으면 사주팔자·일주 풀이·대운까지 바로 보여 줌</li><li><b>정확한 계산</b>: 음력·양력·윤달과 태어난 시각(12지시)을 반영하고, 한국천문연구원 절기 자료로 만세력 계산을 검증</li><li><b>AI 상담</b>: 연애·금전·직장 등 주제를 골라 솔이에게 묻고, 심층 리포트나 타로 뽑기로 이어짐</li><li><b>무료 도구와 지식창고</b>: 만세력 계산기, 내 일주 찾기, 60일주 풀이 페이지, 명리·타로 칼럼</li><li><b>유료 이용권</b>: '포스'를 충전해 상담 콘텐츠를 열람(1,000원~10,000원 4종)</li></ul>

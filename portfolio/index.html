@@ -93,6 +93,17 @@
   .store .ic { width: 20px; height: 20px; }
   .store > span { display: flex; flex-direction: column; line-height: 1.15; }
   .store small { font-weight: 500; font-size: 11px; color: #6b6280; }
+  a.store { text-decoration: none; transition: border-color .15s, transform .15s; }
+  a.store:hover { border-color: var(--violet); transform: translateY(-1px); }
+  .qrs { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-top: 10px; }
+  .app-get { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 16px; margin-top: 12px; }
+  .app-get .stores { align-self: center; margin: 0; }
+  .app-get .qrs { margin: 0; }
+  .nums .qrs { padding: 0; border: 0; } /* .nums div 칸 여백이 QR 묶음에 붙지 않게 */
+  .qr { margin: 0; text-align: center; font-size: 11px; font-weight: 600; line-height: 1.3; opacity: .85; }
+  .qr img { display: block; width: 92px; height: 92px; padding: 4px; background: #fff; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: 3px; }
+  .qr-cap { margin: 0 0 18px; font-size: 11.5px; line-height: 1.4; opacity: .7; }
+  @media (hover: none) { .qrs { display: none; } } /* 휴대폰: 화면 속 QR은 못 찍으니 숨기고 배지 링크만 */
   /* architecture flow */
   .flow { margin: 28px 0 0; padding: 22px; border: 1.5px solid var(--line); border-radius: 18px; background: #fff; }
   .flow > figcaption { font-weight: 700; font-size: 15px; margin-bottom: 14px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
@@ -331,7 +342,7 @@
     <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#file-pen-line"/></svg></span><b>100건+</b><span>채용 확정 (2026.11.11)</span></div>
     <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#layout-dashboard"/></svg></span><b>47개</b><span>혼자 설계·구현·배포한 화면</span></div>
     <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#smartphone"/></svg></span><b>2개 스토어</b><span>같은 웹 코드로 앱 출시</span>
-      <span class="stores"><span class="store"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></span><span class="store"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></span></span></div>
+      <span class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.jucompany.promotor" target="_blank" rel="noopener" aria-label="프로모터 Android 앱 (Google Play)"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></a><a class="store" href="https://apps.apple.com/kr/app/id6827445911" target="_blank" rel="noopener" aria-label="프로모터 iOS 앱 (App Store)"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></a></span><div class="qrs" aria-hidden="true"><figure class="qr"><img src="img/qr/promotor-android.svg" alt="" width="92" height="92" loading="lazy"><figcaption>Android</figcaption></figure><figure class="qr"><img src="img/qr/promotor-ios.svg" alt="" width="92" height="92" loading="lazy"><figcaption>iOS</figcaption></figure><p class="qr-cap">휴대폰 카메라로 찍으면<br>설치 화면으로 갑니다</p></div></div>
   </div>
   <figure class="flow">
     <figcaption>구조<small>화면 코드 하나로 웹과 앱을 내고, 백엔드를 바꿔도 화면은 다시 쓰지 않았습니다.</small></figcaption>
@@ -439,7 +450,7 @@
         <span class="ed-num"><b>65.1% → 84.6%</b>악성 흑색종 F1 (CNN 단독 → CNN+ViT 하이브리드)</span></a>
       <div><h3>EARLY DOT · NIPA 원장상</h3><p class="meta">AI 피부암 진단 + 의사·환자 관리 플랫폼 · 팀장 · 2025</p><ul><li>시스템을 React·Django API·FastAPI 모델 서버·DB 4개 서비스로 나눠 Docker Compose로 배포, 쿠버네티스 배포 구조 설계·검토 참여</li><li>의사용 대시보드·진단 흐름 화면, 담당 환자 목록 API, Grad-CAM 진단 근거 표시 연동, Docker 환경을 맡음</li><li>ResNet50+EfficientNet-B4 특징 결합과 ViT를 합친 모델 설계에 참여, 8개 피부 질환 분류에서 악성 흑색종 F1 +19.5%p</li></ul><a class="go" href="earlydot/">자세히 보기</a> · <a class="go" href="earlydot/#screens">화면 바로 눌러 보기</a> · <a class="go" href="https://github.com/earlydot25-cloud/early-dot-project">GitHub 저장소</a></div></article>
     <article class="w"><a class="w-img" href="https://tarosoli.com" aria-label="솔이 열기"><img src="img/soli-pc.png" alt="솔이 사주·타로 상담 첫 화면" loading="lazy"></a>
-      <div><h3>솔이</h3><p class="meta">tarosoli.com · 1인 운영</p><ul><li>사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영</li><li>누적 약 40명 이용, 실결제 발생</li><li>실결제 첫날 결제 검증 401을 응답 코드별로 추적해 원인(결제사 비밀키 미발급) 해결</li></ul><a class="go" href="https://tarosoli.com">서비스 열기</a></div></article>
+      <div><h3>솔이</h3><p class="meta">tarosoli.com · 1인 운영</p><ul><li>사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영</li><li>누적 약 40명 이용, 실결제 발생</li><li>실결제 첫날 결제 검증 401을 응답 코드별로 추적해 원인(결제사 비밀키 미발급) 해결</li></ul><div class="app-get"><span class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.tarosoli.app" target="_blank" rel="noopener" aria-label="솔이 Android 앱 (Google Play)"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></a></span><div class="qrs" aria-hidden="true"><figure class="qr"><img src="img/qr/soli-android.svg" alt="" width="92" height="92" loading="lazy"><figcaption>Android</figcaption></figure><p class="qr-cap">휴대폰 카메라로 찍으면<br>설치 화면으로 갑니다</p></div></div><a class="go" href="https://tarosoli.com">서비스 열기</a></div></article>
   </div>
 </div>
 
