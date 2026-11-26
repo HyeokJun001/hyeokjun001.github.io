@@ -84,6 +84,30 @@
   .nums div + div { padding-left: 20px; border-left: 1px solid var(--line); }
   .nums b { display: block; font-size: 34px; letter-spacing: -0.03em; line-height: 1.1; }
   .nums span { font-size: 14px; color: var(--muted); }
+  /* icons (img/icons.svg: lucide ISC + 직접 그린 플랫폼 표시) */
+  .ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
+  .nums .ico { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--violet-soft); color: var(--violet); margin-bottom: 12px; }
+  .nums .ico .ic { width: 20px; height: 20px; }
+  .stores { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .store { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; font-weight: 700; font-size: 13px; color: var(--ink); }
+  .store .ic { width: 20px; height: 20px; }
+  .store > span { display: flex; flex-direction: column; line-height: 1.15; }
+  .store small { font-weight: 500; font-size: 11px; color: #6b6280; }
+  /* architecture flow */
+  .flow { margin: 28px 0 0; padding: 22px; border: 1.5px solid var(--line); border-radius: 18px; background: #fff; }
+  .flow > figcaption { font-weight: 700; font-size: 15px; margin-bottom: 14px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .flow > figcaption small { font-weight: 400; color: var(--muted); font-size: 14px; }
+  .flow-row { display: flex; align-items: stretch; gap: 6px; }
+  .flow-row + .flow-row { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); }
+  .nd { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 14px 8px; border-radius: 12px; background: #f6f4fb; transition: transform .15s, background .15s; }
+  .nd:hover { transform: translateY(-2px); background: #efeaf9; }
+  .nd-i { display: flex; gap: 5px; color: var(--violet); }
+  .nd-i .ic { width: 28px; height: 28px; }
+  .nd b { font-size: 14.5px; line-height: 1.3; }
+  .nd small { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+  .nd.hot { background: var(--violet-soft); box-shadow: inset 0 0 0 1.5px #cbbcf5; }
+  .ar { display: grid; place-items: center; color: #b9b2cf; }
+  .ar .ic { width: 18px; height: 18px; }
 
   /* company strip */
   .strip { --edge: max(28px, calc((100vw - 1160px) / 2 + 28px)); display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge); padding: 28px var(--edge) 24px; scrollbar-width: thin; cursor: grab; }
@@ -199,6 +223,7 @@
   .w-img.ed { background: #fff; padding: 34px 30px 28px; display: grid; gap: 22px; text-decoration: none; color: var(--ink); }
   .w-img.ed img { width: 70%; margin: 0 auto; }
   .ed-flow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; font-size: 13px; }
+  .ed-flow i .ic { width: 15px; height: 15px; margin-right: 4px; color: var(--violet); }
   .ed-flow i { font-style: normal; background: var(--violet-soft); color: #3e2a86; padding: 5px 10px; border-radius: 8px; font-weight: 600; }
   .ed-flow b { color: var(--muted); }
   .ed-num { text-align: center; font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
@@ -208,7 +233,12 @@
   .about img { width: 180px; border-radius: 14px; border: 1px solid var(--line); display: block; }
   .about h3 { font-size: 16px; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
   .about ul { list-style: none; padding: 0; }
-  .about li { padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
+  .about li { padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; display: flex; gap: 9px; align-items: baseline; }
+  .about li > .ic { color: var(--violet); transform: translateY(.12em); }
+  .stage b .ic, .docs b .ic, .ai-text h3 .ic { margin-right: 6px; }
+  .stage b .ic { color: #a99cf0; }
+  .docs b .ic { color: #a99cf0; width: 1.2em; height: 1.2em; }
+  .ai-text h3 .ic { color: var(--violet); }
   .about .bio { font-size: 17px; margin-bottom: 22px; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .chips span { font-size: 13.5px; background: var(--violet-soft); color: #3e2a86; padding: 4px 10px; border-radius: 999px; }
@@ -227,6 +257,12 @@
     .nums { grid-template-columns: 1fr 1fr; }
     .nums div:nth-child(3) { padding-left: 0; border-left: 0; }
     .nums div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .flow { padding: 16px; }
+    .flow-row { flex-direction: column; }
+    .nd { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 1px; align-items: center; text-align: left; padding: 10px 12px; }
+    .nd-i { grid-row: span 2; }
+    .nd b, .nd small { grid-column: 2; }
+    .ar { transform: rotate(90deg); height: 16px; }
     .strip-ctl { display: none; }
     .ops, .ai, .ai-text, .docs, .w, .about { grid-template-columns: 1fr; }
     .docs div + div { padding-left: 0; border-left: 0; }
@@ -291,11 +327,17 @@
     </div>
   </div>
   <div class="nums">
-    <div><b>1,500명+</b><span>실제 이용자 (2026.11.11, 회사 공개 수치)</span></div>
-    <div><b>100건+</b><span>채용 확정 (2026.11.11)</span></div>
-    <div><b>47개</b><span>혼자 설계·구현·배포한 화면</span></div>
-    <div><b>2개 스토어</b><span>같은 웹 코드로 Google Play·App Store 출시</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#users"/></svg></span><b>1,500명+</b><span>실제 이용자 (2026.11.11, 회사 공개 수치)</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#file-pen-line"/></svg></span><b>100건+</b><span>채용 확정 (2026.11.11)</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#layout-dashboard"/></svg></span><b>47개</b><span>혼자 설계·구현·배포한 화면</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#smartphone"/></svg></span><b>2개 스토어</b><span>같은 웹 코드로 앱 출시</span>
+      <span class="stores"><span class="store"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></span><span class="store"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></span></span></div>
   </div>
+  <figure class="flow">
+    <figcaption>구조<small>화면 코드 하나로 웹과 앱을 내고, 백엔드를 바꿔도 화면은 다시 쓰지 않았습니다.</small></figcaption>
+    <div class="flow-row"><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#monitor-smartphone"/></svg></span><b>React 화면</b><small>구직자·기업·관리자 47개</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd hot"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#layers"/></svg></span><b>데이터 훅 + 어댑터</b><small>백엔드 교체를 여기서 흡수</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#key-round"/></svg></span><b>API 클라이언트</b><small>웹 쿠키 · 앱 토큰, 토큰 갱신 1회</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#server"/></svg></span><b>Spring Boot REST API</b><small>Supabase 직접 조회에서 교체</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#database"/></svg></span><b>DB</b></div></div>
+    <div class="flow-row"><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#globe"/></svg></span><b>웹</b><small>브라우저</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd hot"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#package"/></svg></span><b>Capacitor</b><small>같은 코드를 앱으로 포장</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#android"/></svg><svg class="ic" aria-hidden="true"><use href="img/icons.svg#ios"/></svg></span><b>Google Play · App Store</b><small>2개 스토어 출시</small></div></div>
+  </figure>
 </div>
 
 <section aria-labelledby="co">
@@ -320,7 +362,7 @@
           <div class="term-bar"><span>~/promotor/frontend</span><button id="toggle" type="button" aria-pressed="false">일시정지</button></div>
           <div class="term-body" id="out" aria-hidden="true"></div>
           <div class="stages" aria-hidden="true">
-            <div class="stage"><b>자동 점검</b>e2e 187개</div><div class="stage"><b>빌드</b>vite</div><div class="stage"><b>업로드</b>버전 확인</div><div class="stage"><b>반영 확인</b>최대 60초</div>
+            <div class="stage"><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#shield-check"/></svg>자동 점검</b>e2e 187개</div><div class="stage"><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#package"/></svg>빌드</b>vite</div><div class="stage"><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#cloud-upload"/></svg>업로드</b>버전 확인</div><div class="stage"><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#circle-check"/></svg>반영 확인</b>최대 60초</div>
           </div>
         </div>
         <p class="cap">실제로 쓰는 <code>npm run deploy</code>를 재현했습니다. 점검 이름은 실제 테스트 코드에서 가져왔고, 하나라도 실패하면 운영에 올라가지 않습니다.</p>
@@ -338,9 +380,9 @@
       </div>
     </div>
     <div class="docs">
-      <div><b>화면설계서 42개 화면</b><p>새로 합류한 디자이너가 그대로 재현할 수 있게, 화면마다 여는 법·구성요소·전환·예외를 적고 실제 캡처 137장을 붙였습니다.</p></div>
-      <div><b>기능명세서와 상태 전이 49개</b><p>프로세스·플로우 42개와 상태 전이를 같은 화면 ID로 묶어, 디자이너와 백엔드가 같은 기준으로 일하게 했습니다.</p></div>
-      <div><b>백엔드 교체, 화면은 그대로</b><p>Supabase 직접 조회를 Spring Boot REST API로 바꿀 때 데이터 훅과 화면 사이에 어댑터를 두어 화면 코드를 다시 쓰지 않았습니다.</p></div>
+      <div><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#file-text"/></svg>화면설계서 42개 화면</b><p>새로 합류한 디자이너가 그대로 재현할 수 있게, 화면마다 여는 법·구성요소·전환·예외를 적고 실제 캡처 137장을 붙였습니다.</p></div>
+      <div><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#workflow"/></svg>기능명세서와 상태 전이 49개</b><p>프로세스·플로우 42개와 상태 전이를 같은 화면 ID로 묶어, 디자이너와 백엔드가 같은 기준으로 일하게 했습니다.</p></div>
+      <div><b><svg class="ic" aria-hidden="true"><use href="img/icons.svg#layers"/></svg>백엔드 교체, 화면은 그대로</b><p>Supabase 직접 조회를 Spring Boot REST API로 바꿀 때 데이터 훅과 화면 사이에 어댑터를 두어 화면 코드를 다시 쓰지 않았습니다.</p></div>
     </div>
   </div>
 </section>
@@ -359,10 +401,14 @@
     </div>
   </div>
   <div class="ai-text">
-    <div><h3>역할을 나눴습니다</h3><p>PM과 기획·검증·제작·디자인·법률·개발 6개 팀. 역할, 보고 대상, 결과물 기준을 에이전트 정의로 나눴습니다.</p></div>
-    <div><h3>스스로 돌아갑니다</h3><p>예약 루틴이 09·13·17시에 회의를 열고, 그 사이에는 매시 다음 단계로 일을 넘깁니다. 채팅으로 지시하면 바로 회의가 열립니다.</p></div>
-    <div><h3>검수는 사람이 합니다</h3><p>단계마다 검증팀이 반대 관점과 수치를 확인하고, 중요한 단계는 대표 승인 없이 넘어가지 않습니다.</p></div>
+    <div><h3><svg class="ic" aria-hidden="true"><use href="img/icons.svg#users"/></svg>역할을 나눴습니다</h3><p>PM과 기획·검증·제작·디자인·법률·개발 6개 팀. 역할, 보고 대상, 결과물 기준을 에이전트 정의로 나눴습니다.</p></div>
+    <div><h3><svg class="ic" aria-hidden="true"><use href="img/icons.svg#refresh-cw"/></svg>스스로 돌아갑니다</h3><p>예약 루틴이 09·13·17시에 회의를 열고, 그 사이에는 매시 다음 단계로 일을 넘깁니다. 채팅으로 지시하면 바로 회의가 열립니다.</p></div>
+    <div><h3><svg class="ic" aria-hidden="true"><use href="img/icons.svg#user-check"/></svg>검수는 사람이 합니다</h3><p>단계마다 검증팀이 반대 관점과 수치를 확인하고, 중요한 단계는 대표 승인 없이 넘어가지 않습니다.</p></div>
   </div>
+  <figure class="flow">
+    <figcaption>일이 흘러가는 순서<small>대표는 처음과 끝만 맡고, 가운데는 AI 팀이 이어 갑니다.</small></figcaption>
+    <div class="flow-row"><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#user-check"/></svg></span><b>대표 지시</b><small>채팅 한 줄</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#messages-square"/></svg></span><b>회의</b><small>09·13·17시 자동</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd hot"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#pen-line"/></svg></span><b>기획·제작</b><small>6개 팀 에이전트</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#shield-check"/></svg></span><b>검증팀</b><small>반론·수치 확인</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#circle-check"/></svg></span><b>대표 승인</b><small>중요 단계만</small></div></div>
+  </figure>
 
   <div class="works">
     <button class="works-toggle" type="button" aria-expanded="false" aria-controls="works-panel"><span class="wt-label">실제 제작 자료 보기</span><span class="wt-count" id="wt-count"></span><i aria-hidden="true"></i></button>
@@ -389,7 +435,7 @@
       <div><h3>VALORA 브랜드 사이트</h3><p class="meta">valora.kr · 2026.11 배포</p><ul><li>12개 페이지를 한국어·영어로 구성</li><li>Three.js로 제품 디스펜서 3D 표현</li><li>상품·배너·공지는 관리자 화면에서 수정, 행 단위 접근 권한(RLS)으로 공개 항목만 조회</li></ul><a class="go" href="https://valora.kr">사이트 열기</a></div></article>
     <article class="w"><a class="w-img ed" href="https://github.com/earlydot25-cloud/early-dot-project" aria-label="EARLY DOT 저장소 열기">
         <img src="img/earlydot/logo.png" alt="EARLY DOT 로고" loading="lazy" width="568" height="128">
-        <span class="ed-flow" aria-hidden="true"><i>React</i><b>→</b><i>Django API</i><b>→</b><i>FastAPI 모델 서버</i><b>→</b><i>MySQL</i></span>
+        <span class="ed-flow" aria-hidden="true"><i><svg class="ic" aria-hidden="true"><use href="img/icons.svg#monitor"/></svg>React</i><b>→</b><i><svg class="ic" aria-hidden="true"><use href="img/icons.svg#server"/></svg>Django API</i><b>→</b><i><svg class="ic" aria-hidden="true"><use href="img/icons.svg#brain"/></svg>FastAPI 모델 서버</i><b>→</b><i><svg class="ic" aria-hidden="true"><use href="img/icons.svg#database"/></svg>MySQL</i></span>
         <span class="ed-num"><b>65.1% → 84.6%</b>악성 흑색종 F1 (CNN 단독 → CNN+ViT 하이브리드)</span></a>
       <div><h3>EARLY DOT · NIPA 원장상</h3><p class="meta">AI 피부암 진단 + 의사·환자 관리 플랫폼 · 팀장 · 2025</p><ul><li>시스템을 React·Django API·FastAPI 모델 서버·DB 4개 서비스로 나눠 Docker Compose로 배포, 쿠버네티스 배포 구조 설계·검토 참여</li><li>의사용 대시보드·진단 흐름 화면, 담당 환자 목록 API, Grad-CAM 진단 근거 표시 연동, Docker 환경을 맡음</li><li>ResNet50+EfficientNet-B4 특징 결합과 ViT를 합친 모델 설계에 참여, 8개 피부 질환 분류에서 악성 흑색종 F1 +19.5%p</li></ul><a class="go" href="earlydot/">자세히 보기</a> · <a class="go" href="https://github.com/earlydot25-cloud/early-dot-project">GitHub 저장소</a></div></article>
     <article class="w"><a class="w-img" href="https://tarosoli.com" aria-label="솔이 열기"><img src="img/soli-pc.png" alt="솔이 사주·타로 상담 첫 화면" loading="lazy"></a>
@@ -403,17 +449,17 @@
     <img src="img/photo.jpg" alt="양혁준 증명사진" width="180" height="252">
     <div>
       <p class="bio">관광경영학을 전공하고 독학과 교육 과정으로 개발을 시작했습니다. 만든 화면을 실제 사용자가 쓰고, 그 사용자가 겪는 문제를 끝까지 추적해 고치는 일을 가장 좋아합니다. 서울에서 근무할 수 있습니다.</p>
-      <div class="btns"><a class="btn solid" href="mailto:yhjun5413@gmail.com">yhjun5413@gmail.com</a><a class="btn line" href="https://github.com/HyeokJun001">GitHub</a><a class="btn line" href="yanghyeokjun-portfolio.pdf" download>PDF 받기</a></div>
+      <div class="btns"><a class="btn solid" href="mailto:yhjun5413@gmail.com"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#mail"/></svg>yhjun5413@gmail.com</a><a class="btn line" href="https://github.com/HyeokJun001"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#git-branch"/></svg>GitHub</a><a class="btn line" href="yanghyeokjun-portfolio.pdf" download><svg class="ic" aria-hidden="true"><use href="img/icons.svg#download"/></svg>PDF 받기</a></div>
     </div>
     <div>
       <h3>경력 · 교육</h3>
       <ul>
-        <li>제이유컴퍼니 개발팀장(프론트엔드 단독) · 2026.05–11</li>
-        <li>광주 인공지능사관학교 6기 AI 모델링 수료 · 최종 프로젝트 최우수상</li>
-        <li>NIPA 원장상(최우수상) · EARLY DOT, AI 피부암 진단 플랫폼(팀장)</li>
-        <li>ESTsoft 최우수상 · 실시간 응급 병원 추천</li>
-        <li>2025 건양 헬스 데이터톤(KHD) 장려상 · CT 없이 PET 단독 영상으로 간·뇌 정량화 · 평균 오차율 4.7% <a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">기사</a></li>
-        <li>제주대학교 관광경영학 학사 · ADsP</li>
+        <li><svg class="ic" aria-hidden="true"><use href="img/icons.svg#briefcase"/></svg><span>제이유컴퍼니 개발팀장(프론트엔드 단독) · 2026.05–11</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="img/icons.svg#graduation-cap"/></svg><span>광주 인공지능사관학교 6기 AI 모델링 수료 · 최종 프로젝트 최우수상</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="img/icons.svg#trophy"/></svg><span>NIPA 원장상(최우수상) · EARLY DOT, AI 피부암 진단 플랫폼(팀장)</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="img/icons.svg#trophy"/></svg><span>ESTsoft 최우수상 · 실시간 응급 병원 추천</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="img/icons.svg#award"/></svg><span>2025 건양 헬스 데이터톤(KHD) 장려상 · CT 없이 PET 단독 영상으로 간·뇌 정량화 · 평균 오차율 4.7% <a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">기사</a></span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="img/icons.svg#graduation-cap"/></svg><span>제주대학교 관광경영학 학사 · ADsP</span></li>
       </ul>
       <h3 style="margin-top:20px">주로 쓰는 것</h3>
       <div class="chips"><span>React</span><span>TypeScript</span><span>Next.js</span><span>TanStack Query</span><span>Zustand</span><span>Tailwind CSS</span><span>Capacitor</span><span>FastAPI</span><span>PostgreSQL</span><span>Playwright</span><span>Claude Code</span></div>
