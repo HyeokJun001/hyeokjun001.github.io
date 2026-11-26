@@ -119,6 +119,20 @@
   .nd.hot { background: var(--violet-soft); box-shadow: inset 0 0 0 1.5px #cbbcf5; }
   .ar { display: grid; place-items: center; color: #b9b2cf; }
   .ar .ic { width: 18px; height: 18px; }
+  /* 흐름 재생: 단계가 왼쪽부터 차례로 켜지고, 끝에서 잠깐 멈췄다 다시 */
+  .flow.run .nd { transition: background .35s, box-shadow .35s, transform .35s; }
+  .flow.run .nd.hot:not(.on):not(.done) { background: #f6f4fb; box-shadow: none; } /* 재생 중엔 고정 강조 대신 지나간 칸만 표시 */
+  .flow.run .nd.done { box-shadow: inset 0 0 0 1.5px #cbbcf5; }
+  .flow.run .nd.on { background: var(--violet-soft); box-shadow: inset 0 0 0 2px var(--violet), 0 10px 22px -14px rgba(108,74,222,.7); transform: translateY(-3px); }
+  .flow.run .ar { transition: color .3s; }
+  .flow.run .ar.done { color: #a594e6; }
+  .flow.run .ar.on { color: var(--violet); }
+  .flow.run .ar.on .ic { animation: nudge .5s cubic-bezier(.2,.8,.2,1); }
+  @keyframes nudge { from { transform: translateX(-7px); opacity: .2; } }
+  .flow-play { margin-left: auto; font: inherit; font-size: 12.5px; font-weight: 600; padding: 3px 12px 3px 10px; border-radius: 99px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; transition: border-color .15s; }
+  .flow-play::before { content: ""; display: inline-block; width: 8px; height: 9px; box-sizing: border-box; border-left: 3px solid; border-right: 3px solid; margin-right: 6px; vertical-align: -0.5px; }
+  .flow-play[aria-pressed="true"]::before { width: 0; height: 0; border: 5px solid transparent; border-left: 8px solid; border-right: 0; vertical-align: -1px; }
+  .flow-play:hover { border-color: var(--violet); }
 
   /* company strip */
   .strip { --edge: max(28px, calc((100vw - 1160px) / 2 + 28px)); display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge); padding: 28px var(--edge) 24px; scrollbar-width: thin; cursor: grab; }
@@ -190,6 +204,26 @@
   .works-toggle:hover i { background: var(--ink); }
   .works-toggle:hover i::before, .works-toggle:hover i::after { background: #fff; }
   .works-toggle[aria-expanded="true"] i { transform: rotate(45deg); }
+  /* 닫혀 있을 때 눈에 띄게: 카드 + 썸네일 미리보기 + 빛 훑기 + 버튼 맥박 */
+  .works-toggle { position: relative; overflow: hidden; margin-top: 20px; padding: 16px 18px 16px 22px; border: 1.5px solid #d9cff7; border-radius: 16px; background: linear-gradient(100deg, #f3eeff, #fff 70%); box-shadow: 0 16px 30px -26px rgba(108,74,222,.8); transition: border-color .2s, transform .2s, box-shadow .2s; }
+  .works-toggle:hover { border-color: var(--violet); transform: translateY(-2px); box-shadow: 0 20px 34px -24px rgba(108,74,222,.8); }
+  .works-toggle::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, rgba(196,176,255,.45) 50%, transparent 62%); transform: translateX(-100%); pointer-events: none; }
+  .works-toggle[aria-expanded="false"]::after { animation: wt-shine 3.8s ease-in-out 1s infinite; }
+  @keyframes wt-shine { 0% { transform: translateX(-100%); } 40%, 100% { transform: translateX(100%); } }
+  .works-toggle[aria-expanded="false"] i { background: var(--violet); border-color: var(--violet); animation: wt-pulse 2.4s ease-out infinite; }
+  .works-toggle[aria-expanded="false"] i::before, .works-toggle[aria-expanded="false"] i::after { background: #fff; }
+  .works-toggle[aria-expanded="false"]:hover i { background: var(--ink); border-color: var(--ink); }
+  @keyframes wt-pulse { 0% { box-shadow: 0 0 0 0 rgba(108,74,222,.45); } 70%, 100% { box-shadow: 0 0 0 12px rgba(108,74,222,0); } }
+  .wt-hint { font-size: 13.5px; font-weight: 500; color: var(--muted); }
+  .wt-peek { margin-left: auto; display: flex; padding-right: 4px; transition: opacity .25s; }
+  .wt-peek img { width: 62px; height: 42px; object-fit: cover; border-radius: 7px; border: 2px solid #fff; box-shadow: 0 6px 14px -8px rgba(26,21,48,.7); margin-left: -20px; transform: rotate(var(--r, 0deg)); transition: transform .3s cubic-bezier(.2,.8,.2,1), margin .3s cubic-bezier(.2,.8,.2,1); }
+  .wt-peek img:first-child { margin-left: 0; }
+  .works-toggle:hover .wt-peek img { margin-left: -6px; transform: translateY(-3px); }
+  .works-toggle:hover .wt-peek img:first-child { margin-left: 0; }
+  .works-toggle i { margin-left: 14px; flex: none; }
+  .works-toggle[aria-expanded="true"] .wt-peek, .works-toggle[aria-expanded="true"] .wt-hint { opacity: 0; }
+  .wt-hint { transition: opacity .25s; }
+  @media (max-width: 640px) { .wt-hint, .wt-peek { display: none; } .works-toggle i { margin-left: auto; } .works-toggle { font-size: 17px; padding: 14px 14px 14px 16px; } }
   .works-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.2,.8,.2,1); }
   .works-panel.open { grid-template-rows: 1fr; }
   .works-inner { overflow: hidden; }
@@ -416,13 +450,13 @@
     <div><h3><svg class="ic" aria-hidden="true"><use href="img/icons.svg#refresh-cw"/></svg>스스로 돌아갑니다</h3><p>예약 루틴이 09·13·17시에 회의를 열고, 그 사이에는 매시 다음 단계로 일을 넘깁니다. 채팅으로 지시하면 바로 회의가 열립니다.</p></div>
     <div><h3><svg class="ic" aria-hidden="true"><use href="img/icons.svg#user-check"/></svg>검수는 사람이 합니다</h3><p>단계마다 검증팀이 반대 관점과 수치를 확인하고, 중요한 단계는 대표 승인 없이 넘어가지 않습니다.</p></div>
   </div>
-  <figure class="flow">
-    <figcaption>일이 흘러가는 순서<small>대표는 처음과 끝만 맡고, 가운데는 AI 팀이 이어 갑니다.</small></figcaption>
+  <figure class="flow run" id="aiFlow">
+    <figcaption>일이 흘러가는 순서<small>대표는 처음과 끝만 맡고, 가운데는 AI 팀이 이어 갑니다.</small><button type="button" class="flow-play" aria-pressed="false" hidden>멈춤</button></figcaption>
     <div class="flow-row"><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#user-check"/></svg></span><b>대표 지시</b><small>채팅 한 줄</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#messages-square"/></svg></span><b>회의</b><small>09·13·17시 자동</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd hot"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#pen-line"/></svg></span><b>기획·제작</b><small>6개 팀 에이전트</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#shield-check"/></svg></span><b>검증팀</b><small>반론·수치 확인</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="img/icons.svg#circle-check"/></svg></span><b>대표 승인</b><small>중요 단계만</small></div></div>
   </figure>
 
   <div class="works">
-    <button class="works-toggle" type="button" aria-expanded="false" aria-controls="works-panel"><span class="wt-label">실제 제작 자료 보기</span><span class="wt-count" id="wt-count"></span><i aria-hidden="true"></i></button>
+    <button class="works-toggle" type="button" aria-expanded="false" aria-controls="works-panel"><span class="wt-label">실제 제작 자료 보기</span><span class="wt-count" id="wt-count"></span><span class="wt-hint">눌러서 펼쳐 보기</span><span class="wt-peek" id="wt-peek" aria-hidden="true"></span><i aria-hidden="true"></i></button>
     <div class="works-panel" id="works-panel" inert>
       <div class="works-inner">
         <div class="wtabs" role="tablist" aria-label="자료 종류"></div>
@@ -482,6 +516,18 @@
 
 <script>
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// AI 컴퍼니 흐름도: 0.9초마다 다음 칸(단계·화살표)을 켜고, 끝에서 두 박자 쉬었다가 처음부터
+(() => {
+  const fig = document.getElementById('aiFlow'); if (!fig || reduce) return;
+  const items = [...fig.querySelectorAll('.flow-row > *')], btn = fig.querySelector('.flow-play');
+  let i = -1, timer = null, seen = false, paused = false;
+  const step = () => { i = (i + 1) % (items.length + 2); items.forEach((el, k) => { el.classList.toggle('on', k === i); el.classList.toggle('done', k < i); }); };
+  const sync = () => { clearInterval(timer); timer = !paused && seen ? setInterval(step, 900) : null; btn.setAttribute('aria-pressed', String(paused)); btn.textContent = paused ? '재생' : '멈춤'; };
+  btn.hidden = false;
+  btn.addEventListener('click', () => { paused = !paused; sync(); });
+  // 화면에 보일 때만 돈다
+  new IntersectionObserver(([e]) => { seen = e.isIntersecting; sync(); }).observe(fig);
+})();
 
 // top bar: border + current section
 const topBar = document.getElementById('top');
@@ -563,6 +609,9 @@ const WORKS = [
 const CATS = [['all', '전체'], ['web', '웹사이트'], ['deck', '서비스 소개서'], ['ir', 'IR 자료'], ['bi', 'BI·CI']];
 const wToggle = document.querySelector('.works-toggle'), wPanel = document.getElementById('works-panel'), wGrid = document.getElementById('wgrid'), wTabs = document.querySelector('.wtabs');
 document.getElementById('wt-count').textContent = WORKS.length + '점';
+// 종류별 첫 자료를 하나씩 겹쳐 미리 보여 준다
+document.getElementById('wt-peek').innerHTML = CATS.slice(1).map(([c]) => WORKS.find(w => w.c === c)).filter(Boolean).slice(0, 4)
+  .map((w, k) => `<img src="img/works/${w.k}_t.webp" alt="" loading="lazy" style="--r:${[-6, 3, -2, 5][k]}deg">`).join('');
 wGrid.innerHTML = WORKS.map((w, i) => `<button class="wcard" type="button" data-i="${i}" data-c="${w.c}" aria-label="${w.t} 크게 보기"><span class="th"><img src="img/works/${w.k}_t.webp" alt="" loading="lazy"></span><b>${w.t}</b><small>${w.s}</small></button>`).join('');
 wTabs.innerHTML = CATS.map(([c, n], i) => `<button class="wtab" role="tab" type="button" data-c="${c}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${n} ${c === 'all' ? WORKS.length : WORKS.filter(w => w.c === c).length}</button>`).join('');
 const wtabBtns = [...wTabs.children], cards = [...wGrid.children];
