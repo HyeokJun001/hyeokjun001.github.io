@@ -51,14 +51,29 @@ export const BOOTHS = [
       <p class="links"><a href="mailto:yhjun5413@gmail.com">메일 보내기</a><a href="https://github.com/HyeokJun001" target="_blank" rel="noopener">GitHub</a><a href="../yanghyeokjun-portfolio.pdf" download>PDF 받기</a></p></div></div>`,
   },
   {
-    id: 'awards', staff: 'Mage', x: -7.2, z: 9.5, color: '#c9902b', ink: '#2c2244', title: '수상 · 교육', sub: '데이터톤 장려상 · 최우수상', poster: null, more: '../#about',
-    reel: { type: 'list', head: '수상 · 교육', caption: '배우고, 대회에 나가고, 상을 받았습니다', items: [['2025 건양 헬스 데이터톤(KHD) 장려상', '건양대의료원 주최 · 의료 학습데이터 활용 · 팀 2인'], ['광주 인공지능사관학교 6기 최우수상', 'AI 모델링(컴퓨터비전) 과정 최종 프로젝트'], ['ADsP 데이터분석 준전문가', '2025.09 취득']] },
-    html: `<p class="lead">비전공(관광경영학)에서 시작해, 교육 과정과 대회로 실력을 쌓았습니다.</p>
+    id: 'awards', staff: 'Mage', x: -7.2, z: 9.5, color: '#c9902b', ink: '#2c2244', title: '수상 · 교육', sub: 'NIPA 원장상 · 최우수상 · 장려상', poster: null, more: '../#about',
+    reel: { type: 'list', head: '수상', caption: 'AI 공부를 시작하고 대회에서 받은 상들', items: [['NIPA 원장상 (최우수상)', 'EARLY DOT · AI 피부암 진단 플랫폼 · 팀장'], ['ESTsoft 최우수상', '실시간 응급 병원 추천'], ['KHD 데이터톤 장려상', 'PET 단독 뇌 아밀로이드 정량화 · 팀 2인'], ['AI사관학교 6기 1등', '최종 프로젝트 최우수상']] },
+    html: `<p class="lead">관광경영학 비전공에서 시작해, AI를 공부하며 나간 대회에서 상을 받았습니다.</p>
+      <h3>NIPA 원장상(최우수상) · EARLY DOT</h3>
+      <ul><li>AI 피부암 진단 + 의사·환자 관리 플랫폼, 팀장. 옆의 EARLY DOT 부스에서 자세히 볼 수 있습니다.</li></ul>
+      <h3>ESTsoft 최우수상 · 실시간 응급 병원 추천</h3>
       <h3>2025 건양 헬스 데이터톤(KHD) · 장려상</h3>
-      <ul><li>건양대의료원 주최, 'K-Health와 의료데이터 중심 병원' 사업으로 구축된 학습용 의료데이터를 활용하는 대회</li><li>6월 온라인 예선을 거쳐 본선에 오른 9개 팀이 7~8월 경합, 팀 '옛날냉커피'(2인)로 장려상</li><li><a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">관련 기사 (굿모닝경제, 2025.08.27)</a></li></ul>
-      <h3>광주 인공지능사관학교 6기 · 최종 프로젝트 최우수상</h3>
-      <ul><li>AI 모델링(컴퓨터비전) 과정 수료 (2025.06~12)</li></ul>
-      <h3>자격</h3>
-      <ul><li>ADsP 데이터분석 준전문가 (2025.09)</li></ul>`,
+      <ul><li>건양대의료원 주최, 학습용 의료데이터를 활용하는 대회. 6월 온라인 예선 후 본선 9팀이 7~8월 경합</li><li>팀 '옛날냉커피'(2인): CT·MRI 없이 PET 영상만으로 뇌 아밀로이드를 정량화하는 파이프라인(기존 CT 기반 처리 9~13시간을 딥러닝으로 대체)</li><li>DICOM → NIfTI 변환·정규화 데이터 파이프라인 전담(dcm2niix·Nibabel·ANTs), 3D U-Net 뇌 분할과 Centiloid 기준 정량화</li><li><a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">관련 기사 (굿모닝경제, 2025.08.27)</a></li></ul>
+      <h3>광주 인공지능사관학교 6기 · 최종 프로젝트 1등(최우수상)</h3>
+      <ul><li>AI 모델링(컴퓨터비전) 과정 수료 (2025.06~12, 이스트소프트 운영)</li></ul>
+      <h3>학력 · 자격</h3>
+      <ul><li>제주대학교 관광경영학 학사 (GPA 4.1/4.5) · ADsP 데이터분석 준전문가 (2025.09)</li></ul>`,
+  },
+  {
+    id: 'earlydot', staff: 'Knight', x: -12.4, z: 3.2, color: '#5b3fd1', title: 'EARLY DOT', sub: 'AI 피부암 진단 · NIPA 원장상', poster: '../img/earlydot/logo.png', more: 'https://github.com/earlydot25-cloud/early-dot-project', moreLabel: 'GitHub 저장소 보기',
+    reel: { type: 'list', head: 'EARLY DOT · 팀장', caption: 'AI 피부암 진단 + 의사·환자 관리 플랫폼 · NIPA 원장상', items: [['4개 서비스로 분리', 'React · Django API · FastAPI 모델 서버 · DB (Docker Compose)'], ['악성 흑색종 F1 65.1% → 84.6%', 'CNN 앙상블 + ViT 하이브리드'], ['진단 근거를 보여 주는 화면', 'Grad-CAM 히트맵 · 의사용 대시보드']] },
+    html: `<p class="lead">피부 병변 사진을 올리면 8개 질환으로 분류하고, 의사가 진단 근거와 환자 경과를 함께 보는 플랫폼입니다. 광주 인공지능사관학교 6기 최종 프로젝트로 팀장을 맡아 만들었고, NIPA 원장상(최우수상)을 받았습니다.</p>
+      <ul class="nums"><li><b>+19.5%p</b>악성 흑색종 F1 (65.1% → 84.6%)</li><li><b>37,919장</b>ISIC 2019·2020·2024 + AI-Hub 학습 데이터</li><li><b>4개 서비스</b>Docker Compose로 분리 배포</li></ul>
+      <h3>시스템</h3>
+      <ul><li>React(의사·환자 화면) · Django REST(인증·진단 기록·후속조치) · FastAPI(모델 추론 서버) · MySQL을 각각 서비스로 나눠 Docker Compose로 배포</li><li>쿠버네티스 배포 구조(Ingress 게이트웨이, 이미지 저장 볼륨, 추론 API만 배포) 설계·검토 참여</li></ul>
+      <h3>모델 (팀 공동 설계)</h3>
+      <ul><li>ResNet50과 EfficientNet-B4의 특징을 이어 붙인 CNN 앙상블 + ViT-B/16을 확률 평균(Soft Voting)으로 합친 하이브리드</li><li>클래스 불균형(약 17배)은 가중 Focal Loss로, 털은 U-Net 마스크 + LaMa 인페인팅으로 지운 뒤 분류</li><li>Grad-CAM++로 모델이 어디를 보고 판단했는지 의사에게 보여 줌</li></ul>
+      <h3>내가 맡은 것</h3>
+      <ul><li>의사용 대시보드와 진단 흐름 화면(React)</li><li>담당 환자 목록 API, Grad-CAM 결과 표시 연동</li><li>Docker 환경 구성과 문제 해결, 팀 협업(브랜치·PR) 조율</li></ul>`,
   },
 ];

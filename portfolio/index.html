@@ -196,6 +196,13 @@
   .w li { margin-bottom: 6px; }
   .w .go { display: inline-block; margin-top: 12px; font-weight: 600; color: var(--violet); }
 
+  .w-img.ed { background: #fff; padding: 34px 30px 28px; display: grid; gap: 22px; text-decoration: none; color: var(--ink); }
+  .w-img.ed img { width: 70%; margin: 0 auto; }
+  .ed-flow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; font-size: 13px; }
+  .ed-flow i { font-style: normal; background: var(--violet-soft); color: #3e2a86; padding: 5px 10px; border-radius: 8px; font-weight: 600; }
+  .ed-flow b { color: var(--muted); }
+  .ed-num { text-align: center; font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+  .ed-num b { display: block; font-size: 30px; color: var(--violet); letter-spacing: -0.02em; }
   /* about */
   .about { display: grid; grid-template-columns: 180px 1fr 1fr; gap: 40px; margin-top: 36px; padding-bottom: 40px; align-items: start; }
   .about img { width: 180px; border-radius: 14px; border: 1px solid var(--line); display: block; }
@@ -380,6 +387,11 @@
       <div><h3>회사 홈페이지</h3><p class="meta">jucompany.co.kr · 2026.11 오픈</p><ul><li>방향이 다른 시안 3개를 제안하고, 선택된 안을 제작해 오픈</li><li>견적 문의는 종류를 고르면 필요한 칸만 나타남</li><li>문의는 서버에서 담당자 메일로 바로 전달, IP당 분당 5회 제한</li><li>문의함·실적 관리자 화면, 1년 지난 문의 자동 삭제</li></ul><a class="go" href="https://jucompany.co.kr">사이트 열기</a></div></article>
     <article class="w"><a class="w-img" href="https://valora.kr" aria-label="VALORA 사이트 열기"><img src="img/valora-pc.png" alt="VALORA 브랜드 사이트 첫 화면" loading="lazy"></a>
       <div><h3>VALORA 브랜드 사이트</h3><p class="meta">valora.kr · 2026.11 배포</p><ul><li>12개 페이지를 한국어·영어로 구성</li><li>Three.js로 제품 디스펜서 3D 표현</li><li>상품·배너·공지는 관리자 화면에서 수정, 행 단위 접근 권한(RLS)으로 공개 항목만 조회</li></ul><a class="go" href="https://valora.kr">사이트 열기</a></div></article>
+    <article class="w"><a class="w-img ed" href="https://github.com/earlydot25-cloud/early-dot-project" aria-label="EARLY DOT 저장소 열기">
+        <img src="img/earlydot/logo.png" alt="EARLY DOT 로고" loading="lazy" width="568" height="128">
+        <span class="ed-flow" aria-hidden="true"><i>React</i><b>→</b><i>Django API</i><b>→</b><i>FastAPI 모델 서버</i><b>→</b><i>MySQL</i></span>
+        <span class="ed-num"><b>65.1% → 84.6%</b>악성 흑색종 F1 (CNN 단독 → CNN+ViT 하이브리드)</span></a>
+      <div><h3>EARLY DOT · NIPA 원장상</h3><p class="meta">AI 피부암 진단 + 의사·환자 관리 플랫폼 · 팀장 · 2025</p><ul><li>시스템을 React·Django API·FastAPI 모델 서버·DB 4개 서비스로 나눠 Docker Compose로 배포, 쿠버네티스 배포 구조 설계·검토 참여</li><li>의사용 대시보드·진단 흐름 화면, 담당 환자 목록 API, Grad-CAM 진단 근거 표시 연동, Docker 환경을 맡음</li><li>ResNet50+EfficientNet-B4 특징 결합과 ViT를 합친 모델 설계에 참여, 8개 피부 질환 분류에서 악성 흑색종 F1 +19.5%p</li></ul><a class="go" href="https://github.com/earlydot25-cloud/early-dot-project">GitHub 저장소</a></div></article>
     <article class="w"><a class="w-img" href="https://tarosoli.com" aria-label="솔이 열기"><img src="img/soli-pc.png" alt="솔이 사주·타로 상담 첫 화면" loading="lazy"></a>
       <div><h3>솔이</h3><p class="meta">tarosoli.com · 1인 운영</p><ul><li>사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영</li><li>누적 약 40명 이용, 실결제 발생</li><li>실결제 첫날 결제 검증 401을 응답 코드별로 추적해 원인(결제사 비밀키 미발급) 해결</li></ul><a class="go" href="https://tarosoli.com">서비스 열기</a></div></article>
   </div>
@@ -398,7 +410,9 @@
       <ul>
         <li>제이유컴퍼니 개발팀장(프론트엔드 단독) · 2026.05–11</li>
         <li>광주 인공지능사관학교 6기 AI 모델링 수료 · 최종 프로젝트 최우수상</li>
-        <li>2025 건양 헬스 데이터톤(KHD) 장려상 · 건양대의료원 주최 <a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">기사</a></li>
+        <li>NIPA 원장상(최우수상) · EARLY DOT, AI 피부암 진단 플랫폼(팀장)</li>
+        <li>ESTsoft 최우수상 · 실시간 응급 병원 추천</li>
+        <li>2025 건양 헬스 데이터톤(KHD) 장려상 · PET 단독 뇌 아밀로이드 정량화 <a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">기사</a></li>
         <li>제주대학교 관광경영학 학사 · ADsP</li>
       </ul>
       <h3 style="margin-top:20px">주로 쓰는 것</h3>

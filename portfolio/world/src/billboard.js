@@ -113,10 +113,10 @@ export function createBillboards(scene, booths) {
     g.textBaseline = 'top';
     g.fillStyle = b.color; g.font = '800 34px Pretendard, sans-serif'; g.fillText(b.reel.head, 32, 26);
     items.slice(0, shown).forEach(([big, small], k) => {
-      const y = 92 + k * 96;
-      g.fillStyle = '#ffd66b'; g.beginPath(); g.arc(50, y + 22, 16, 0, 7); g.fill();
-      g.fillStyle = '#ffffff'; g.font = '700 30px Pretendard, sans-serif'; g.fillText(big, 80, y);
-      g.fillStyle = 'rgba(255,255,255,.62)'; g.font = '500 21px Pretendard, sans-serif'; g.fillText(small, 80, y + 40);
+      const y = 84 + k * 72;
+      g.fillStyle = '#ffd66b'; g.beginPath(); g.arc(50, y + 18, 13, 0, 7); g.fill();
+      g.fillStyle = '#ffffff'; g.font = '700 28px Pretendard, sans-serif'; g.fillText(big, 80, y);
+      g.fillStyle = 'rgba(255,255,255,.62)'; g.font = '500 20px Pretendard, sans-serif'; g.fillText(small, 80, y + 35);
     });
     return b.reel.caption;
   }

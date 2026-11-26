@@ -47,8 +47,11 @@ function booth(b, texLoader) {
   const wall = new THREE.Mesh(new THREE.BoxGeometry(W, H - 0.3, 0.08), mat('#fbf7f0'));
   wall.position.set(0, (H - 0.3) / 2, -D / 2 + 0.05); wall.castShadow = true; wall.receiveShadow = true; g.add(wall);
   if (b.poster) {
-    const tex = texLoader.load(b.poster); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
-    const poster = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.6), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+    let poster;
+    // 그림 비율을 지켜 2.6×1.6 칸 안에 맞춘다(로고처럼 가로로 긴 그림이 늘어나지 않게)
+    const tex = texLoader.load(b.poster, t => { const r = t.image.width / t.image.height; const s = Math.min(2.6 / r, 1.6); poster.scale.set((s * r) / 2.6, s / 1.6, 1); });
+    tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+    poster = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.6), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, transparent: true }));
     poster.position.set(0, 1.35, -D / 2 + 0.1); g.add(poster);
   }
   // 앞 카운터
