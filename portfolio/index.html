@@ -50,6 +50,10 @@
   .hero h1 span:nth-child(3) { padding-left: 1.8em; }
   .hero p { font-size: 18px; color: #3d3854; max-width: 30em; margin: 28px 0 30px; }
   .hero-phone { justify-self: center; transform: rotate(4deg); }
+  /* 첫 화면 배경: 옅은 코드 글자 격자. 화면 폭 전체로 깔고 아래로 갈수록 흐려짐 */
+  body { overflow-x: clip; }
+  .hero { position: relative; isolation: isolate; }
+  .hero-bg { position: absolute; top: 0; left: calc(50% - 50vw); width: 100vw; height: 100%; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent); mask-image: linear-gradient(to bottom, #000 70%, transparent); }
 
   /* phone */
   .phone { width: 300px; aspect-ratio: 600 / 1300; border-radius: 44px; background: #111; padding: 11px; box-shadow: 0 50px 80px -40px rgba(60,30,140,.55), 0 0 0 2px #2a2440 inset; position: relative; }
@@ -516,6 +520,51 @@
 
 <script>
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 첫 화면 코드 해독 격자: 마우스가 있는 PC에서만, 움직일 때만 그린다(가만히 있으면 멈춤)
+(() => {
+  const hero = document.querySelector('.hero');
+  if (!hero || reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const cv = document.createElement('canvas'); cv.className = 'hero-bg'; cv.setAttribute('aria-hidden', 'true'); hero.prepend(cv);
+  const g = cv.getContext('2d'), base = document.createElement('canvas'), bg = base.getContext('2d');
+  const SET = '{}[]()<>/=;:+-*&|!?01abcdefxyz$#_'.split(''), CW = 17, CH = 24, R = 150, FONT = '500 14px "JetBrains Mono", monospace';
+  const pick = () => SET[Math.random() * SET.length | 0];
+  let w = 0, h = 0, cols = 0, rows = 0, ch = [], orig = [], heat = new Float32Array(0), raf = 0, last = 0, moved = false;
+  const pt = { x: -1e4, y: -1e4 };
+  function size() {
+    const dpr = Math.min(2, devicePixelRatio || 1); w = cv.clientWidth; h = cv.clientHeight;
+    for (const [c, x] of [[cv, g], [base, bg]]) { c.width = w * dpr; c.height = h * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0); x.font = FONT; x.textAlign = 'center'; x.textBaseline = 'middle'; }
+    cols = Math.ceil(w / CW); rows = Math.ceil(h / CH); orig = Array.from({ length: cols * rows }, pick); ch = orig.slice(); heat = new Float32Array(cols * rows);
+    bg.fillStyle = 'rgba(26,21,48,.055)'; orig.forEach((c, i) => bg.fillText(c, (i % cols) * CW + CW / 2, (i / cols | 0) * CH + CH / 2));
+    draw();
+  }
+  function draw() {
+    g.clearRect(0, 0, w, h); g.drawImage(base, 0, 0, w, h);
+    let active = false;
+    for (let i = 0; i < heat.length; i++) {
+      const x = (i % cols) * CW + CW / 2, y = (i / cols | 0) * CH + CH / 2;
+      const dx = x - pt.x, dy = y - pt.y, k = Math.abs(dx) < R && Math.abs(dy) < R ? Math.max(0, 1 - Math.hypot(dx, dy) / R) : 0;
+      const e = heat[i] = Math.max(heat[i] * 0.955, k);
+      if (e < 0.02) { heat[i] = 0; ch[i] = orig[i]; continue; }
+      active = true;
+      if (Math.random() < e * 0.35) ch[i] = pick();
+      g.clearRect(x - CW / 2, y - CH / 2, CW, CH);
+      g.fillStyle = `rgba(109,60,224,${0.07 + e * 0.8})`; g.fillText(ch[i], x, y);
+    }
+    return active;
+  }
+  const tick = now => { raf = 0; if (draw() || now - last < 120) raf = requestAnimationFrame(tick); };
+  const wake = () => { last = performance.now(); if (!raf) raf = requestAnimationFrame(tick); };
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const r = cv.getBoundingClientRect(); moved = true;
+    if (e.clientY < r.top - R || e.clientY > r.bottom + R) { pt.x = pt.y = -1e4; return; }
+    pt.x = e.clientX - r.left; pt.y = e.clientY - r.top; wake();
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => { pt.x = pt.y = -1e4; wake(); });
+  // 처음 한 번: 마우스를 아직 안 움직였으면 가짜 커서가 한 번 훑고 지나가 효과가 있다는 걸 알려 줌
+  const intro = t0 => now => { const f = (now - t0) / 1800; if (moved || f > 1) { if (!moved) { pt.x = pt.y = -1e4; wake(); } return; } pt.x = w * (0.08 + 0.84 * f); pt.y = h * (0.5 + 0.28 * Math.sin(f * Math.PI * 2)); wake(); requestAnimationFrame(intro(t0)); };
+  document.fonts.load(FONT).finally(() => { size(); new ResizeObserver(size).observe(cv); setTimeout(() => requestAnimationFrame(intro(performance.now())), 500); });
+})();
 // AI 컴퍼니 흐름도: 0.9초마다 다음 칸(단계·화살표)을 켜고, 끝에서 두 박자 쉬었다가 처음부터
 (() => {
   const fig = document.getElementById('aiFlow'); if (!fig || reduce) return;
