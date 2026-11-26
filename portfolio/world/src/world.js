@@ -69,7 +69,7 @@ function arch(scene, occluders) {
   const g = new THREE.Group();
   const m = mat('#2c2244');
   for (const x of [-2.6, 2.6]) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.35, 4, 0.35), m); p.position.set(x, 2, 0); p.castShadow = true; g.add(p); blockers.push({ x, z: 13, r: 0.35 }); }
-  const sign = textPlane('양혁준 포트폴리오 행사장', { w: 5.6, h: 1, bg: '#2c2244', fg: '#ffe6b8', size: 96, sub: '부스에 다가가면 작업을 볼 수 있어요' });
+  const sign = textPlane('양혁준 포트폴리오 행사장', { w: 5.6, h: 1, bg: '#2c2244', fg: '#ffe6b8', size: 76, sub: '부스에 다가가면 작업을 볼 수 있어요' });
   sign.position.set(0, 4.1, 0.2); g.add(sign);
   const sb = sign.clone(); sb.rotation.y = Math.PI; sb.position.z = -0.2; g.add(sb);
   g.position.set(0, 0, 13); scene.add(g); occluders.push(g);
