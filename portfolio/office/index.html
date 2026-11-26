@@ -53,6 +53,42 @@
   .db li { margin-bottom: 6px; font-size: 15px; }
   .db a { color: var(--ink); font-weight: 700; }
   footer { padding: 0 0 50px; font-size: 14px; }
+  /* icons (../img/icons.svg) */
+  .ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
+  .stores { display: flex; flex-wrap: wrap; gap: 6px; }
+  .store { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; background: #fff; font-weight: 700; font-size: 13px; color: var(--ink); line-height: 1.15; }
+  .store .ic { width: 20px; height: 20px; }
+  .store > span { display: flex; flex-direction: column; }
+  .store small { font-weight: 500; font-size: 11px; opacity: .7; white-space: nowrap; }
+  .flow-row { display: flex; align-items: stretch; gap: 6px; }
+  .flow-row + .flow-row { margin-top: 14px; padding-top: 14px; }
+  .nd { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 14px 8px; }
+  .nd-i { display: flex; gap: 5px; }
+  .nd-i .ic { width: 28px; height: 28px; }
+  .nd b { font-size: 14px; line-height: 1.3; }
+  .nd small { font-size: 12px; line-height: 1.4; }
+  .ar { display: grid; place-items: center; }
+  .ar .ic { width: 18px; height: 18px; }
+  .stats b { display: flex; align-items: center; gap: 8px; }
+  .stats b .ic { width: 24px; height: 24px; color: #6d3ce0; }
+  .pbtn .ic { width: 16px; height: 16px; margin-right: 4px; }
+  .hot span { display: inline-flex !important; align-items: center; gap: 4px; }
+  .hot span .ic { width: 1.2em; height: 1.2em; }
+  .store { border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .dx { grid-column: 1 / -1; }
+  .dx .stores { margin-bottom: 12px; }
+  .flow { margin: 0; padding: 14px; border: 3px solid var(--ink); background: #fff; }
+  .flow figcaption { font-family: "Galmuri11", monospace; font-size: 13px; margin-bottom: 10px; }
+  .flow-row + .flow-row { border-top: 3px dotted #d7c6a6; }
+  .nd { background: #fff3d6; border: 2px solid var(--ink); padding: 10px 6px; }
+  .nd.key { background: var(--sun); } /* .hot 은 사무실 이름표 버튼이라 다른 이름을 쓴다 */
+  .nd-i { color: var(--ink); }
+  .nd-i .ic { width: 24px; height: 24px; }
+  .nd b { font-size: 13px; }
+  .nd small { font-size: 11.5px; color: #5a5270; }
+  .ar { color: var(--ink); }
+  #dLink { display: inline-flex; align-items: center; gap: 5px; }
+
 
   @media (max-width: 860px) {
     .intro { grid-template-columns: 1fr; gap: 24px; padding-top: 28px; }
@@ -61,6 +97,12 @@
     .stats div:nth-child(n+3) { border-top: 3px solid var(--ink); }
     .db { grid-template-columns: 1fr; }
     .hot span { font-size: 10px; padding: 1px 4px; }
+    .hot span .ic { display: none; }
+    .flow-row { flex-direction: column; }
+    .nd { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 1px; align-items: center; text-align: left; padding: 10px 12px; }
+    .nd-i { grid-row: span 2; }
+    .nd b, .nd small { grid-column: 2; }
+    .ar { transform: rotate(90deg); height: 16px; }
   }
   @media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
 </style>
@@ -76,7 +118,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="bar"><span class="name pix">양혁준의 작업실</span><div class="ctrl"><button class="pbtn" id="pause" type="button" aria-pressed="false">멈춤</button><a class="pbtn" href="mailto:yhjun5413@gmail.com" style="text-decoration:none">연락하기</a></div></div>
+  <div class="bar"><span class="name pix">양혁준의 작업실</span><div class="ctrl"><button class="pbtn" id="pause" type="button" aria-pressed="false">멈춤</button><a class="pbtn" href="mailto:yhjun5413@gmail.com" style="text-decoration:none"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#mail"/></svg>연락하기</a></div></div>
   <div class="stage" id="stage">
     <canvas id="c" width="320" height="150" aria-label="책상 다섯 개가 있는 픽셀 사무실. 책상마다 프로젝트가 놓여 있고 캐릭터가 돌아다닙니다."></canvas>
   </div>
@@ -88,23 +130,31 @@
     <div class="log" aria-live="polite"><h2 class="pix">지금 작업실에서</h2><ul id="log"></ul></div>
   </section>
   <div class="stats">
-    <div><b>1,500+</b><span>프로모터 실제 이용자</span></div>
-    <div><b>47</b><span>혼자 만든 화면</span></div>
-    <div><b>187</b><span>배포 전 자동 점검</span></div>
-    <div><b>13</b><span>AI 에이전트 팀원</span></div>
+    <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#users"/></svg>1,500+</b><span>프로모터 실제 이용자</span></div>
+    <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layout-dashboard"/></svg>47</b><span>혼자 만든 화면</span></div>
+    <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#shield-check"/></svg>187</b><span>배포 전 자동 점검</span></div>
+    <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#bot"/></svg>13</b><span>AI 에이전트 팀원</span></div>
   </div>
   <footer>yhjun5413@gmail.com · github.com/HyeokJun001</footer>
 </div>
 
-<dialog id="dlg" aria-labelledby="dTitle"><div class="dh"><span class="pix" id="dTitle"></span><button class="pbtn" id="close" type="button">닫기</button></div><div class="db"><img id="dImg" alt=""><div><ul id="dList"></ul><p style="margin-top:10px"><a id="dLink" href="#">사이트 열기</a></p></div></div></dialog>
+<dialog id="dlg" aria-labelledby="dTitle"><div class="dh"><span class="pix" id="dTitle"></span><button class="pbtn" id="close" type="button">닫기</button></div><div class="db"><img id="dImg" alt=""><div><ul id="dList"></ul><p style="margin-top:10px"><a id="dLink" href="#"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#globe"/></svg><span>사이트 열기</span></a></p></div><div class="dx" id="dExtra"></div></div></dialog>
 
 <script>
+const IC = id => `<svg class="ic" aria-hidden="true"><use href="../img/icons.svg#${id}"/></svg>`;
+const ARROW = `<span class="ar">${IC('arrow-right')}</span>`;
+// 구조도: rows = [[ [아이콘|아이콘들, 이름, 설명, 강조?], ... ], ...]
+const flow = (cap, rows) => `<figure class="flow"><figcaption>${cap}</figcaption>${rows.map(r => `<div class="flow-row">${r.map(([ics, b, sm, hot]) => `<div class="nd${hot ? ' key' : ''}"><span class="nd-i">${[].concat(ics).map(IC).join('')}</span><b>${b}</b>${sm ? `<small>${sm}</small>` : ''}</div>`).join(ARROW)}</div>`).join('')}</figure>`;
+const STORES = `<span class="stores"><span class="store"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></span><span class="store"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></span></span>`;
 const P = {
-  promotor: { t: '프로모터', img: '../img/promotor-pc.png', url: 'https://promotor.kr', li: ['기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포', '실제 이용 1,500명 이상, 채용 확정 100건 이상 (회사 공개 수치)', 'Supabase에서 REST API로 바꿀 때 화면 코드는 그대로 두고 전환', '배포 전 자동 점검 187개, 실패하면 운영에 올라가지 않음'] },
-  ai: { t: 'AI 컴퍼니', img: '../img/ai_company_05_meeting.png', url: '../#ai', li: ['Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀', '8주 동안 프로젝트 15건, 업무 완료 262건', '업무 기록 2,487건을 Canvas 픽셀 사무실에서 재생', '이 페이지의 사무실도 같은 방식으로 그림'] },
-  ju: { t: '회사 홈페이지', img: '../img/jucompany-pc.png', url: 'https://jucompany.co.kr', li: ['방향이 다른 시안 3개를 제안하고 선택안 제작·오픈', '문의는 서버에서 담당자 메일로 바로 전달, IP당 분당 5회 제한', '문의함·실적 관리자 화면, 1년 지난 문의 자동 삭제'] },
-  valora: { t: 'VALORA', img: '../img/valora-pc.png', url: 'https://valora.kr', li: ['12개 페이지를 한국어·영어로 구성', 'Three.js로 제품 디스펜서 3D', 'Supabase 관리자 화면, 행 단위 접근 권한(RLS)'] },
-  soli: { t: '솔이', img: '../img/soli-pc.png', url: 'https://tarosoli.com', li: ['사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영', '누적 약 40명 이용, 실결제 발생', '실결제 첫날 결제 검증 401을 추적해 원인 해결'] },
+  promotor: { ic: 'monitor-smartphone', t: '프로모터', img: '../img/promotor-pc.png', url: 'https://promotor.kr', li: ['기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포', '실제 이용 1,500명 이상, 채용 확정 100건 이상 (회사 공개 수치)', 'Supabase에서 REST API로 바꿀 때 화면 코드는 그대로 두고 전환', '배포 전 자동 점검 187개, 실패하면 운영에 올라가지 않음'],
+    extra: () => STORES + flow('구조', [[['monitor-smartphone', 'React 화면', '47개'], ['layers', '어댑터', '백엔드 교체 흡수', true], ['server', 'REST API'], ['database', 'DB']], [['globe', '웹'], ['package', 'Capacitor', '앱으로 포장', true], [['android', 'ios'], '2개 스토어']]]) },
+  ai: { ic: 'bot', t: 'AI 컴퍼니', img: '../img/ai_company_05_meeting.png', url: '../#ai', li: ['Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀', '8주 동안 프로젝트 15건, 업무 완료 262건', '업무 기록 2,487건을 Canvas 픽셀 사무실에서 재생', '이 페이지의 사무실도 같은 방식으로 그림'],
+    extra: () => flow('일이 흘러가는 순서', [[['user-check', '대표 지시'], ['messages-square', '회의', '09·13·17시'], ['pen-line', '기획·제작', '6개 팀', true], ['shield-check', '검증팀'], ['circle-check', '대표 승인']]]) },
+  ju: { ic: 'globe', t: '회사 홈페이지', img: '../img/jucompany-pc.png', url: 'https://jucompany.co.kr', li: ['방향이 다른 시안 3개를 제안하고 선택안 제작·오픈', '문의는 서버에서 담당자 메일로 바로 전달, IP당 분당 5회 제한', '문의함·실적 관리자 화면, 1년 지난 문의 자동 삭제'] },
+  valora: { ic: 'package', t: 'VALORA', img: '../img/valora-pc.png', url: 'https://valora.kr', li: ['12개 페이지를 한국어·영어로 구성', 'Three.js로 제품 디스펜서 3D', 'Supabase 관리자 화면, 행 단위 접근 권한(RLS)'] },
+  soli: { ic: 'sparkles', t: '솔이', img: '../img/soli-pc.png', url: 'https://tarosoli.com', li: ['사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영', '누적 약 40명 이용, 실결제 발생', '실결제 첫날 결제 검증 401을 추적해 원인 해결'],
+    extra: () => flow('구조', [[['monitor-smartphone', 'React 화면'], ['server', 'FastAPI 서버', '', true], [['database', 'sparkles', 'credit-card'], 'DB · LLM · 결제']]]) },
 };
 // logical canvas 320x150
 const desks = [
@@ -114,11 +164,11 @@ const cv = document.getElementById('c'), cx = cv.getContext('2d'), stage = docum
 desks.forEach(d => {
   const b = document.createElement('button'); b.className = 'hot'; b.type = 'button';
   b.style.left = (d.x / 320 * 100) + '%'; b.style.top = ((d.y - 22) / 150 * 100) + '%';
-  b.innerHTML = `<span>${P[d.id].t}</span>`; b.setAttribute('aria-haspopup', 'dialog');
+  b.innerHTML = `<span>${IC(P[d.id].ic)}${P[d.id].t}</span>`; b.setAttribute('aria-haspopup', 'dialog');
   b.addEventListener('click', () => openP(d.id)); stage.appendChild(b);
 });
 const dlg = document.getElementById('dlg');
-function openP(id) { const p = P[id]; dTitle.textContent = p.t; dImg.src = p.img; dImg.alt = p.t + ' 화면'; dList.innerHTML = p.li.map(x => `<li>${x}</li>`).join(''); dLink.href = p.url; dLink.style.display = p.url === '#' ? 'none' : ''; dlg.showModal(); }
+function openP(id) { const p = P[id]; dTitle.textContent = p.t; dImg.src = p.img; dImg.alt = p.t + ' 화면'; dList.innerHTML = p.li.map(x => `<li>${x}</li>`).join(''); dLink.href = p.url; dExtra.innerHTML = p.extra ? p.extra() : ''; dExtra.hidden = !p.extra; dLink.style.display = p.url === '#' ? 'none' : ''; dlg.showModal(); }
 document.getElementById('close').onclick = () => dlg.close();
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 

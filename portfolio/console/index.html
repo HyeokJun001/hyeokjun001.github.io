@@ -80,6 +80,39 @@
   .row img { position: absolute; right: 180px; top: 50%; width: 260px; border-radius: 10px; box-shadow: 0 20px 40px -20px rgba(0,0,0,.4); opacity: 0; transform: translateY(-40%) rotate(-2deg); transition: opacity .2s, transform .2s; pointer-events: none; }
   .row:hover img, .row:focus-visible img { opacity: 1; transform: translateY(-50%) rotate(-2deg); }
   footer { padding: 40px 0 60px; color: var(--slate); font-size: 14px; }
+  /* icons (../img/icons.svg) */
+  .ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
+  .stores { display: flex; flex-wrap: wrap; gap: 6px; }
+  .store { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; background: #fff; font-weight: 700; font-size: 13px; color: var(--ink); line-height: 1.15; }
+  .store .ic { width: 20px; height: 20px; }
+  .store > span { display: flex; flex-direction: column; }
+  .store small { font-weight: 500; font-size: 11px; opacity: .7; white-space: nowrap; }
+  .flow-row { display: flex; align-items: stretch; gap: 6px; }
+  .flow-row + .flow-row { margin-top: 14px; padding-top: 14px; }
+  .nd { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 14px 8px; }
+  .nd-i { display: flex; gap: 5px; }
+  .nd-i .ic { width: 28px; height: 28px; }
+  .nd b { font-size: 14px; line-height: 1.3; }
+  .nd small { font-size: 12px; line-height: 1.4; }
+  .ar { display: grid; place-items: center; }
+  .ar .ic { width: 18px; height: 18px; }
+  .facts b .ic { color: var(--run); width: 20px; height: 20px; margin-right: 6px; }
+  .btn .ic { width: 18px; height: 18px; }
+  .stage b .ic { color: #6fd39d; margin-right: 5px; }
+  .step .dot .ic { width: 16px; height: 16px; }
+  .row h3 { display: flex; gap: 10px; align-items: center; }
+  .row h3 .ic { color: var(--run); width: 22px; height: 22px; }
+  .row .stores { margin-top: 10px; }
+  .store { border: 1.5px solid var(--line); border-radius: 8px; }
+  .flow { margin-top: 28px; padding: 22px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+  .flow-row + .flow-row { border-top: 1px dashed var(--line); }
+  .nd { background: var(--paper); border-radius: 10px; border: 1px solid transparent; transition: border-color .15s, transform .15s; }
+  .nd:hover { border-color: var(--run); transform: translateY(-2px); }
+  .nd.hot { background: #e3eefa; border-color: #b9d2ee; }
+  .nd-i { color: var(--run); }
+  .nd small { color: var(--slate); }
+  .ar { color: #9fb0a8; }
+  .flow .tag { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--slate); margin-bottom: 12px; }
 
   @media (max-width: 860px) {
     .hero { grid-template-columns: 1fr; gap: 32px; min-height: 0; padding-top: 36px; }
@@ -92,6 +125,11 @@
     .row { grid-template-columns: 1fr; gap: 6px; }
     .row .meta { text-align: left; }
     .row img { display: none; }
+    .flow-row { flex-direction: column; }
+    .nd { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 1px; align-items: center; text-align: left; padding: 10px 12px; }
+    .nd-i { grid-row: span 2; }
+    .nd b, .nd small { grid-column: 2; }
+    .ar { transform: rotate(90deg); height: 16px; }
   }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: 0s !important; transition: none !important; } }
 </style>
@@ -113,14 +151,14 @@
       <h1>사용자가 매일 쓰는 화면을 만들고, 멈추지 않게 운영합니다</h1>
       <p class="lede">행사 인력 매칭 플랫폼 '프로모터'의 기업·구직자·관리자 화면 47개를 혼자 만들고 운영했습니다. 오른쪽은 실제로 쓰는 배포 명령을 그대로 재현한 화면입니다. 점검이 하나라도 실패하면 운영에 올라가지 않습니다.</p>
       <div class="facts">
-        <div><b>1,500명+</b><span>실제 이용자</span></div>
-        <div><b>100건+</b><span>채용 확정</span></div>
-        <div><b>187개</b><span>배포 전 자동 점검</span></div>
+        <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#users"/></svg>1,500명+</b><span>실제 이용자</span></div>
+        <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#file-pen-line"/></svg>100건+</b><span>채용 확정</span></div>
+        <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#shield-check"/></svg>187개</b><span>배포 전 자동 점검</span></div>
       </div>
       <div class="links">
-        <a class="btn primary" href="#projects">작업 보기</a>
-        <a class="btn ghost" href="mailto:yhjun5413@gmail.com">메일 보내기</a>
-        <a class="btn ghost" href="https://github.com/HyeokJun001">GitHub</a>
+        <a class="btn primary" href="#projects"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layout-dashboard"/></svg>작업 보기</a>
+        <a class="btn ghost" href="mailto:yhjun5413@gmail.com"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#mail"/></svg>메일 보내기</a>
+        <a class="btn ghost" href="https://github.com/HyeokJun001"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#git-branch"/></svg>GitHub</a>
       </div>
     </div>
 
@@ -129,10 +167,10 @@
         <div class="term-bar"><span class="path">~/promotor/frontend</span><button id="toggle" type="button" aria-pressed="false">일시정지</button></div>
         <div class="term-body" id="out" aria-hidden="true"></div>
         <div class="stages" aria-hidden="true">
-          <div class="stage" data-s="0"><b>자동 점검</b>e2e 187개</div>
-          <div class="stage" data-s="1"><b>빌드</b>vite</div>
-          <div class="stage" data-s="2"><b>업로드</b>버전 확인</div>
-          <div class="stage" data-s="3"><b>반영 확인</b>최대 60초</div>
+          <div class="stage" data-s="0"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#shield-check"/></svg>자동 점검</b>e2e 187개</div>
+          <div class="stage" data-s="1"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#package"/></svg>빌드</b>vite</div>
+          <div class="stage" data-s="2"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#cloud-upload"/></svg>업로드</b>버전 확인</div>
+          <div class="stage" data-s="3"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#circle-check"/></svg>반영 확인</b>최대 60초</div>
         </div>
       </div>
       <p class="caption">테스트 이름은 실제 점검 코드에서 가져왔습니다. 반복 재생되며, 일시정지할 수 있습니다.</p>
@@ -152,15 +190,25 @@
     <div class="detail" role="tabpanel" aria-live="polite"><p id="dText"></p><pre class="log" id="dLog"></pre></div>
   </section>
 
+  <section aria-labelledby="arch">
+    <h2 id="arch">프로모터 구조</h2>
+    <p class="sub">화면 코드 하나로 웹과 앱을 내고, 백엔드를 바꿔도 화면은 다시 쓰지 않았습니다.</p>
+    <figure class="flow" aria-label="React 화면, 데이터 훅과 어댑터, API 클라이언트, Spring Boot REST API, DB 순서. 웹 화면은 Capacitor로 포장해 Google Play와 App Store에 출시">
+      <p class="tag">$ tree promotor --depth=architecture</p>
+      <div class="flow-row"><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#monitor-smartphone"/></svg></span><b>React 화면</b><small>구직자·기업·관리자 47개</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#arrow-right"/></svg></span><div class="nd hot"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layers"/></svg></span><b>데이터 훅 + 어댑터</b><small>백엔드 교체를 여기서 흡수</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#key-round"/></svg></span><b>API 클라이언트</b><small>웹 쿠키 · 앱 토큰</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#server"/></svg></span><b>Spring Boot REST API</b><small>Supabase에서 교체</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#database"/></svg></span><b>DB</b></div></div>
+      <div class="flow-row"><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#globe"/></svg></span><b>웹</b><small>브라우저</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#arrow-right"/></svg></span><div class="nd hot"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#package"/></svg></span><b>Capacitor</b><small>같은 코드를 앱으로 포장</small></div><span class="ar"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#arrow-right"/></svg></span><div class="nd"><span class="nd-i"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#android"/></svg><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#ios"/></svg></span><b>Google Play · App Store</b><small>2개 스토어 출시</small></div></div>
+    </figure>
+  </section>
+
   <section id="projects" aria-labelledby="pj">
     <h2 id="pj">작업</h2>
     <p class="sub">줄에 마우스를 올리면 화면이 보입니다.</p>
     <div class="rows">
-      <a class="row" href="https://promotor.kr"><h3>프로모터</h3><p>3개 포털 화면 47개 · Supabase에서 REST API로 무중단 전환 · 웹과 앱 인증 통합 · Google Play·App Store 출시</p><span class="meta">2026.05–11<br>프론트엔드 단독</span><img src="../img/promotor-pc.png" alt=""></a>
-      <a class="row" href="../#ai"><h3>AI 컴퍼니</h3><p>Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀과, 그 기록을 재생하는 픽셀 사무실 화면</p><span class="meta">2026.09–<br>설계·구현 단독</span><img src="../img/ai_company_05_meeting.png" alt=""></a>
-      <a class="row" href="https://jucompany.co.kr"><h3>회사 홈페이지</h3><p>시안 3개 중 선택안 제작 · 문의 메일 직송과 전송 제한 · 문의함·실적 관리자 화면</p><span class="meta">2026.11<br>기획–오픈</span><img src="../img/jucompany-pc.png" alt=""></a>
-      <a class="row" href="https://valora.kr"><h3>VALORA 브랜드 사이트</h3><p>12개 페이지 한·영 · Three.js 제품 3D · Supabase 관리자 화면과 행 단위 접근 권한</p><span class="meta">2026.11<br>기획–배포</span><img src="../img/valora-pc.png" alt=""></a>
-      <a class="row" href="https://tarosoli.com"><h3>솔이</h3><p>사주·타로 AI 상담 서비스 · 결제와 환불까지 혼자 운영 · 누적 약 40명, 실결제 발생</p><span class="meta">2026–<br>1인 운영</span><img src="../img/soli-pc.png" alt=""></a>
+      <a class="row" href="https://promotor.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#monitor-smartphone"/></svg>프로모터</h3><p>3개 포털 화면 47개 · Supabase에서 REST API로 무중단 전환 · 웹과 앱 인증 통합 · Google Play·App Store 출시<span class="stores"><span class="store"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></span><span class="store"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></span></span></p><span class="meta">2026.05–11<br>프론트엔드 단독</span><img src="../img/promotor-pc.png" alt=""></a>
+      <a class="row" href="../#ai"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#bot"/></svg>AI 컴퍼니</h3><p>Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀과, 그 기록을 재생하는 픽셀 사무실 화면</p><span class="meta">2026.09–<br>설계·구현 단독</span><img src="../img/ai_company_05_meeting.png" alt=""></a>
+      <a class="row" href="https://jucompany.co.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#globe"/></svg>회사 홈페이지</h3><p>시안 3개 중 선택안 제작 · 문의 메일 직송과 전송 제한 · 문의함·실적 관리자 화면</p><span class="meta">2026.11<br>기획–오픈</span><img src="../img/jucompany-pc.png" alt=""></a>
+      <a class="row" href="https://valora.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#package"/></svg>VALORA 브랜드 사이트</h3><p>12개 페이지 한·영 · Three.js 제품 3D · Supabase 관리자 화면과 행 단위 접근 권한</p><span class="meta">2026.11<br>기획–배포</span><img src="../img/valora-pc.png" alt=""></a>
+      <a class="row" href="https://tarosoli.com"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#sparkles"/></svg>솔이</h3><p>사주·타로 AI 상담 서비스 · 결제와 환불까지 혼자 운영 · 누적 약 40명, 실결제 발생</p><span class="meta">2026–<br>1인 운영</span><img src="../img/soli-pc.png" alt=""></a>
     </div>
   </section>
   <footer>yhjun5413@gmail.com · github.com/HyeokJun001</footer>
