@@ -52,13 +52,19 @@ export const BOOTHS = [
   },
   {
     id: 'awards', staff: 'Mage', x: -7.2, z: 9.5, color: '#c9902b', ink: '#2c2244', title: '수상 · 교육', sub: 'NIPA 원장상 · 최우수상 · 장려상', poster: null, more: '../#about',
-    reel: { type: 'list', head: '수상', caption: 'AI 공부를 시작하고 대회에서 받은 상들', items: [['NIPA 원장상 (최우수상)', 'EARLY DOT · AI 피부암 진단 플랫폼 · 팀장'], ['ESTsoft 최우수상', '실시간 응급 병원 추천'], ['KHD 데이터톤 장려상', 'PET 단독 뇌 아밀로이드 정량화 · 팀 2인'], ['AI사관학교 6기 1등', '최종 프로젝트 최우수상']] },
+    reel: { type: 'list', head: '수상', caption: 'AI 공부를 시작하고 대회에서 받은 상들', items: [['NIPA 원장상 (최우수상)', 'EARLY DOT · AI 피부암 진단 플랫폼 · 팀장'], ['ESTsoft 최우수상', '실시간 응급 병원 추천'], ['KHD 데이터톤 장려상', 'CT 없이 PET만으로 간·뇌 정량화 · 오차율 4.7%'], ['AI사관학교 6기 1등', '최종 프로젝트 최우수상']] },
     html: `<p class="lead">관광경영학 비전공에서 시작해, AI를 공부하며 나간 대회에서 상을 받았습니다.</p>
       <h3>NIPA 원장상(최우수상) · EARLY DOT</h3>
       <ul><li>AI 피부암 진단 + 의사·환자 관리 플랫폼, 팀장. 옆의 EARLY DOT 부스에서 자세히 볼 수 있습니다.</li></ul>
       <h3>ESTsoft 최우수상 · 실시간 응급 병원 추천</h3>
       <h3>2025 건양 헬스 데이터톤(KHD) · 장려상</h3>
-      <ul><li>건양대의료원 주최, 학습용 의료데이터를 활용하는 대회. 6월 온라인 예선 후 본선 9팀이 7~8월 경합</li><li>팀 '옛날냉커피'(2인): CT·MRI 없이 PET 영상만으로 뇌 아밀로이드를 정량화하는 파이프라인(기존 CT 기반 처리 9~13시간을 딥러닝으로 대체)</li><li>DICOM → NIfTI 변환·정규화 데이터 파이프라인 전담(dcm2niix·Nibabel·ANTs), 3D U-Net 뇌 분할과 Centiloid 기준 정량화</li><li><a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">관련 기사 (굿모닝경제, 2025.08.27)</a></li></ul>
+      <ul><li>건양대의료원 주최, 학습용 의료데이터를 활용하는 대회. 6월 온라인 예선 후 본선 9팀이 7~8월 경합, 팀 '옛날냉커피'(2인)</li>
+        <li><b>발표 주제</b>: 딥러닝을 활용한 CT 없이 단독 PET의 정량화 및 Template을 통한 효율적 진단 방식 제공</li>
+        <li><b>문제</b>: PET 수치를 정확히 재려면 CT의 해부학 정보가 필요해, 한 사람 영상을 정밀 처리하는 데 약 13시간 이상(CT 9시간 + PET 4시간) 걸림</li>
+        <li><b>방법</b>: DICOM → NIfTI 변환(dcm2niix), Nibabel·ANTs로 축·방향 통일과 160³ 자르기·정합, 3D U-Net 장기 분할, 46명 데이터를 정합해 간·뇌 평균 template 생성 → 이후엔 딥러닝 없이 정합만으로 라벨링·정량화</li>
+        <li><b>결과</b>: GAAIN-Centiloid 데이터 46개로 테스트해 평균 오차율 4.7% (Dice index로 정합 정확도 검증)</li>
+        <li><b>트러블슈팅</b>: 정상인 장기 라벨의 위치·크기 오류를 발견해 간·뇌 template과 뇌 분할로 범위를 다시 잡음</li>
+        <li><a href="https://www.goodkyung.com/news/articleView.html?idxno=270883" target="_blank" rel="noopener">관련 기사 (굿모닝경제, 2025.08.27)</a></li></ul>
       <h3>광주 인공지능사관학교 6기 · 최종 프로젝트 1등(최우수상)</h3>
       <ul><li>AI 모델링(컴퓨터비전) 과정 수료 (2025.06~12, 이스트소프트 운영)</li></ul>
       <h3>학력 · 자격</h3>
