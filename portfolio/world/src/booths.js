@@ -18,7 +18,7 @@ export const BOOTHS = [
   {
     id: 'promotor', staff: 'Ranger', angle: -20, color: '#6d3ce0', title: '프로모터', sub: '행사 인력 플랫폼 · 화면 47개', poster: '../img/promotor-pc.png', more: '../#story',
     reel: { images: [['../img/guide/worker-2-jobs.webp', '행사 찾기'], ['../img/guide/worker-3-applications.webp', '역할 하나로 지원'], ['../img/guide/worker-4-contract.webp', '근로계약서 서명'], ['../img/guide/worker-5-attendance.webp', '현장 출근 체크'], ['../img/guide/worker-6-salary.webp', '급여 내역'], ['../img/promotor-pc.png', '실제 이용 1,500명+ · 채용 확정 100건+']] },
-    html: `<p class="lead">공고를 올리면 사람이 지원하고, 계약하고, 출근합니다. 이 흐름의 기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포했습니다.</p>
+    html: `<p class="lead">행사 인력이 필요한 기업과 일할 사람을 잇는 플랫폼입니다. 기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포했습니다.</p>
       <ul class="nums"><li><span class="ico">${I('users')}</span><b>1,500명+</b>실제 이용자 (2026.11.11, 회사 공개 수치)</li><li><span class="ico">${I('file-pen-line')}</span><b>100건+</b>채용 확정</li><li><span class="ico">${I('smartphone')}</span><b>2개 스토어</b>같은 웹 코드로 앱 출시${STORES}</li></ul>
       <div class="shots">${img('guide/worker-2-jobs.webp', '행사 찾기 화면', '행사 찾기')}${img('guide/worker-4-contract.webp', '근로계약서 화면', '계약 서명')}${img('guide/worker-5-attendance.webp', '출퇴근 화면', '출퇴근')}</div>
       ${flow('구조: 화면 하나로 웹·앱, 백엔드를 바꿔도 화면은 그대로', [
