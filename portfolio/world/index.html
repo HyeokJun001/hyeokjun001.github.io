@@ -74,6 +74,7 @@
   .shots.two { grid-template-columns: 1fr 1fr; }
   figure { margin: 0; }
   figure img { width: 100%; border-radius: 10px; border: 1px solid var(--line); display: block; }
+  .shots:not(.two) figure img { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; } /* 세로로 긴 화면이 패널을 너무 길게 만들지 않게 */
   figcaption { font-size: 12.5px; color: #6b6280; margin-top: 4px; }
   .term { background: #16122a; color: #b7f0cf; border-radius: 10px; padding: 14px; font: 12.5px/1.6 Consolas, monospace; white-space: pre-wrap; }
   .cards { display: grid; gap: 14px; }

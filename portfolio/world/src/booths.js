@@ -35,12 +35,12 @@ export const BOOTHS = [
       <p>대표는 지시와 승인만 하고, 기획 → 반론 → 제작 → 검수를 AI 팀이 이어 갑니다. 아래 버튼에서 왜 만들었는지, 조직·절차·사무실 화면 기능·겪은 문제까지 자세히 볼 수 있습니다.</p>`,
   },
   {
-    id: 'work', staff: 'Barbarian', angle: 60, color: '#2f8f6a', title: '다른 작업', sub: '홈페이지 · VALORA · 솔이', poster: '../img/valora-pc.png', more: '../#work',
-    reel: { images: [['../img/jucompany-pc.png', '회사 홈페이지 jucompany.co.kr'], ['../img/valora-pc.png', 'VALORA 브랜드 사이트'], ['../img/soli-pc.png', '솔이 · 사주·타로 AI 상담']] },
+    id: 'work', staff: 'Barbarian', angle: 60, color: '#2f8f6a', title: '다른 작업', sub: '회사 홈페이지 · VALORA', poster: '../img/valora-pc.png', more: '../#work',
+    reel: { images: [['../img/jucompany-pc.png', '회사 홈페이지 jucompany.co.kr'], ['../img/valora-pc.png', 'VALORA 브랜드 사이트']] },
     html: `<div class="cards">
       <a href="https://jucompany.co.kr" target="_blank" rel="noopener">${img('jucompany-pc.png', '제이유컴퍼니 홈페이지')}<b>회사 홈페이지</b><span>시안 3개 제안 · 문의 메일 직송 · 관리자 화면</span></a>
       <a href="https://valora.kr" target="_blank" rel="noopener">${img('valora-pc.png', 'VALORA')}<b>VALORA 브랜드 사이트</b><span>12개 페이지 한·영 · Three.js 제품 3D · RLS</span></a>
-      <a href="https://tarosoli.com" target="_blank" rel="noopener">${img('soli-pc.png', '솔이')}<b>솔이</b><span>사주·타로 AI 상담 · 1인 운영 · 실결제</span></a></div>`,
+      <p>사주·타로 AI 상담 서비스 '솔이'는 옆의 솔이 부스에 따로 있습니다.</p></div>`,
   },
   {
     id: 'about', staff: 'Rogue_Hooded', x: 7.2, z: 9.5, color: '#e5654a', title: '안내소', sub: '소개 · 연락처', poster: null, more: '../#about',
@@ -51,7 +51,20 @@ export const BOOTHS = [
       <p class="links"><a href="mailto:yhjun5413@gmail.com">메일 보내기</a><a href="https://github.com/HyeokJun001" target="_blank" rel="noopener">GitHub</a><a href="../yanghyeokjun-portfolio.pdf" download>PDF 받기</a></p></div></div>`,
   },
   {
-    id: 'awards', staff: 'Mage', x: -7.2, z: 9.5, color: '#c9902b', ink: '#2c2244', title: '수상 · 교육', sub: 'NIPA 원장상 · 최우수상 · 장려상', poster: null, more: '../#about',
+    id: 'soli', staff: 'Mage', x: 12.4, z: 3.2, color: '#3b2669', ink: '#ffd98a', title: '솔이 · SOLI', sub: '사주·타로 AI 상담 · 1인 운영', poster: '../img/soli-pc.png', more: 'https://tarosoli.com', moreLabel: '솔이 열어 보기',
+    reel: { images: [['../img/soli/home-mo.webp', '가입 없이 무료 사주 풀이'], ['../img/soli-pc.png', '정밀 만세력 + AI 상담'], ['../img/soli/ilju.webp', '60일주 풀이 페이지'], ['../img/soli/tools.webp', '무료 도구 · 만세력 계산기'], ['../img/soli/blog.webp', '명리·타로 지식창고'], ['../img/soli/pricing.webp', '포스 충전 · 카카오페이 결제']] },
+    html: `<p class="lead">기획, 개발, 배포, 결제, 고객 응대까지 혼자 만들고 운영하는 사주·타로 AI 상담 서비스입니다. 생년월일과 태어난 시각을 넣으면 실제 천체력 기준 만세력으로 사주를 계산하고, 그 위에 AI 상담을 얹습니다.</p>
+      <ul class="nums"><li><b>약 40명</b>누적 이용자</li><li><b>실결제</b>카카오페이 등 간편결제(포트원)</li><li><b>1인</b>기획부터 고객 응대까지</li></ul>
+      <div class="shots">${img('soli/home-mo.webp', '솔이 첫 화면', '첫 화면: 가입 없이 무료 풀이')}${img('soli/ilju.webp', '갑진일주 풀이 페이지', '60일주 풀이')}${img('soli/tools.webp', '무료 도구 모음', '무료 도구')}</div>
+      <h3>무엇을 하나</h3>
+      <ul><li><b>가입 없이 무료로</b>: 생년월일·성별만 넣으면 사주팔자·일주 풀이·대운까지 바로 보여 줌</li><li><b>정확한 계산</b>: 음력·양력·윤달과 태어난 시각(12지시)을 반영하고, 한국천문연구원 절기 자료로 만세력 계산을 검증</li><li><b>AI 상담</b>: 연애·금전·직장 등 주제를 골라 솔이에게 묻고, 심층 리포트나 타로 뽑기로 이어짐</li><li><b>무료 도구와 지식창고</b>: 만세력 계산기, 내 일주 찾기, 60일주 풀이 페이지, 명리·타로 칼럼</li><li><b>유료 이용권</b>: '포스'를 충전해 상담 콘텐츠를 열람(1,000원~10,000원 4종)</li></ul>
+      <h3>어떻게 만들었나</h3>
+      <ul><li>React·TypeScript·Vite 화면(Cloudflare Pages) + FastAPI 서버(Render) + Supabase(PostgreSQL) + LLM API</li><li>결제는 PortOne V2로 받고 서버에서 결제 금액을 다시 검증한 뒤 포스를 적립, 환불까지 처리</li><li>PDF 리포트 생성과 결제 전 미리보기(페이월)</li></ul>
+      <h3>운영하며 고친 것</h3>
+      <ul><li><b>실결제 첫날 결제 검증 실패</b>: 서버 검증이 401로 막힘 → 응답 코드(402·422·401)를 구분해 추적, 결제사 API 비밀키가 발급되지 않은 것이 원인이었음 → 발급 후 결제·검증·적립·환불을 처음부터 다시 확인</li><li><b>업데이트가 안 보이는 문제</b>: 서비스워커가 옛 화면을 붙잡고 있어서 새 버전을 강제로 받아오게 고침</li><li>사용자 제보로 들어온 점수 계산 오류를 찾아 수정</li></ul>`,
+  },
+  {
+    id: 'awards', staff: 'Ranger', x: -7.2, z: 9.5, color: '#c9902b', ink: '#2c2244', title: '수상 · 교육', sub: 'NIPA 원장상 · 최우수상 · 장려상', poster: null, more: '../#about',
     reel: { type: 'list', head: '수상', caption: 'AI 공부를 시작하고 대회에서 받은 상들', items: [['NIPA 원장상 (최우수상)', 'EARLY DOT · AI 피부암 진단 플랫폼 · 팀장'], ['ESTsoft 최우수상', '실시간 응급 병원 추천'], ['KHD 데이터톤 장려상', 'CT 없이 PET만으로 간·뇌 정량화 · 오차율 4.7%'], ['AI사관학교 6기 1등', '최종 프로젝트 최우수상']] },
     html: `<p class="lead">관광경영학 비전공에서 시작해, AI를 공부하며 나간 대회에서 상을 받았습니다.</p>
       <h3>NIPA 원장상(최우수상) · EARLY DOT</h3>
