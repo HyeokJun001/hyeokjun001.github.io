@@ -38,6 +38,8 @@ export function createBillboards(scene, booths) {
     const screen = new THREE.Mesh(new THREE.PlaneGeometry(3.3, 3.3 * H / W), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, transparent: true }));
     screen.position.z = 0.065;
     group.add(glow, frame, screen);
+    // 줄 전구가 전광판 앞을 지나가도 가리지 않게 맨 위에 그린다(가까운 한 개만 켜지므로 겹칠 일이 없다)
+    [glow, frame, screen].forEach((m, k) => { m.material.depthTest = false; m.renderOrder = 10 + k; });
     // 부스 앞쪽(광장 쪽)으로 조금 당겨 지붕 위에 건다
     const fx = (b.at.x - b.x) / 2.9, fz = (b.at.z - b.z) / 2.9;
     group.position.set(b.x + fx * 0.9, Y, b.z + fz * 0.9);
@@ -103,11 +105,27 @@ export function createBillboards(scene, booths) {
     return b.reel.caption;
   }
 
+  // 목록: 제목 아래로 한 줄씩 차례로 나타난다
+  function drawList(bd) {
+    const { g, b } = bd;
+    const items = b.reel.items, per = 0.7, hold = 3;
+    const shown = Math.min(items.length, Math.floor((bd.clock % (items.length * per + hold)) / per) + 1);
+    g.textBaseline = 'top';
+    g.fillStyle = b.color; g.font = '800 34px Pretendard, sans-serif'; g.fillText(b.reel.head, 32, 26);
+    items.slice(0, shown).forEach(([big, small], k) => {
+      const y = 92 + k * 96;
+      g.fillStyle = '#ffd66b'; g.beginPath(); g.arc(50, y + 22, 16, 0, 7); g.fill();
+      g.fillStyle = '#ffffff'; g.font = '700 30px Pretendard, sans-serif'; g.fillText(big, 80, y);
+      g.fillStyle = 'rgba(255,255,255,.62)'; g.font = '500 21px Pretendard, sans-serif'; g.fillText(small, 80, y + 40);
+    });
+    return b.reel.caption;
+  }
+
   function draw(bd, dt) {
     const { g, b } = bd;
     bd.clock += dt;
     g.fillStyle = '#0b0816'; g.fillRect(0, 0, W, H);
-    const cap = b.reel.type === 'term' ? drawTerm(bd) : b.reel.type === 'card' ? drawCard(bd) : drawSlides(bd);
+    const cap = b.reel.type === 'term' ? drawTerm(bd) : b.reel.type === 'card' ? drawCard(bd) : b.reel.type === 'list' ? drawList(bd) : drawSlides(bd);
     // 글자 띠
     g.fillStyle = b.color; g.fillRect(0, H - TICKER, W, TICKER);
     g.font = '700 26px Pretendard, sans-serif'; g.textBaseline = 'middle'; g.fillStyle = b.ink || '#ffffff';

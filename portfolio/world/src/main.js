@@ -6,6 +6,7 @@ import { createLook } from './look.js';
 import { createTouch } from './touch.js';
 import { BOOTHS } from './booths.js';
 import { createBillboards } from './billboard.js';
+import { createStaff } from './staff.js';
 
 const $ = s => document.querySelector(s);
 
@@ -58,6 +59,8 @@ const manager = new THREE.LoadingManager();
 manager.onProgress = (_u, done, total) => { $('#bar i').style.width = `${Math.round((done / total) * 100)}%`; };
 const world = buildWorld(scene, BOOTHS, CZ);
 const boards = createBillboards(scene, BOOTHS);
+let staff = null;
+createStaff(scene, BOOTHS, CZ).then(s => (staff = s)).catch(e => console.error('직원 캐릭터를 불러오지 못함', e));
 
 let player, look, touch, figure;
 let entered = false;
@@ -124,7 +127,8 @@ function tapAt(cx, cy) {
   const hit = ray.ray.intersectPlane(ground, new THREE.Vector3());
   if (hit) player.moveTo(hit.x, hit.z);
 }
-function walkTo(b) { player.moveTo(b.at.x, b.at.z, () => openBooth(b), b.face); }
+// 목록·톡으로 찾아가면, 도착했을 때 카메라도 부스 쪽으로 돌려 준다
+function walkTo(b) { player.moveTo(b.at.x, b.at.z, () => { look.turn(b.face); openBooth(b); }, b.face); }
 
 // 패널
 const panel = $('#panel');
@@ -133,10 +137,12 @@ function openBooth(b) {
   look.unlock();
   keys.clear();
   figure.play('hello');
+  staff?.cheer(b.id);
   $('#p-title').textContent = b.title;
   $('#p-sub').textContent = b.sub;
   $('#p-body').innerHTML = b.html;
   $('#p-more').href = b.more;
+  $('#p-more').textContent = b.moreLabel || '2D 포트폴리오에서 자세히';
   panel.showModal();
   panel.scrollTop = 0;
 }
@@ -182,6 +188,7 @@ function update(dt, t) {
   player.update(dt, t, dir, dir?.run);
   look.update(dt);
   look.setLift(boards.update(dt, t, player.pos, camera));
+  staff?.update(dt, t, player.pos);
   const b = nearBooth();
   if (b !== lastAct) {
     lastAct = b;

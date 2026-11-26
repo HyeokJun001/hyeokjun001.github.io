@@ -91,10 +91,10 @@ function trees(scene, occluders) {
   scene.add(trunk, crown); // 나무는 걷는 곳 바깥이라 카메라 가림 판정에서 뺀다(넣으면 휴대폰 카메라가 캐릭터에 붙는다)
 }
 
-function lights(scene, booths, cz) {
+function lights(scene, booths, cz, occluders) {
   // 가운데 기둥에서 부스 지붕으로 늘어진 줄 전구(점광원 없이 빛나는 구슬만)
   const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 6, 8), mat('#2c2244'));
-  pole.position.set(0, 3, cz); pole.castShadow = true; scene.add(pole); blockers.push({ x: 0, z: cz, r: 0.15 });
+  pole.position.set(0, 3, cz); pole.castShadow = true; scene.add(pole); occluders.push(pole); blockers.push({ x: 0, z: cz, r: 0.15 }); // 카메라가 기둥 뒤에 숨지 않게 가림 판정에 넣는다
   const pts = [];
   for (const b of booths) {
     const a = new THREE.Vector3(0, 5.8, cz), e = new THREE.Vector3(b.x, 3.3, b.z);
@@ -126,7 +126,7 @@ export function buildWorld(scene, booths, cz) {
   }
   arch(scene, occluders);
   trees(scene, occluders);
-  lights(scene, booths, cz);
+  lights(scene, booths, cz, occluders);
   return { occluders, targets, floor: grass };
 }
 

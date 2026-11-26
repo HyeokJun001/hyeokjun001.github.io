@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 컴퍼니 · 사례 연구 | 양혁준 포트폴리오</title>
+<meta name="description" content="대표는 지시와 승인만 하고, Claude Code 에이전트 13명이 회의하며 기획서·PPT·사이트를 만드는 사내 AI 제작팀. 왜 만들었고, 어떻게 일하고, 무엇을 겪었는지.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --bg: #fbfaff; --ink: #1a1530; --muted: #6b6780; --line: #e6e2f2; --violet: #6d3ce0; --soft: #efe9ff; --night: #16122a; --night-2: #221c3d; --gold: #f2b23a; --ok: #2f9e6e; --stop: #d9623b; }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body { font-family: Pretendard, "Malgun Gothic", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+  a { color: var(--violet); }
+  img { max-width: 100%; display: block; }
+  :focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  .top { position: sticky; top: 0; z-index: 10; background: rgba(251,250,255,.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; font-size: 14.5px; }
+  .top a { text-decoration: none; color: var(--muted); }
+  .top a:hover { color: var(--ink); }
+  .top .back { color: var(--ink); font-weight: 700; margin-right: auto; }
+  .toc a.cur { color: var(--violet); font-weight: 700; }
+
+  header.hero { padding: 64px 0 40px; }
+  .eyebrow { font-size: 15px; color: var(--violet); font-weight: 700; }
+  h1 { font-size: clamp(32px, 4.6vw, 52px); line-height: 1.18; letter-spacing: -0.04em; margin: 10px 0 18px; }
+  .hero p { font-size: 18.5px; color: #3d3854; max-width: 40em; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .meta span { font-size: 13.5px; background: var(--soft); color: #3e2a86; padding: 4px 12px; border-radius: 999px; }
+  .shot { margin: 34px 0 0; }
+  .shot img { border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 30px 60px -40px rgba(26,21,48,.6); }
+  figcaption { font-size: 13.5px; color: var(--muted); margin-top: 8px; }
+
+  section { padding: 64px 0 10px; }
+  h2 { font-size: clamp(26px, 3vw, 34px); letter-spacing: -0.035em; line-height: 1.25; margin-bottom: 14px; }
+  h2 small { display: block; font-size: 15px; color: var(--violet); letter-spacing: 0; margin-bottom: 4px; }
+  h3 { font-size: 19px; letter-spacing: -0.02em; margin: 26px 0 8px; }
+  .lead { font-size: 17.5px; color: #3d3854; max-width: 44em; }
+  p + p { margin-top: 10px; }
+  ul.plain { padding-left: 20px; }
+  ul.plain li { margin: 4px 0; }
+  .src { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+  .src code, code { font-family: Consolas, monospace; font-size: .9em; background: #f1eef9; padding: 1px 5px; border-radius: 4px; }
+
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--ink); margin-top: 28px; }
+  .nums div { padding: 18px 16px 18px 0; }
+  .nums div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+  .nums b { display: block; font-size: 30px; letter-spacing: -0.03em; line-height: 1.1; }
+  .nums span { font-size: 13.5px; color: var(--muted); }
+
+  /* 조직도 */
+  .org { margin-top: 24px; display: grid; gap: 14px; }
+  .org .lvl { display: flex; justify-content: center; }
+  .node { border: 1.5px solid var(--ink); border-radius: 12px; padding: 10px 16px; background: #fff; text-align: center; font-size: 14.5px; }
+  .node b { display: block; font-size: 15.5px; }
+  .node.ceo { background: var(--ink); color: #fff; }
+  .node.pm { background: var(--violet); border-color: var(--violet); color: #fff; }
+  .teams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .team { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 14px 16px; }
+  .team h4 { font-size: 15.5px; margin-bottom: 8px; }
+  .team ul { list-style: none; padding: 0; font-size: 14px; }
+  .team li { padding: 4px 0; border-top: 1px dashed var(--line); }
+  .team li:first-child { border-top: 0; }
+  .team .lead-mark { font-size: 11.5px; font-weight: 700; color: var(--violet); background: var(--soft); border-radius: 4px; padding: 0 5px; margin-left: 4px; }
+  .down { text-align: center; color: var(--muted); font-size: 13px; }
+
+  /* 게이트 */
+  .gates { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0; margin-top: 22px; counter-reset: g; }
+  .gate { position: relative; padding: 14px 10px 12px; border: 1px solid var(--line); background: #fff; font-size: 13.5px; }
+  .gate + .gate { border-left: 0; }
+  .gate b { display: block; font-size: 15px; }
+  .gate span { color: var(--muted); font-size: 12.5px; }
+  .gate.stop { background: #fff3ec; border-color: #f3c7b2; }
+  .gate.stop b::after { content: ' · 대표 승인'; color: var(--stop); font-size: 12px; }
+
+  .sched { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 16px 18px; }
+  .card b { display: block; font-size: 16px; margin-bottom: 4px; }
+  .card p { font-size: 14.5px; color: #3d3854; }
+
+  /* 기능 */
+  .feat { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: start; margin-top: 22px; }
+  .feat + .feat { margin-top: 36px; }
+  .feat ul { padding-left: 18px; font-size: 15px; }
+  .feat li { margin: 5px 0; }
+  .feat li b { color: var(--ink); }
+
+  /* 기술 구조 */
+  .night { background: var(--night); color: #e7e3f7; margin-top: 70px; padding: 64px 0 70px; }
+  .night h2 small { color: #b9a8ff; }
+  .night .lead, .night p { color: #c9c3e2; }
+  .flow { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: stretch; margin-top: 26px; }
+  .box { background: var(--night-2); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 16px; font-size: 14px; }
+  .box b { display: block; color: #fff; font-size: 16px; margin-bottom: 6px; }
+  .box ul { padding-left: 16px; color: #c9c3e2; }
+  .arrow { display: grid; place-items: center; color: #8f86b8; font-size: 22px; }
+  .api { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 22px; margin-top: 22px; font-size: 14px; }
+  .api div { border-top: 1px solid rgba(255,255,255,.1); padding: 8px 0; }
+  .api code { background: rgba(255,255,255,.1); color: #fff; }
+
+  /* 문제 해결 */
+  .cases { display: grid; gap: 14px; margin-top: 20px; }
+  .case { display: grid; grid-template-columns: 200px 1fr; gap: 18px; border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 16px 20px; }
+  .case h4 { font-size: 16px; }
+  .case dl { display: grid; grid-template-columns: 52px 1fr; gap: 4px 10px; font-size: 14.5px; }
+  .case dt { color: var(--muted); font-weight: 700; font-size: 13px; padding-top: 2px; }
+  .case dd.fix { color: var(--ok); font-weight: 600; }
+
+  .gal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+  .gal img { border-radius: 10px; border: 1px solid var(--line); aspect-ratio: 16/10; object-fit: cover; object-position: top; }
+  .gal figcaption { font-size: 12.5px; }
+  .role { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+  footer { border-top: 1px solid var(--line); margin-top: 70px; padding: 26px 0 50px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  @media (max-width: 860px) {
+    .toc { display: none; }
+    .nums { grid-template-columns: 1fr 1fr; }
+    .nums div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .nums div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .teams, .sched, .feat, .api, .role { grid-template-columns: 1fr; }
+    .gates { grid-template-columns: repeat(4, 1fr); }
+    .gate:nth-child(5) { border-left: 1px solid var(--line); }
+    .gate:nth-child(n+5) { border-top: 0; }
+    .flow { grid-template-columns: 1fr; }
+    .arrow { transform: rotate(90deg); height: 34px; }
+    .case { grid-template-columns: 1fr; gap: 6px; }
+    .gal { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<nav class="top" aria-label="이 페이지"><div class="wrap">
+  <a class="back" href="../#ai">← 포트폴리오로</a>
+  <span class="toc"><a href="#why">왜</a> · <a href="#org">조직</a> · <a href="#flow">절차</a> · <a href="#quality">품질</a> · <a href="#office">사무실 화면</a> · <a href="#tech">기술</a> · <a href="#issues">겪은 문제</a></span>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">사례 연구 · 2026.09.29 ~ 11.24 기록 기준 · 설계·구현·운영 단독</p>
+    <h1>AI 컴퍼니: 대표는 지시와 승인만 하고, AI 직원 13명이 회의해서 만들어 오는 사내 제작팀</h1>
+    <p>회사 대표가 화면에 "투자자용 PPT 10장 만들어 줘" 한 줄을 남기면, Claude Code로 만든 AI 직원들이 회의를 열어 일을 나누고, 기획 → 반론 → 제작 → 검수를 거쳐 결과물을 올립니다. 대표는 중간에 두 번만 승인합니다. 그 모든 과정은 픽셀 사무실 화면에서 그대로 재생됩니다.</p>
+    <div class="meta"><span>Claude Code 서브에이전트</span><span>예약 루틴(클라우드)</span><span>Vercel Functions</span><span>GitHub를 저장소 겸 DB로</span><span>Canvas 픽셀 화면</span><span>대표 실사용</span></div>
+    <figure class="shot"><img src="../img/ai/meeting2.webp" alt="AI 컴퍼니 사무실 화면: 회의 탁자에 직원들이 모여 있고, 자막으로 개발팀장 발언이 보인다. 오른쪽에 대표가 결정할 일 카드와 PM 대화창, 아래에 프로젝트 보드와 최근 결과물." width="1600" height="1000"><figcaption>사무실 화면. 회의 자막, 대표가 결정할 일(승인 카드), 프로젝트 보드(G0~G7 진행 점), 최근 결과물이 한 화면에 있습니다.</figcaption></figure>
+    <div class="nums">
+      <div><b>16건</b><span>수행한 프로젝트 (P001~P016)</span></div>
+      <div><b>109건</b><span>대표 지시</span></div>
+      <div><b>76회</b><span>회의 (하루 최대 3회 정기 + 즉시 회의)</span></div>
+      <div><b>1,462개</b><span>저장소 커밋 (2026.09.29~11.25)</span></div>
+    </div>
+  </header>
+
+  <section id="why" aria-labelledby="h-why">
+    <h2 id="h-why"><small>01 · 왜 만들었나</small>대표가 붙잡고 있던 문서 일을, 대표 없이도 끝까지 굴러가게</h2>
+    <p class="lead">작은 회사에서는 사업계획서, 투자 소개 자료, 서비스 소개서, 브랜드 자료, 홈페이지 같은 일이 결국 대표 한 사람에게 몰립니다. 이 시스템의 첫 원칙은 저장소 규칙 문서(<code>CLAUDE.md</code>) 첫 줄에 적힌 그대로입니다.</p>
+    <blockquote style="margin:18px 0;padding:14px 20px;border-left:4px solid var(--violet);background:#fff;border-radius:0 12px 12px 0;font-size:19px;font-weight:700">"1인 기업의 AI 협업팀. 대표는 승인과 핵심 의사결정만 한다."</blockquote>
+    <p>그래서 목표를 세 가지로 잡았습니다.</p>
+    <ul class="plain">
+      <li><b>지시는 한 줄로</b>: 대표가 화면에서 할 일과 참고 파일만 남기면, 나머지 분배와 진행은 AI 팀이 합니다.</li>
+      <li><b>사람이 꼭 봐야 할 곳에서만 멈추기</b>: 기획 확정(G3)과 최종 보고(G6) 두 지점에서만 대표 승인을 받고, 그 사이는 스스로 이어 갑니다.</li>
+      <li><b>보이는 진행</b>: AI가 뒤에서 무엇을 하는지 모르면 믿고 맡길 수 없어서, 모든 대화·전달·완료를 기록해 사무실 화면으로 재생합니다.</li>
+    </ul>
+    <p class="src">설계 바탕: 'AI 경영컨설팅·사업기획 제작팀 PM 전달용 설계안'(v1.0, 2026.09) · 첫 커밋 2026-09-29 "AI 컴퍼니 초기 구성 (직원 6명·게이트·회의 절차·이벤트 로그)". 같은 날 픽셀 사무실, 문서 열람, PM 채팅 지시까지 붙였습니다.</p>
+  </section>
+
+  <section id="org" aria-labelledby="h-org">
+    <h2 id="h-org"><small>02 · 조직</small>6명으로 시작해 13명, 6개 팀이 됐습니다</h2>
+    <p class="lead">직원마다 역할·보고 대상·결과물 기준을 Claude Code 서브에이전트 정의 파일(<code>.claude/agents/*.md</code>)로 나눴고, 명부(<code>office/staff.json</code>)를 바꾸면 화면의 자리 배치도 바뀝니다.</p>
+    <div class="org" role="img" aria-label="조직도: 대표 아래 PM, PM 아래 기획·검증·제작·디자인·법률·개발 6개 팀">
+      <div class="lvl"><div class="node ceo"><b>대표</b>지시 · 승인(G3·G6)</div></div>
+      <div class="down">↓</div>
+      <div class="lvl"><div class="node pm"><b>PM</b>요청 접수 · 범위 정의 · 직원 배정 · 회의 진행</div></div>
+      <div class="down">↓ 팀장에게만 전달</div>
+      <div class="teams">
+        <div class="team"><h4>기획팀</h4><ul><li>planner<span class="lead-mark">팀장</span> 사업기획·BM·브랜드 방향</li><li>researcher 시장·경쟁사·가격 조사(출처 필수)</li></ul></div>
+        <div class="team"><h4>검증팀</h4><ul><li>reviewer<span class="lead-mark">팀장</span> 반대 관점에서 기획 검증</li><li>qa 수치·오탈자·기획 일치 검수(고치지 않고 판정만)</li></ul></div>
+        <div class="team"><h4>제작팀</h4><ul><li>producer<span class="lead-mark">팀장</span> 승인된 기획으로만 제작</li><li>producer2 IR 자료</li></ul></div>
+        <div class="team"><h4>디자인팀</h4><ul><li>designer3<span class="lead-mark">팀장</span> PPT 총괄(python-pptx)</li><li>designer2 상세페이지·패키지 시각 방향</li></ul></div>
+        <div class="team"><h4>법률팀</h4><ul><li>researcher2<span class="lead-mark">팀장</span> 서비스 법률 문제 점검</li><li>researcher3 공격적 관점 검증</li></ul></div>
+        <div class="team"><h4>개발팀</h4><ul><li>developer<span class="lead-mark">팀장</span> 실제 사이트 코드(상위 모델 지정)</li><li>developer2 화면 캡처 비교·버튼 전수 점검</li></ul></div>
+      </div>
+    </div>
+    <h3>지휘 체계를 규칙이 아니라 검사로 지킵니다</h3>
+    <ul class="plain">
+      <li>대표 → PM → 팀장 → 팀원 순서로만 전달하고, 팀원은 자기 팀장에게만 보고합니다. 부서끼리는 팀장끼리 일하고, 회의에는 PM과 팀장만 들어갑니다.</li>
+      <li>서브에이전트는 다른 서브에이전트를 부를 수 없어서, PM이 팀장 → 팀원 → 팀장 순서로 차례대로 부르도록 절차를 짰습니다.</li>
+      <li>커밋 전에 <code>office/check_chain.py</code>가 기록을 읽어 전달 방향 위반이 0건인지 확인합니다. 업무 강도(1 여유 · 2 보통 · 3 집중)는 지시문 첫 줄에 적습니다.</li>
+    </ul>
+    <figure class="shot"><img src="../img/ai/staff.webp" alt="직원 관리 창: 13명 목록(이름·직급·팀·역할·업무 강도)과 정보·해고 버튼, 아래에 직원 채용 양식" width="1600" height="1000" loading="lazy"><figcaption>직원 관리 창. 화면에서 채용·해고·업무 강도를 바꾸면 명부와 에이전트 정의 파일이 한 커밋으로 함께 고쳐집니다.</figcaption></figure>
+  </section>
+
+  <section id="flow" aria-labelledby="h-flow">
+    <h2 id="h-flow"><small>03 · 일하는 절차</small>8단계 게이트, 승인은 두 번</h2>
+    <p class="lead">모든 프로젝트는 같은 단계를 지나고, 단계마다 남기는 문서가 정해져 있습니다(<code>brief.md</code> → <code>planning_v0.1</code> → <code>feedback_v0.2</code> → <code>planning_v1.0</code> → <code>production/</code> → <code>qa.md</code> → <code>APPROVAL.md</code> → <code>FINAL_PACKAGE/</code>).</p>
+    <div class="gates" role="list" aria-label="게이트 단계">
+      <div class="gate" role="listitem"><b>G0</b><span>접수</span></div>
+      <div class="gate" role="listitem"><b>G1</b><span>1차 기획</span></div>
+      <div class="gate" role="listitem"><b>G2</b><span>반론</span></div>
+      <div class="gate stop" role="listitem"><b>G3</b><span>기획 확정</span></div>
+      <div class="gate" role="listitem"><b>G4</b><span>제작</span></div>
+      <div class="gate" role="listitem"><b>G5</b><span>QA</span></div>
+      <div class="gate stop" role="listitem"><b>G6</b><span>최종 보고</span></div>
+      <div class="gate" role="listitem"><b>G7</b><span>패키지 정리</span></div>
+    </div>
+    <h3>회의는 이렇게 돌아갑니다 (<code>MEETING.md</code>)</h3>
+    <ul class="plain">
+      <li><b>먼저 취소 확인</b>: 대표가 지시를 취소했으면 그 작업을 git으로 되돌립니다.</li>
+      <li><b>대표 지시에 먼저 답하기</b>: 새 지시가 있으면 회신을 남기고, 같은 커밋에서 작업 일정을 고칩니다.</li>
+      <li><b>회의 대화</b>: 안건 → 브리핑 → 반론 → 결정, 6~12줄로 짧게. 멈춰야 할 지점(G3·G6)까지는 이어서 진행하고, 게이트마다 커밋합니다.</li>
+      <li><b>하루 마무리</b>: 17시 회의 끝에 그날 브리핑(<code>briefing/날짜.md</code>)을 씁니다.</li>
+    </ul>
+    <h3>사람이 깨우지 않아도 돌아가는 일정</h3>
+    <div class="sched">
+      <div class="card"><b>정기 회의 · 09 · 13 · 17시</b><p>Claude Code 예약 루틴이 하루 세 번 회의를 엽니다. 회의 한 번에 프로젝트마다 게이트 하나씩 진행합니다.</p></div>
+      <div class="card"><b>회의 사이 업무 · 매시 30분</b><p>08:30~22:30에 대표 지시를 처리하고, 승인 대기가 아닌 프로젝트를 최대 2단계까지 진행합니다. 할 일이 없으면 기록 없이 쉽니다.</p></div>
+      <div class="card"><b>즉시 회의 · 지시하는 순간</b><p>화면에서 지시를 보내면 서버가 루틴을 바로 호출합니다. 실패해도 다음 매시 30분 루틴이 이어받습니다.</p></div>
+    </div>
+  </section>
+
+  <section id="quality" aria-labelledby="h-q">
+    <h2 id="h-q"><small>04 · 품질과 성장</small>AI가 같은 실수를 두 번 하지 않게</h2>
+    <div class="sched">
+      <div class="card"><b>검수 규칙</b><p>검수는 두 번까지만. 지적에는 심각도 상·중·하를 달고, '하'는 기록만 합니다. 디자인은 10개 항목을 1~5점으로 채점해 평균 4.0 이상, 3점 미만이 없어야 통과합니다. PPT는 자동 검사(<code>ppt_lint.py</code>)와 렌더링 확인(<code>render_slides.py</code>)을 거칩니다.</p></div>
+      <div class="card"><b>교훈 노트</b><p><code>knowledge/lessons.md</code>에 실수를 분야별(공통·PM·디자인·PPT·기획·리서치·검증·제작·개발)로 쌓고, 모든 직원이 일 시작 전에 읽습니다. 같은 교훈이 두 번 나오면 [확정]을 붙이고, 80줄을 넘지 않게 09시 회의에서 정리합니다.</p></div>
+      <div class="card"><b>플레이북 6종</b><p>사업계획서(PSST 양식), IR 덱, 제품 제안서, 자사몰·홈페이지, 브랜드북, 위탁개발 보고서. 일을 해 보며 배운 것을 각 플레이북 '현장에서 배운 것'에 더합니다.</p></div>
+    </div>
+    <h3>제작 기준도 데이터로 둡니다</h3>
+    <ul class="plain">
+      <li><b>디자인 레퍼런스 52개</b>와 "AI가 만든 티" 점검표. 화면에서 레퍼런스를 최대 3개 고르면 PM에게 보낼 요청문이 만들어집니다.</li>
+      <li><b>모션 키트</b>: 부품 15종과 "대표가 쓰는 표현 → 부품" 별칭 사전, 연출 사전 97종.</li>
+      <li><b>속도 기준</b>: <code>site_weight.mjs</code>로 JS 200KB(압축)·사진 한 장 300KB·사이트 전체 3MB를 넘으면 완료로 치지 않습니다.</li>
+      <li><b>PM 자율 백로그</b>: 대표가 받아서 바로 쓸 새 결과물만, 하루 2개까지. 검수 반복이나 결정 대기 중인 결과물 수정은 금지입니다.</li>
+    </ul>
+  </section>
+
+  <section id="office" aria-labelledby="h-office">
+    <h2 id="h-office"><small>05 · 사무실 화면</small>AI가 일하는 과정을 보이게 만든 화면</h2>
+    <p class="lead">모든 쓰기는 이벤트 기록(<code>events.jsonl</code>: 회의 시작·끝, 발언, 전달, 작업 중, 완료, 대표 결정 대기, 지시, 지시 취소, 채용)으로 남고, 화면은 이 기록을 받아 직원들이 자리에서 일하고 회의실로 걸어가 이야기하는 장면으로 재생합니다.</p>
+    <div class="feat">
+      <figure><img src="../img/ai/gate.webp" alt="입장 화면: 오늘 PM에게 맡길 일, 첨부 파일 올리기, 업무 지시 입력, 지시 없이 보기와 보내기 버튼" width="1600" height="1000" loading="lazy" style="border-radius:12px;border:1px solid var(--line)"><figcaption>입장 화면: 지시와 참고 파일을 바로 보낼 수 있습니다.</figcaption></figure>
+      <div><h3 style="margin-top:0">지시하고, 결정하고, 확인하기</h3><ul>
+        <li><b>입장</b>: 비밀번호 확인 뒤 "오늘 PM에게 맡길 일"을 적고 파일을 붙여 보내거나, 지시 없이 바로 봅니다.</li>
+        <li><b>PM과 대화</b>: 첨부는 5개·파일당 25MB·합계 50MB까지(3MB 조각으로 나눠 올림). 보낸 지시는 취소할 수 있습니다.</li>
+        <li><b>대표 결정 카드</b>: 승인이 필요한 일이 생기면 "추천대로 모두 진행"이나 "번호로 답하기"로 바로 결정합니다.</li>
+        <li><b>프로젝트 보드</b>: 진행 중·대표 결정 대기·완료·보류 칸과 G0~G7 진행 점. 우클릭으로 이름·상태 변경과 삭제.</li>
+        <li><b>문서함 · 최근 결과물</b>: 산출 문서를 화면 안에서 바로 읽고 내려받습니다(마크다운을 안전하게 걸러서 표시).</li>
+      </ul></div>
+    </div>
+    <div class="feat">
+      <div><h3 style="margin-top:0">보고, 되돌려 보고, 고르기</h3><ul>
+        <li><b>재생</b>: 처음부터 · 최근 회의 다시보기 · 재생 속도 1x/2x/4x. 회의 중에는 자막이 뜨고, 8분 넘게 다 같이 쉬면 PM이 한마디 합니다.</li>
+        <li><b>직원 업무 로그</b> 탭: 누가 누구에게 무엇을 넘겼는지 시간순으로.</li>
+        <li><b>미리보기</b>: 만든 사이트를 PC·휴대폰 크기로, IR 자료와 BI/CI를 화면 안에서 바로 봅니다.</li>
+        <li><b>레퍼런스</b> 창: 레퍼런스를 골라 요청문을 만들어 보냅니다.</li>
+        <li><b>벽 현황판·창문 일정판</b>: 현황 문서(<code>STATUS.md</code>)를 읽어 사무실 벽에 그립니다. 새 버전이 배포되면 화면이 스스로 새로고침합니다.</li>
+      </ul></div>
+      <figure><img src="../img/ai/refs.webp" alt="디자인 레퍼런스 창: 쇼핑몰·브랜드 화면 썸네일과 고르기 버튼, 아래에 요청문 만들기 입력" width="1600" height="1000" loading="lazy" style="border-radius:12px;border:1px solid var(--line)"><figcaption>레퍼런스 창: 최대 3개를 골라 PM에게 보낼 요청문을 만듭니다.</figcaption></figure>
+    </div>
+    <h3>어떻게 그렸나</h3>
+    <ul class="plain">
+      <li><code>world.js</code>: 명부로 책상을 배치하고 Canvas에 3배 해상도로 그립니다. 인원이 늘면 사무실 폭이 넓어집니다. 직원은 4px 격자에서 A* 길찾기로 걷고, 직선 구간은 합쳐 자연스럽게 움직입니다.</li>
+      <li><code>story.js</code>: 이벤트를 시간순으로 재생해 회의 좌석·자막·휴게실 장면을 만듭니다.</li>
+      <li><code>panel.js</code>: 데이터를 주기적으로 확인해 문서·채팅·보드를 갱신하고, <code>staff.js</code>가 직원 정보·채용·해고를 맡습니다.</li>
+    </ul>
+  </section>
+</main>
+
+<section class="night" id="tech" aria-labelledby="h-tech">
+  <div class="wrap">
+    <h2 id="h-tech"><small>06 · 기술 구조</small>DB 없이, GitHub 저장소를 기억 장치로</h2>
+    <p class="lead">따로 서버나 DB를 두지 않았습니다. AI 직원의 작업도, 대표의 지시도, 화면의 변경도 모두 GitHub 커밋으로 남습니다. 그래서 모든 변경에 기록과 되돌리기가 있습니다.</p>
+    <div class="flow" role="img" aria-label="대표의 브라우저가 Vercel 서버 함수를 거쳐 GitHub 저장소에 쓰고, Claude Code 예약 루틴이 같은 저장소를 읽고 커밋하며, 사무실 화면은 저장소를 읽어 재생하는 구조">
+      <div class="box"><b>대표의 브라우저</b><ul><li>사무실 화면(정적, Canvas)</li><li>지시·첨부·채용·결정</li><li>비밀번호는 탭 안에만 보관</li></ul></div>
+      <div class="arrow">→</div>
+      <div class="box"><b>Vercel 서버 함수</b><ul><li>비밀번호 확인(상수 시간 비교)</li><li>GitHub에 커밋, 루틴 호출</li><li>바뀐 화면 코드만 다시 빌드</li></ul></div>
+      <div class="arrow">⇄</div>
+      <div class="box"><b>GitHub 저장소</b><ul><li>규칙·명부·에이전트 정의</li><li>프로젝트 문서·결과물</li><li>이벤트 기록·현황판</li><li>← Claude Code 예약 루틴이 읽고 커밋</li></ul></div>
+    </div>
+    <div class="api">
+      <div><code>order</code> 지시를 지시 파일과 이벤트로 한 커밋에 남기고 루틴을 즉시 호출</div>
+      <div><code>upload</code> 큰 첨부를 3MB 조각으로 나눠 업로드</div>
+      <div><code>cancel</code> 지시 취소</div>
+      <div><code>staff</code> 명부와 에이전트 정의를 한 커밋으로 수정(채용·해고·강도)</div>
+      <div><code>project</code> 보드에서 바꾼 이름·상태를 현황 문서에 반영</div>
+      <div><code>doc</code> 문서·기록 열람과 내려받기</div>
+      <div><code>preview</code> 만든 사이트를 12시간 쿠키로 미리보기</div>
+      <div><code>reset</code> 기록을 보관 폴더로 옮기고 새로 시작</div>
+    </div>
+    <p class="src" style="color:#9a93b8">진행이 화면에서 몇십 분씩 멈춰 보이지 않도록, 직원이 큰 단계마다 한 줄 진행을 직접 커밋하는 스크립트(<code>progress.sh</code>)도 두었습니다. 받는 사람은 지휘 체계에서 자동으로 정해집니다.</p>
+  </div>
+</section>
+
+<main class="wrap">
+  <section aria-labelledby="h-num">
+    <h2 id="h-num"><small>07 · 운영 기록</small>8주 동안 남은 숫자 (2026.09.29~11.24)</h2>
+    <div class="nums">
+      <div><b>2,488건</b><span>업무 기록(발언 979 · 전달 815 · 완료 230)</span></div>
+      <div><b>219개</b><span>회의록 파일 · 하루 브리핑 42개</span></div>
+      <div><b>25건</b><span>대표 승인 대기로 멈춘 지점</span></div>
+      <div><b>690개</b><span>직원이 직접 올린 중간 진행 커밋</span></div>
+    </div>
+    <h3>어떤 일을 맡겼나 (16건)</h3>
+    <ul class="plain">
+      <li>서비스 소개 PPT·투자 소개(IR) 덱·실적 보고·발표 자료 4건</li>
+      <li>자사몰·회사 홈페이지·관리자 페이지 2건 (VALORA, 제이유컴퍼니 홈페이지 — 이 포트폴리오의 '다른 작업'에 실렸습니다)</li>
+      <li>BI·CI(브랜드북) 3건, 법률 점검 2건, 서비스 허점·앱 완성도 점검 2건</li>
+      <li>연습용 신제품 기획·예약판매 페이지 2건(초기 시험 후 보관)</li>
+    </ul>
+    <div class="gal">
+      <figure><img src="../img/works/ju-a_t.webp" alt="회사 홈페이지 시안" loading="lazy"><figcaption>홈페이지 시안</figcaption></figure>
+      <figure><img src="../img/works/svc-3_t.webp" alt="서비스 소개서" loading="lazy"><figcaption>서비스 소개서</figcaption></figure>
+      <figure><img src="../img/works/ir-4_t.webp" alt="IR 자료" loading="lazy"><figcaption>IR 자료</figcaption></figure>
+      <figure><img src="../img/works/bi-cheong_t.webp" alt="브랜드 보드" loading="lazy"><figcaption>BI 브랜드 보드</figcaption></figure>
+    </div>
+    <p class="src">실제 결과물 14점은 포트폴리오 AI 컴퍼니 구간의 <a href="../#ai">'실제 제작 자료 보기'</a>에서 크게 볼 수 있습니다. 회사 내부 수치가 들어간 자료는 뺐습니다.</p>
+  </section>
+
+  <section id="issues" aria-labelledby="h-issues">
+    <h2 id="h-issues"><small>08 · 겪은 문제와 해결</small>AI 팀도 사람 팀처럼 규칙이 필요했습니다</h2>
+    <div class="cases">
+      <div class="case"><h4>지휘 체계가 무너짐</h4><dl><dt>문제</dt><dd>9/30 회의 한 번에 PM이 팀장을 건너뛰고 팀원에게 직접 일을 넘긴 위반이 6건.</dd><dt>원인</dt><dd>규칙이 글로만 있고 확인 장치가 없었음.</dd><dt>해결</dt><dd class="fix">커밋 전 자동 검사(check_chain.py)를 의무로 하고, 팀장 경유 순서를 절차에 넣음.</dd></dl></div>
+      <div class="case"><h4>할 일을 만들어 내는 검수 반복</h4><dl><dt>문제</dt><dd>연습 프로젝트에서 12일 동안 검수가 반복돼 문서가 300여 개 쌓임.</dd><dt>원인</dt><dd>회의마다 "변동 없음"을 피하려고 일을 만들어 냄.</dd><dt>해결</dt><dd class="fix">검수 두 번 제한, 백로그 기준 강화("대표가 바로 쓸 새 결과물"만), 연습 프로젝트 보관.</dd></dl></div>
+      <div class="case"><h4>대표가 보고서를 읽기 어려움</h4><dl><dt>문제</dt><dd>보고에 줄 번호와 내부 용어가 그대로 나옴.</dd><dt>원인</dt><dd>AI끼리 쓰는 말투가 대표에게 그대로 전달됨.</dd><dt>해결</dt><dd class="fix">"쉬운 말" 규칙과 하루 브리핑 4개 절 양식을 정함(10/12).</dd></dl></div>
+      <div class="case"><h4>지시가 바로 처리되지 않음</h4><dl><dt>문제</dt><dd>화면에서 지시해도 다음 회의 시각까지 기다림.</dd><dt>원인</dt><dd>예약 루틴의 GitHub 트리거가 이슈를 지원하지 않음.</dd><dt>해결</dt><dd class="fix">잠시 신호용 PR을 쓰다가 루틴 호출 API로 바꿈. 실패해도 매시 30분 루틴이 이어받게 이중으로.</dd></dl></div>
+      <div class="case"><h4>화면이 몇십 분씩 멈춰 보임</h4><dl><dt>문제</dt><dd>일은 진행 중인데 사무실 화면은 조용함.</dd><dt>원인</dt><dd>이벤트를 PM만 기록함.</dd><dt>해결</dt><dd class="fix">직원이 큰 단계마다 직접 한 줄 진행을 올리는 스크립트를 만듦(10/20).</dd></dl></div>
+      <div class="case"><h4>미리보기가 하얗게 뜸</h4><dl><dt>문제</dt><dd>AI가 만든 사이트를 화면에서 미리보면 빈 화면.</dd><dt>원인</dt><dd>나눠 만든 코드 조각 경로를 사무실 서버가 바꿔 버림.</dd><dt>해결</dt><dd class="fix">미리보기 빌드는 한 파일로 합치고, 사진은 줄인 사본만 쓰고, 무게 점검 스크립트로 확인.</dd></dl></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-me">
+    <h2 id="h-me"><small>09 · 내가 한 일과 배운 것</small>설계부터 화면, 서버, 운영까지 혼자</h2>
+    <div class="role">
+      <div class="card"><b>만든 것</b><p>조직·게이트·회의 절차 설계, 13명의 역할 정의와 규칙 문서, 예약 루틴 구성, Canvas 사무실 화면과 창 10여 개, Vercel 서버 함수 10여 개, 지휘 체계 검사·진행 기록·무게 점검 스크립트.</p></div>
+      <div class="card"><b>운영한 것</b><p>8주 동안 대표의 실제 업무 지시 109건을 받아 처리했고, 실수가 생길 때마다 규칙·검사·교훈 노트로 고쳐 같은 실수가 반복되지 않게 했습니다.</p></div>
+      <div class="card"><b>배운 것 ①</b><p>AI에게 "하지 마"라고 적는 것보다, 어긴 것을 자동으로 잡아내는 검사 하나가 훨씬 확실합니다.</p></div>
+      <div class="card"><b>배운 것 ②</b><p>사람이 맡기려면 보여야 합니다. 진행이 보이지 않으면 대표가 결국 직접 하게 되고, 진행이 보이면 지시와 승인만 하게 됩니다.</p></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><a href="../#ai">← 포트폴리오로 돌아가기</a><span>양혁준 · yhjun5413@gmail.com</span></div></footer>
+<script>
+const links = [...document.querySelectorAll('.toc a')];
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('cur', a.hash === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+['why', 'org', 'flow', 'quality', 'office', 'tech', 'issues'].forEach(id => io.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
