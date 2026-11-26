@@ -70,7 +70,7 @@ function render() {
   paintAll(app);
   cleanup = view.mount?.(view$, go) || null;
   view$.scrollTop = 0;
-  const h1 = view$.querySelector('h1'); document.title = `${h1 ? h1.textContent + ' · ' : ''}EARLY DOT 다시 만들기`;
+  const h1 = view$.querySelector('h1'); document.title = `${h1 ? h1.textContent + ' · ' : ''}EARLY DOT`;
   window.dispatchEvent(new CustomEvent('ed:route', { detail: { hash, role: s?.role } }));
 }
 

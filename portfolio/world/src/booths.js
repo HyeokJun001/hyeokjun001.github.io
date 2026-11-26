@@ -100,17 +100,20 @@ export const BOOTHS = [
   },
   {
     id: 'earlydot', staff: 'Knight', x: -12.4, z: 3.2, color: '#5b3fd1', title: 'EARLY DOT', sub: 'AI 피부암 진단 · NIPA 원장상', poster: '../img/earlydot/logo.png', more: '../earlydot/', moreLabel: 'EARLY DOT 자세히 보기',
-    // 다시 만든 화면(../earlydot/app/) 캡처를 넘겨 보인다
+    // EARLY DOT 화면 캡처를 넘겨 보인다
     reel: { images: [['../img/earlydot/logo.png', 'AI 피부암 진단 · NIPA 원장상 · 흑색종 F1 65.1% → 84.6%', 'light'], ['../img/earlydot/app/1-home.webp', '환자 홈 요약과 최근 진단'], ['../img/earlydot/app/3-capture.webp', '가이드 원 안에 환부 촬영'], ['../img/earlydot/app/4-result.webp', '근거 히트맵과 질환별 확률'], ['../img/earlydot/app/5-history.webp', '부위별 폴더로 변화 비교'], ['../img/earlydot/app/6-doctor.webp', '의사 소견함 위험도 높은 순'], ['../img/earlydot/app/7-review.webp', '위험도 다시 매기고 소견 작성'], ['../img/earlydot/app/8-admin.webp', '면허 확인 후 의사 가입 승인']] },
     html: `<p class="lead">피부 병변 사진을 올리면 8개 질환으로 분류하고, 의사가 진단 근거와 환자 경과를 함께 보는 플랫폼입니다. 광주 인공지능사관학교 6기 최종 프로젝트로 팀장을 맡아 만들었고, NIPA 원장상(최우수상)을 받았습니다.</p>
       ${nums([['brain', '+19.5%p', '악성 흑색종 F1 (65.1% → 84.6%)'], ['image', '37,919장', 'ISIC 2019·2020·2024 + AI-Hub 학습 데이터'], ['container', '4개 서비스', 'Docker Compose로 분리 배포']])}
       ${flow('진단 한 번이 지나가는 길', [[['camera', '피부 사진', '환자가 업로드'], ['monitor', 'React 화면', '환자·의사'], ['server', 'Django REST', '인증·기록 · MySQL'], ['brain', 'FastAPI 모델 서버', 'CNN + ViT 추론', true], ['stethoscope', '의사 대시보드', 'Grad-CAM 근거 확인']]])}
+      <h3>${I('smartphone')}직접 눌러 보는 화면</h3>
+      <p>아래 휴대폰에서 환자·의사·관리자 화면을 바로 눌러 볼 수 있습니다. 이름·병원·피부 사진은 견본입니다.</p>
+      <iframe class="embed-phone" src="../earlydot/app/" title="EARLY DOT 화면(직접 눌러 보기)" loading="lazy"></iframe>
       <h3>시스템</h3>
       <ul><li>React(의사·환자 화면) · Django REST(인증·진단 기록·후속조치) · FastAPI(모델 추론 서버) · MySQL을 각각 서비스로 나눠 Docker Compose로 배포</li><li>쿠버네티스 배포 구조(Ingress 게이트웨이, 이미지 저장 볼륨, 추론 API만 배포) 설계·검토 참여</li></ul>
       <h3>모델 (팀 공동 설계)</h3>
       <ul><li>ResNet50과 EfficientNet-B4의 특징을 이어 붙인 CNN 앙상블 + ViT-B/16을 확률 평균(Soft Voting)으로 합친 하이브리드</li><li>클래스 불균형(약 17배)은 가중 Focal Loss로, 털은 U-Net 마스크 + LaMa 인페인팅으로 지운 뒤 분류</li><li>Grad-CAM++로 모델이 어디를 보고 판단했는지 의사에게 보여 줌</li></ul>
       <h3>내가 맡은 것</h3>
       <ul><li>의사용 대시보드와 진단 흐름 화면(React)</li><li>담당 환자 목록 API, Grad-CAM 결과 표시 연동</li><li>Docker 환경 구성과 문제 해결, 팀 협업(브랜치·PR) 조율</li></ul>
-      <p class="links"><a href="../earlydot/app/">${I('smartphone')}다시 만든 화면 눌러 보기</a><a href="https://github.com/earlydot25-cloud/early-dot-project" target="_blank" rel="noopener">${I('git-branch')}GitHub 저장소</a></p>`,
+      <p class="links"><a href="https://github.com/earlydot25-cloud/early-dot-project" target="_blank" rel="noopener">${I('git-branch')}GitHub 저장소</a></p>`,
   },
 ];
