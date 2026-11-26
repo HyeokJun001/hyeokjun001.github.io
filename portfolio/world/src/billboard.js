@@ -10,6 +10,7 @@ const FRONT = 1.0; // 부스 가운데에서 광장 쪽으로 당기는 거리(m
 const SLIDE = 2.6; // 초
 const FADE = 0.45;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.fonts.load('600 21px "JetBrains Mono"'); // 캔버스는 글꼴을 스스로 불러오지 않으니 미리 받아 둔다
 const easeOutBack = t => 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2);
 
 // 전광판 느낌: 가는 가로줄 무늬
@@ -93,7 +94,7 @@ export function createBillboards(scene, booths) {
     const per = 0.42, hold = 2.5;
     const cycle = lines.length * per + hold;
     const shown = Math.min(lines.length, Math.floor((bd.clock % cycle) / per) + 1);
-    g.font = '600 21px Consolas, "D2Coding", monospace';
+    g.font = '600 21px "JetBrains Mono", Consolas, monospace';
     g.textBaseline = 'top';
     lines.slice(0, shown).forEach((l, k) => { g.fillStyle = l.startsWith('$') ? '#ffffff' : l.includes('✓') ? '#6fe0a0' : '#a99cf0'; g.fillText(l, 26, 22 + k * 30); });
     if (Math.floor(bd.clock * 2) % 2 === 0) { g.fillStyle = '#6fe0a0'; g.fillRect(26, 22 + shown * 30, 12, 22); }
