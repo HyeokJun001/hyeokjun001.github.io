@@ -116,6 +116,13 @@
   .step b .ic { display: block; width: 22px; height: 22px; margin-bottom: 6px; }
   .tag + b .ic { width: 20px; height: 20px; }
   .risk b .ic { margin-right: 5px; }
+  .screens { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px 18px; margin-top: 18px; }
+  .screens figure { margin: 0; }
+  .screens img { width: 100%; height: auto; border-radius: 26px; border: 6px solid #0f1d33; box-shadow: 0 24px 40px -28px rgba(15,29,51,.6); background: #f6f8fb; }
+  .screens figcaption { font-size: 13.5px; color: #3d3854; margin-top: 8px; line-height: 1.5; }
+  .screens figcaption .tag { margin: 0 6px 0 0; vertical-align: 1px; }
+  .rebuild { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-top: 34px; }
+  .rebuild h3 { margin: 0; } .rebuild p { color: #3d3854; font-size: 15px; margin-top: 4px; max-width: 40em; }
   footer { border-top: 1px solid var(--line); margin-top: 70px; padding: 26px 0 50px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
@@ -126,6 +133,8 @@
     .nums div:nth-child(3) { padding-left: 0; border-left: 0; }
     .nums div:nth-child(n+3) { border-top: 1px solid var(--line); }
     .grid3, .risk, .model { grid-template-columns: 1fr; }
+    .screens { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
+    .screens img { border-width: 4px; border-radius: 20px; }
     .steps { grid-template-columns: 1fr 1fr; }
     .step, .step + .step { border: 1px solid var(--line); border-radius: 0 !important; }
     .arch { grid-template-columns: 1fr; }
@@ -139,7 +148,7 @@
 <body>
 <nav class="top" aria-label="이 페이지"><div class="wrap">
   <a class="back" href="../#work">← 포트폴리오로</a>
-  <span class="toc"><a href="#what">무엇</a> · <a href="#flow">진단 흐름</a> · <a href="#users">사용자별 기능</a> · <a href="#tech">시스템</a> · <a href="#model">모델</a> · <a href="#me">내가 한 일</a></span>
+  <span class="toc"><a href="#what">무엇</a> · <a href="#flow">진단 흐름</a> · <a href="#users">사용자별 기능</a> · <a href="#screens">화면</a> · <a href="#tech">시스템</a> · <a href="#model">모델</a> · <a href="#me">내가 한 일</a></span>
 </div></nav>
 
 <main class="wrap">
@@ -200,6 +209,11 @@
       <div class="card"><span class="tag a">관리자</span><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#user-check"/></svg>믿을 수 있는 의사만</b><ul><li>의사 가입 신청(면허 증빙) 검토</li><li>승인·거부</li><li>사용자와 데이터 관리</li></ul></div>
     </div>
     <p class="src">로그인은 역할 기반 인증(JWT)으로 나누고, 화면은 휴대폰과 PC 모두에서 쓰도록 반응형으로 만들었습니다. 이 세 역할의 화면을 포트폴리오용으로 혼자 다시 설계·구현한 것을 <a href="app/">직접 눌러 볼 수 있습니다</a>(견본 데이터).</p>
+    <div class="rebuild" id="screens"><div><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#smartphone"/></svg>다시 만든 화면</h3><p>세 역할의 화면을 포트폴리오용으로 혼자 다시 설계·구현했습니다. 방향이 다른 시안 3개 중 의사 화면과 가장 잘 이어지는 '진료 차트' 안을 골랐고, 견본 데이터로 직접 눌러 볼 수 있습니다. 피부 사진과 히트맵은 코드로 그린 견본입니다.</p></div><a class="btn solid" href="app/"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#smartphone"/></svg>직접 눌러 보기</a></div>
+    <div class="screens">
+      <figure><img src="../img/earlydot/app/1-home.webp" alt="다시 만든 EARLY DOT 환자 화면 — 홈: 요약 숫자와 최근 진단, 새 진단 시작" width="540" height="1169" loading="lazy"><figcaption><span class="tag p">환자</span>홈: 요약 숫자와 최근 진단, 새 진단 시작</figcaption></figure><figure><img src="../img/earlydot/app/2-body.webp" alt="다시 만든 EARLY DOT 환자 화면 — 신체 부위 선택: 앞·뒤 그림이나 목록에서" width="540" height="1169" loading="lazy"><figcaption><span class="tag p">환자</span>신체 부위 선택: 앞·뒤 그림이나 목록에서</figcaption></figure><figure><img src="../img/earlydot/app/3-capture.webp" alt="다시 만든 EARLY DOT 환자 화면 — 촬영: 가이드 원 안에 환부를 맞춤" width="540" height="1169" loading="lazy"><figcaption><span class="tag p">환자</span>촬영: 가이드 원 안에 환부를 맞춤</figcaption></figure><figure><img src="../img/earlydot/app/4-result.webp" alt="다시 만든 EARLY DOT 환자 화면 — 진단 결과: 근거 히트맵·질환별 확률·진행 단계" width="540" height="1169" loading="lazy"><figcaption><span class="tag p">환자</span>진단 결과: 근거 히트맵·질환별 확률·진행 단계</figcaption></figure><figure><img src="../img/earlydot/app/5-history.webp" alt="다시 만든 EARLY DOT 환자 화면 — 진단 내역: 부위별 폴더로 변화 비교" width="540" height="1169" loading="lazy"><figcaption><span class="tag p">환자</span>진단 내역: 부위별 폴더로 변화 비교</figcaption></figure><figure><img src="../img/earlydot/app/6-doctor.webp" alt="다시 만든 EARLY DOT 의사 화면 — 소견함: 위험도 높은 요청부터" width="540" height="1169" loading="lazy"><figcaption><span class="tag d">의사</span>소견함: 위험도 높은 요청부터</figcaption></figure><figure><img src="../img/earlydot/app/7-review.webp" alt="다시 만든 EARLY DOT 의사 화면 — 소견 작성: 위험도 다시 매기기·후속 조치" width="540" height="1169" loading="lazy"><figcaption><span class="tag d">의사</span>소견 작성: 위험도 다시 매기기·후속 조치</figcaption></figure><figure><img src="../img/earlydot/app/8-admin.webp" alt="다시 만든 EARLY DOT 관리자 화면 — 의사 가입 승인: 면허 확인 후 승인·거부" width="540" height="1169" loading="lazy"><figcaption><span class="tag a">관리자</span>의사 가입 승인: 면허 확인 후 승인·거부</figcaption></figure>
+    </div>
+
   </section>
 </main>
 
