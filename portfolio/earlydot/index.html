@@ -104,6 +104,18 @@
   .commits li:first-child { border-top: 0; }
   .commits time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; padding-top: 1px; }
   .honest { margin-top: 18px; padding: 14px 18px; border-left: 4px solid var(--amber); background: #fff8ee; border-radius: 0 12px 12px 0; font-size: 15px; }
+  /* icons (../img/icons.svg: lucide ISC) */
+  .ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
+  .nums .ico { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--soft); color: var(--violet); margin-bottom: 10px; }
+  .nums .ico .ic { width: 19px; height: 19px; }
+  h2 small .ic { margin-right: 5px; }
+  .card b .ic, .team h4 .ic, .case h4 .ic, .step b .ic, h3 .ic { color: var(--violet); margin-right: 6px; }
+  .node b .ic { margin-right: 6px; }
+  .box b .ic { color: #b9a8ff; margin-right: 6px; }
+  .btn .ic { width: 18px; height: 18px; margin-right: 8px; }
+  .step b .ic { display: block; width: 22px; height: 22px; margin-bottom: 6px; }
+  .tag + b .ic { width: 20px; height: 20px; }
+  .risk b .ic { margin-right: 5px; }
   footer { border-top: 1px solid var(--line); margin-top: 70px; padding: 26px 0 50px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
@@ -137,7 +149,7 @@
       <h1>EARLY DOT: 피부 사진 한 장으로 위험을 미리 알리고, 의사에게 이어 주는 AI 진단 플랫폼</h1>
       <p>환자가 피부를 찍어 올리면 AI가 8개 질환으로 분류하고 위험도를 알려 줍니다. 판단 근거는 히트맵으로 보여 주고, 담당 의사가 같은 기록을 보고 소견을 남깁니다. 광주 인공지능사관학교 6기 최종 프로젝트로 만들었고, 팀장을 맡았습니다.</p>
       <div class="meta"><span>React · TypeScript</span><span>Django REST</span><span>FastAPI 모델 서버</span><span>PyTorch</span><span>MySQL</span><span>Docker Compose</span></div>
-      <div class="btns"><a class="btn solid" href="https://github.com/earlydot25-cloud/early-dot-project">GitHub 저장소 보기</a><a class="btn line" href="../">포트폴리오로 돌아가기</a></div>
+      <div class="btns"><a class="btn solid" href="https://github.com/earlydot25-cloud/early-dot-project"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#git-branch"/></svg>GitHub 저장소 보기</a><a class="btn line" href="../">포트폴리오로 돌아가기</a></div>
     </div>
     <div class="card-hero">
       <img src="../img/earlydot/logo.png" alt="EARLY DOT 로고, Skin cancer AI diagnosis assist" width="568" height="128">
@@ -145,14 +157,14 @@
     </div>
   </header>
   <div class="nums">
-    <div><b>8종</b><span>분류하는 피부 질환 (악성 3 · 경계성 1 · 양성 4)</span></div>
-    <div><b>37,919장</b><span>학습 데이터 (ISIC 2019·2020·2024 + AI-Hub)</span></div>
-    <div><b>3개 역할</b><span>환자 · 의사 · 관리자 화면</span></div>
-    <div><b>4개 서비스</b><span>React · Django API · FastAPI 모델 서버 · MySQL</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#scan-search"/></svg></span><b>8종</b><span>분류하는 피부 질환 (악성 3 · 경계성 1 · 양성 4)</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#image"/></svg></span><b>37,919장</b><span>학습 데이터 (ISIC 2019·2020·2024 + AI-Hub)</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#users"/></svg></span><b>3개 역할</b><span>환자 · 의사 · 관리자 화면</span></div>
+    <div><span class="ico"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#container"/></svg></span><b>4개 서비스</b><span>React · Django API · FastAPI 모델 서버 · MySQL</span></div>
   </div>
 
   <section id="what" aria-labelledby="h-what">
-    <h2 id="h-what"><small>01 · 무엇을 풀려고 했나</small>"이 점, 병원에 가 봐야 하나?"에 빨리 답하기</h2>
+    <h2 id="h-what"><small><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#lightbulb"/></svg>01 · 무엇을 풀려고 했나</small>"이 점, 병원에 가 봐야 하나?"에 빨리 답하기</h2>
     <p class="lead">흑색종 같은 피부암은 일찍 발견할수록 치료가 쉽지만, 대부분의 점과 반점은 양성이라 사람들은 병원에 갈지 망설입니다. EARLY DOT은 집에서 찍은 사진으로 먼저 위험도를 알려 주고, 위험해 보이면 담당 의사에게 바로 이어지게 하는 것을 목표로 했습니다.</p>
     <ul class="plain" style="margin-top:12px">
       <li><b>환자</b>는 찍어 올리고 결과와 근거를 봅니다.</li>
@@ -163,16 +175,16 @@
   </section>
 
   <section id="flow" aria-labelledby="h-flow">
-    <h2 id="h-flow"><small>02 · 진단 흐름</small>사진 한 장이 의사 화면에 오기까지</h2>
+    <h2 id="h-flow"><small><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#workflow"/></svg>02 · 진단 흐름</small>사진 한 장이 의사 화면에 오기까지</h2>
     <div class="steps" role="list">
-      <div class="step" role="listitem"><b>1. 촬영·업로드</b><span>신체 부위를 고르고 사진을 올림</span></div>
-      <div class="step" role="listitem"><b>2. 털 제거</b><span>U-Net으로 털 위치를 찾고 LaMa로 지움</span></div>
-      <div class="step" role="listitem"><b>3. 정규화</b><span>512×512로 맞추고 색 정규화</span></div>
-      <div class="step" role="listitem"><b>4. 하이브리드 예측</b><span>CNN 앙상블 + ViT 확률을 합침</span></div>
-      <div class="step" role="listitem"><b>5. 위험도·근거</b><span>위험도 계산, Grad-CAM 히트맵</span></div>
-      <div class="step" role="listitem"><b>6. 의사 검토</b><span>저장된 결과를 의사가 보고 소견 작성</span></div>
+      <div class="step" role="listitem"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#camera"/></svg>1. 촬영·업로드</b><span>신체 부위를 고르고 사진을 올림</span></div>
+      <div class="step" role="listitem"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#scan-search"/></svg>2. 털 제거</b><span>U-Net으로 털 위치를 찾고 LaMa로 지움</span></div>
+      <div class="step" role="listitem"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layers"/></svg>3. 정규화</b><span>512×512로 맞추고 색 정규화</span></div>
+      <div class="step" role="listitem"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#brain"/></svg>4. 하이브리드 예측</b><span>CNN 앙상블 + ViT 확률을 합침</span></div>
+      <div class="step" role="listitem"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#activity"/></svg>5. 위험도·근거</b><span>위험도 계산, Grad-CAM 히트맵</span></div>
+      <div class="step" role="listitem"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#stethoscope"/></svg>6. 의사 검토</b><span>저장된 결과를 의사가 보고 소견 작성</span></div>
     </div>
-    <h3>위험도는 이렇게 매깁니다</h3>
+    <h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#heart-pulse"/></svg>위험도는 이렇게 매깁니다</h3>
     <div class="risk">
       <div class="r1"><b>높음</b>흑색종·기저세포암·편평세포암·광선각화증 같은 악성·전암성 질환이 가장 높은 확률이고, 그 확률이 0.7 이상</div>
       <div class="r2"><b>중간</b>악성·전암성 질환 확률이 0.4 이상</div>
@@ -181,11 +193,11 @@
   </section>
 
   <section id="users" aria-labelledby="h-users">
-    <h2 id="h-users"><small>03 · 사용자별 기능</small>같은 기록을 세 사람이 다르게 봅니다</h2>
+    <h2 id="h-users"><small><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#users"/></svg>03 · 사용자별 기능</small>같은 기록을 세 사람이 다르게 봅니다</h2>
     <div class="grid3">
-      <div class="card"><span class="tag p">환자</span><b>찍고, 확인하고, 연결하기</b><ul><li>신체 부위 선택 후 사진 촬영·업로드</li><li>질병명·위험도·확률 분포·Grad-CAM 히트맵 확인</li><li>과거 진단 기록 조회와 상세 보기</li><li>담당 의사 지정과 후속 조치 요청</li></ul></div>
-      <div class="card"><span class="tag d">의사</span><b>검토하고, 판단하고, 남기기</b><ul><li>담당 환자 목록(성별·소견 필요 여부·AI 심각도 표시, 필터)</li><li>환자별 진단 내역과 AI 결과 검토</li><li>위험도 재평가와 후속 조치 의견 작성</li></ul></div>
-      <div class="card"><span class="tag a">관리자</span><b>믿을 수 있는 의사만</b><ul><li>의사 가입 신청(면허 증빙) 검토</li><li>승인·거부</li><li>사용자와 데이터 관리</li></ul></div>
+      <div class="card"><span class="tag p">환자</span><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#user-round"/></svg>찍고, 확인하고, 연결하기</b><ul><li>신체 부위 선택 후 사진 촬영·업로드</li><li>질병명·위험도·확률 분포·Grad-CAM 히트맵 확인</li><li>과거 진단 기록 조회와 상세 보기</li><li>담당 의사 지정과 후속 조치 요청</li></ul></div>
+      <div class="card"><span class="tag d">의사</span><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#stethoscope"/></svg>검토하고, 판단하고, 남기기</b><ul><li>담당 환자 목록(성별·소견 필요 여부·AI 심각도 표시, 필터)</li><li>환자별 진단 내역과 AI 결과 검토</li><li>위험도 재평가와 후속 조치 의견 작성</li></ul></div>
+      <div class="card"><span class="tag a">관리자</span><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#user-check"/></svg>믿을 수 있는 의사만</b><ul><li>의사 가입 신청(면허 증빙) 검토</li><li>승인·거부</li><li>사용자와 데이터 관리</li></ul></div>
     </div>
     <p class="src">로그인은 역할 기반 인증(JWT)으로 나누고, 화면은 휴대폰과 PC 모두에서 쓰도록 반응형으로 만들었습니다.</p>
   </section>
@@ -193,16 +205,16 @@
 
 <section class="night" id="tech" aria-labelledby="h-tech">
   <div class="wrap">
-    <h2 id="h-tech"><small>04 · 시스템 구조</small>모델을 웹 서버에서 떼어 낸 4개 서비스</h2>
+    <h2 id="h-tech"><small><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#server"/></svg>04 · 시스템 구조</small>모델을 웹 서버에서 떼어 낸 4개 서비스</h2>
     <p class="lead">무거운 AI 모델이 웹 API와 같이 있으면, 모델이 바쁠 때 로그인이나 목록 조회까지 느려집니다. 그래서 모델 추론만 하는 FastAPI 서버를 따로 두고, 네 서비스를 Docker Compose로 함께 띄웠습니다.</p>
     <div class="arch" role="img" aria-label="React 화면이 Django API를 부르고, Django API가 FastAPI 모델 서버에 예측을 요청하며, 결과는 MySQL에 저장되는 구조">
-      <div class="box"><b>React</b><small>화면 · TypeScript · Tailwind</small><ul><li>환자·의사·관리자 화면</li><li>촬영·업로드·결과·대시보드</li></ul></div>
+      <div class="box"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#monitor-smartphone"/></svg>React</b><small>화면 · TypeScript · Tailwind</small><ul><li>환자·의사·관리자 화면</li><li>촬영·업로드·결과·대시보드</li></ul></div>
       <div class="arrow">→</div>
-      <div class="box"><b>Django REST</b><small>API · SimpleJWT</small><ul><li>사용자·인증</li><li>진단·대시보드·관리자 앱</li><li>사진·히트맵 파일 관리</li></ul></div>
+      <div class="box"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#server"/></svg>Django REST</b><small>API · SimpleJWT</small><ul><li>사용자·인증</li><li>진단·대시보드·관리자 앱</li><li>사진·히트맵 파일 관리</li></ul></div>
       <div class="arrow">→</div>
-      <div class="box"><b>FastAPI</b><small>모델 서버 · PyTorch · OpenCV</small><ul><li>털 제거 전처리</li><li>하이브리드 예측</li><li>Grad-CAM 생성</li></ul></div>
+      <div class="box"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#brain"/></svg>FastAPI</b><small>모델 서버 · PyTorch · OpenCV</small><ul><li>털 제거 전처리</li><li>하이브리드 예측</li><li>Grad-CAM 생성</li></ul></div>
       <div class="arrow">↔</div>
-      <div class="box"><b>MySQL 8</b><small>DB</small><ul><li>사용자·진단 기록</li><li>후속 조치 이력</li></ul></div>
+      <div class="box"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#database"/></svg>MySQL 8</b><small>DB</small><ul><li>사용자·진단 기록</li><li>후속 조치 이력</li></ul></div>
     </div>
     <ul style="margin-top:20px;padding-left:18px">
       <li>쿠버네티스 배포 구조도 함께 설계·검토했습니다: Ingress 게이트웨이, Nginx API 게이트웨이, 사진·히트맵을 담는 영구 볼륨, 자가 복구되는 Deployment. 서비스에는 학습 코드 없이 <b>추론 API만</b> 배포합니다.</li>
@@ -213,12 +225,12 @@
 
 <section class="night" id="model" aria-labelledby="h-model" style="margin-top:0;padding-top:10px">
   <div class="wrap">
-    <h2 id="h-model"><small>05 · 모델 (팀 공동 설계)</small>CNN은 국소 무늬를, ViT는 전체 맥락을</h2>
+    <h2 id="h-model"><small><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#brain"/></svg>05 · 모델 (팀 공동 설계)</small>CNN은 국소 무늬를, ViT는 전체 맥락을</h2>
     <div class="model">
-      <div class="box"><b>1단계 · CNN 특징 결합 (Feature-Level Fusion)</b>
+      <div class="box"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layers"/></svg>1단계 · CNN 특징 결합 (Feature-Level Fusion)</b>
         <div class="flow"><i>ResNet50 · 2048</i><em>+</em><i>EfficientNet-B4 · 1792</i><em>→</em><i>이어 붙여 3840</i><em>→</em><i>분류기 → 8</i></div>
         <p style="margin-top:10px;font-size:14px">구조가 다른 두 백본의 특징을 이어 붙이면, 고정 평균보다 분류기가 학습으로 더 잘 조합합니다.</p></div>
-      <div class="box"><b>2단계 · ViT와 확률 평균 (Soft Voting)</b>
+      <div class="box"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#workflow"/></svg>2단계 · ViT와 확률 평균 (Soft Voting)</b>
         <div class="flow"><i>CNN 확률</i><em>×0.5 +</em><i>ViT-B/16 확률</i><em>×0.5</em></div>
         <p style="margin-top:10px;font-size:14px">병변 경계의 미세한 무늬를 보려고 ViT 입력을 224에서 512px로 넓혔습니다(위치 임베딩 보간).</p></div>
     </div>
@@ -245,13 +257,13 @@
 
 <main class="wrap">
   <section id="me" aria-labelledby="h-me">
-    <h2 id="h-me"><small>06 · 내가 한 일</small>팀장으로 일을 나누고, 의사 화면과 연결을 맡았습니다</h2>
+    <h2 id="h-me"><small><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#user-check"/></svg>06 · 내가 한 일</small>팀장으로 일을 나누고, 의사 화면과 연결을 맡았습니다</h2>
     <div class="grid3">
-      <div class="card"><b>팀 운영</b><p>GitHub 조직에서 브랜치·PR로 협업하도록 정하고, 앱 단위로 역할을 나눴습니다. 모델·백엔드·프론트 담당자가 주고받을 API 응답 모양을 맞추는 일을 주도했습니다.</p></div>
-      <div class="card"><b>의사 화면과 API</b><p>의사 대시보드와 진단 흐름 화면(React), 담당 환자 목록 API, 진단 내역 정렬, Grad-CAM 결과 표시 연동을 맡았습니다.</p></div>
-      <div class="card"><b>실행 환경</b><p>네 서비스를 Docker로 띄우는 환경을 구성하고, 컨테이너 사이에서 나던 오류를 정리했습니다.</p></div>
+      <div class="card"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#users"/></svg>팀 운영</b><p>GitHub 조직에서 브랜치·PR로 협업하도록 정하고, 앱 단위로 역할을 나눴습니다. 모델·백엔드·프론트 담당자가 주고받을 API 응답 모양을 맞추는 일을 주도했습니다.</p></div>
+      <div class="card"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layout-dashboard"/></svg>의사 화면과 API</b><p>의사 대시보드와 진단 흐름 화면(React), 담당 환자 목록 API, 진단 내역 정렬, Grad-CAM 결과 표시 연동을 맡았습니다.</p></div>
+      <div class="card"><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#container"/></svg>실행 환경</b><p>네 서비스를 Docker로 띄우는 환경을 구성하고, 컨테이너 사이에서 나던 오류를 정리했습니다.</p></div>
     </div>
-    <h3>저장소에 남은 내 커밋 (발췌)</h3>
+    <h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#git-branch"/></svg>저장소에 남은 내 커밋 (발췌)</h3>
     <ul class="commits">
       <li><time>2025.10.22</time><span>모델 파일 경로 정리, 업로드·인증서·히트맵 저장 폴더 구성, 필요한 라이브러리 추가</span></li>
       <li><time>2025.11.04</time><span>진단 내역 페이지 구현과 화면 개선, 사진 저장 기능 1차</span></li>
@@ -261,7 +273,7 @@
       <li><time>2025.11.20~22</time><span>의사 대시보드 필터, 의사 대시보드·환자 목록 버그 수정, 화면 디자인 통일과 이미지 표시</span></li>
     </ul>
     <p class="honest">솔직히 적습니다. 저장소의 커밋은 팀원 4명 계정 중 제 것이 20개이고, 모델과 백엔드 코드 비중은 다른 팀원이 더 컸습니다. 저는 모델을 함께 설계하고 구조를 끝까지 이해한 뒤, 그 결과가 의사 화면에 제대로 보이도록 화면·API·실행 환경을 맡았습니다.</p>
-    <h3>배운 것</h3>
+    <h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#lightbulb"/></svg>배운 것</h3>
     <ul class="plain">
       <li>정확도 숫자만큼, 의사가 "왜 이렇게 판단했는지" 볼 수 있는 화면이 신뢰를 만듭니다.</li>
       <li>모델을 별도 서버로 떼어 두면 모델을 바꿔도 웹 서비스는 그대로 둘 수 있습니다. 이 감각은 이후 프로모터에서 백엔드를 통째로 바꿀 때 어댑터 계층을 두는 결정으로 이어졌습니다.</li>
