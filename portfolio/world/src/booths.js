@@ -84,7 +84,7 @@ export const BOOTHS = [
       <ul><li>제주대학교 관광경영학 학사 (GPA 4.1/4.5) · ADsP 데이터분석 준전문가 (2025.09)</li></ul>`,
   },
   {
-    id: 'earlydot', staff: 'Knight', x: -12.4, z: 3.2, color: '#5b3fd1', title: 'EARLY DOT', sub: 'AI 피부암 진단 · NIPA 원장상', poster: '../img/earlydot/logo.png', more: 'https://github.com/earlydot25-cloud/early-dot-project', moreLabel: 'GitHub 저장소 보기',
+    id: 'earlydot', staff: 'Knight', x: -12.4, z: 3.2, color: '#5b3fd1', title: 'EARLY DOT', sub: 'AI 피부암 진단 · NIPA 원장상', poster: '../img/earlydot/logo.png', more: '../earlydot/', moreLabel: 'EARLY DOT 자세히 보기',
     reel: { type: 'list', head: 'EARLY DOT · 팀장', caption: 'AI 피부암 진단 + 의사·환자 관리 플랫폼 · NIPA 원장상', items: [['4개 서비스로 분리', 'React · Django API · FastAPI 모델 서버 · DB (Docker Compose)'], ['악성 흑색종 F1 65.1% → 84.6%', 'CNN 앙상블 + ViT 하이브리드'], ['진단 근거를 보여 주는 화면', 'Grad-CAM 히트맵 · 의사용 대시보드']] },
     html: `<p class="lead">피부 병변 사진을 올리면 8개 질환으로 분류하고, 의사가 진단 근거와 환자 경과를 함께 보는 플랫폼입니다. 광주 인공지능사관학교 6기 최종 프로젝트로 팀장을 맡아 만들었고, NIPA 원장상(최우수상)을 받았습니다.</p>
       <ul class="nums"><li><b>+19.5%p</b>악성 흑색종 F1 (65.1% → 84.6%)</li><li><b>37,919장</b>ISIC 2019·2020·2024 + AI-Hub 학습 데이터</li><li><b>4개 서비스</b>Docker Compose로 분리 배포</li></ul>
@@ -93,6 +93,7 @@ export const BOOTHS = [
       <h3>모델 (팀 공동 설계)</h3>
       <ul><li>ResNet50과 EfficientNet-B4의 특징을 이어 붙인 CNN 앙상블 + ViT-B/16을 확률 평균(Soft Voting)으로 합친 하이브리드</li><li>클래스 불균형(약 17배)은 가중 Focal Loss로, 털은 U-Net 마스크 + LaMa 인페인팅으로 지운 뒤 분류</li><li>Grad-CAM++로 모델이 어디를 보고 판단했는지 의사에게 보여 줌</li></ul>
       <h3>내가 맡은 것</h3>
-      <ul><li>의사용 대시보드와 진단 흐름 화면(React)</li><li>담당 환자 목록 API, Grad-CAM 결과 표시 연동</li><li>Docker 환경 구성과 문제 해결, 팀 협업(브랜치·PR) 조율</li></ul>`,
+      <ul><li>의사용 대시보드와 진단 흐름 화면(React)</li><li>담당 환자 목록 API, Grad-CAM 결과 표시 연동</li><li>Docker 환경 구성과 문제 해결, 팀 협업(브랜치·PR) 조율</li></ul>
+      <p class="links"><a href="https://github.com/earlydot25-cloud/early-dot-project" target="_blank" rel="noopener">GitHub 저장소</a></p>`,
   },
 ];

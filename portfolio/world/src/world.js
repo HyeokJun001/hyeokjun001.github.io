@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 
 export const WALK_RADIUS = 19;
+export const POLE = { x: 0, z: 0 };
 const blockers = []; // { x, z, r }
 export const groundY = () => 0;
 export const heightAt = groundY;
@@ -35,6 +36,7 @@ function booth(b, texLoader) {
   const postM = mat('#efe6d8');
   for (const [x, z] of [[-W / 2, -D / 2], [W / 2, -D / 2], [-W / 2, D / 2], [W / 2, D / 2]]) {
     const p = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, H, 8), postM);
+    p.userData.thin = true; // 카메라 가림 판정에서 무시
     p.position.set(x, H / 2, z); p.castShadow = true; g.add(p);
   }
   // 지붕: 네모뿔 천막
@@ -97,7 +99,8 @@ function trees(scene, occluders) {
 function lights(scene, booths, cz, occluders) {
   // 가운데 기둥에서 부스 지붕으로 늘어진 줄 전구(점광원 없이 빛나는 구슬만)
   const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 6, 8), mat('#2c2244'));
-  pole.position.set(0, 3, cz); pole.castShadow = true; scene.add(pole); occluders.push(pole); blockers.push({ x: 0, z: cz, r: 0.15 }); // 카메라가 기둥 뒤에 숨지 않게 가림 판정에 넣는다
+  pole.position.set(0, 3, cz); pole.castShadow = true; scene.add(pole); blockers.push({ x: 0, z: cz, r: 0.15 });
+  POLE.x = 0; POLE.z = cz; // 기둥은 가늘어서 가림 판정 대신, 카메라가 기둥 속에 들어가지만 않게 look.js에서 밀어낸다
   const pts = [];
   for (const b of booths) {
     const a = new THREE.Vector3(0, 5.8, cz), e = new THREE.Vector3(b.x, 3.3, b.z);

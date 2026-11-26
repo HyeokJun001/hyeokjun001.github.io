@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EARLY DOT · 사례 연구 | 양혁준 포트폴리오</title>
+<meta name="description" content="피부 사진으로 8개 질환을 분류하고, 의사가 진단 근거와 환자 경과를 함께 보는 AI 피부암 진단 플랫폼. NIPA 원장상(최우수상), 팀장.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --bg: #fbfaff; --ink: #1a1530; --muted: #6b6780; --line: #e6e2f2; --violet: #6d3ce0; --soft: #efe9ff; --night: #16122a; --night-2: #221c3d; --red: #d64550; --amber: #e0962e; --ok: #2f9e6e; }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body { font-family: Pretendard, "Malgun Gothic", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+  a { color: var(--violet); }
+  img { max-width: 100%; display: block; }
+  :focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  .top { position: sticky; top: 0; z-index: 10; background: rgba(251,250,255,.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; font-size: 14.5px; }
+  .top a { text-decoration: none; color: var(--muted); }
+  .top a:hover { color: var(--ink); }
+  .top .back { color: var(--ink); font-weight: 700; margin-right: auto; }
+  .toc a.cur { color: var(--violet); font-weight: 700; }
+
+  header.hero { padding: 60px 0 30px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 44px; align-items: center; }
+  .eyebrow { font-size: 15px; color: var(--violet); font-weight: 700; }
+  h1 { font-size: clamp(32px, 4.4vw, 50px); line-height: 1.18; letter-spacing: -0.04em; margin: 10px 0 18px; }
+  .hero p { font-size: 18px; color: #3d3854; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .meta span { font-size: 13.5px; background: var(--soft); color: #3e2a86; padding: 4px 12px; border-radius: 999px; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  .btn { display: inline-flex; align-items: center; padding: 11px 18px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); transition: transform .15s, background .15s, color .15s; }
+  .btn.solid { background: var(--ink); color: #fff; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.line:hover { background: var(--ink); color: #fff; }
+  .card-hero { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 30px; box-shadow: 0 30px 60px -40px rgba(26,21,48,.5); }
+  .card-hero img { width: 82%; margin: 0 auto 22px; }
+  .big { text-align: center; border-top: 1px solid var(--line); padding-top: 18px; }
+  .big b { display: block; font-size: 40px; color: var(--violet); letter-spacing: -0.03em; line-height: 1.1; }
+  .big span { font-size: 14px; color: var(--muted); }
+
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--ink); margin-top: 26px; }
+  .nums div { padding: 18px 16px 18px 0; }
+  .nums div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+  .nums b { display: block; font-size: 28px; letter-spacing: -0.03em; line-height: 1.1; }
+  .nums span { font-size: 13.5px; color: var(--muted); }
+
+  section { padding: 64px 0 8px; }
+  h2 { font-size: clamp(26px, 3vw, 34px); letter-spacing: -0.035em; line-height: 1.25; margin-bottom: 14px; }
+  h2 small { display: block; font-size: 15px; color: var(--violet); letter-spacing: 0; margin-bottom: 4px; }
+  h3 { font-size: 19px; letter-spacing: -0.02em; margin: 26px 0 8px; }
+  .lead { font-size: 17.5px; color: #3d3854; max-width: 44em; }
+  ul.plain { padding-left: 20px; }
+  ul.plain li { margin: 4px 0; }
+  .src { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+  code { font-family: Consolas, monospace; font-size: .9em; background: #f1eef9; padding: 1px 5px; border-radius: 4px; }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 16px 18px; }
+  .card b { display: block; font-size: 16px; margin-bottom: 6px; }
+  .card p, .card li { font-size: 14.5px; color: #3d3854; }
+  .card ul { padding-left: 16px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; margin-bottom: 8px; }
+  .tag.p { background: #e6f4ee; color: var(--ok); } .tag.d { background: var(--soft); color: var(--violet); } .tag.a { background: #fff1e0; color: var(--amber); }
+
+  /* 진단 흐름 */
+  .steps { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 20px; }
+  .step { border: 1px solid var(--line); background: #fff; padding: 14px 12px; font-size: 13.5px; }
+  .step + .step { border-left: 0; }
+  .step b { display: block; font-size: 14.5px; margin-bottom: 4px; }
+  .step span { color: var(--muted); }
+  .step:first-child { border-radius: 12px 0 0 12px; } .step:last-child { border-radius: 0 12px 12px 0; }
+
+  /* 위험도 */
+  .risk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+  .risk div { border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+  .risk b { display: block; font-size: 15px; }
+  .r1 { background: #fdecee; } .r1 b { color: var(--red); }
+  .r2 { background: #fff4e6; } .r2 b { color: var(--amber); }
+  .r3 { background: #eaf6f0; } .r3 b { color: var(--ok); }
+
+  /* 어두운 구간 */
+  .night { background: var(--night); color: #e7e3f7; margin-top: 70px; padding: 64px 0 70px; }
+  .night h2 small { color: #b9a8ff; }
+  .night .lead, .night p, .night li { color: #c9c3e2; }
+  .arch { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr; align-items: stretch; margin-top: 26px; }
+  .box { background: var(--night-2); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 14px; font-size: 13.5px; }
+  .box b { display: block; color: #fff; font-size: 15.5px; margin-bottom: 4px; }
+  .box small { color: #9a93b8; display: block; margin-bottom: 6px; }
+  .box ul { padding-left: 15px; }
+  .arrow { display: grid; place-items: center; color: #8f86b8; font-size: 20px; }
+  .model { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; }
+  .flow i { font-style: normal; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: #fff; padding: 4px 10px; border-radius: 8px; }
+  .flow em { font-style: normal; color: #8f86b8; }
+  .f1 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 16px; }
+  .f1 div { background: var(--night-2); border-radius: 10px; padding: 10px; text-align: center; font-size: 12.5px; color: #9a93b8; }
+  .f1 b { display: block; font-size: 20px; color: #fff; }
+  .f1 .mel { background: #3a2445; border: 1px solid #a65b8d; } .f1 .mel b { color: #ffb4d6; }
+
+  /* 내 기여 */
+  .commits { margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+  .commits li { list-style: none; display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--line); font-size: 14.5px; }
+  .commits li:first-child { border-top: 0; }
+  .commits time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .honest { margin-top: 18px; padding: 14px 18px; border-left: 4px solid var(--amber); background: #fff8ee; border-radius: 0 12px 12px 0; font-size: 15px; }
+  footer { border-top: 1px solid var(--line); margin-top: 70px; padding: 26px 0 50px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  @media (max-width: 860px) {
+    .toc { display: none; }
+    header.hero { grid-template-columns: 1fr; gap: 26px; padding-top: 36px; }
+    .nums { grid-template-columns: 1fr 1fr; }
+    .nums div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .nums div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .grid3, .risk, .model { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step, .step + .step { border: 1px solid var(--line); border-radius: 0 !important; }
+    .arch { grid-template-columns: 1fr; }
+    .arrow { transform: rotate(90deg); height: 30px; }
+    .f1 { grid-template-columns: repeat(3, 1fr); }
+    .commits li { grid-template-columns: 1fr; gap: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<nav class="top" aria-label="이 페이지"><div class="wrap">
+  <a class="back" href="../#work">← 포트폴리오로</a>
+  <span class="toc"><a href="#what">무엇</a> · <a href="#flow">진단 흐름</a> · <a href="#users">사용자별 기능</a> · <a href="#tech">시스템</a> · <a href="#model">모델</a> · <a href="#me">내가 한 일</a></span>
+</div></nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">사례 연구 · 2025.10 ~ 11 · 팀장(PM) · NIPA 원장상(최우수상)</p>
+      <h1>EARLY DOT: 피부 사진 한 장으로 위험을 미리 알리고, 의사에게 이어 주는 AI 진단 플랫폼</h1>
+      <p>환자가 피부를 찍어 올리면 AI가 8개 질환으로 분류하고 위험도를 알려 줍니다. 판단 근거는 히트맵으로 보여 주고, 담당 의사가 같은 기록을 보고 소견을 남깁니다. 광주 인공지능사관학교 6기 최종 프로젝트로 만들었고, 팀장을 맡았습니다.</p>
+      <div class="meta"><span>React · TypeScript</span><span>Django REST</span><span>FastAPI 모델 서버</span><span>PyTorch</span><span>MySQL</span><span>Docker Compose</span></div>
+      <div class="btns"><a class="btn solid" href="https://github.com/earlydot25-cloud/early-dot-project">GitHub 저장소 보기</a><a class="btn line" href="../">포트폴리오로 돌아가기</a></div>
+    </div>
+    <div class="card-hero">
+      <img src="../img/earlydot/logo.png" alt="EARLY DOT 로고, Skin cancer AI diagnosis assist" width="568" height="128">
+      <div class="big"><b>65.1% → 84.6%</b><span>악성 흑색종 F1 · CNN 단독 → CNN + ViT 하이브리드 (+19.45%p)</span></div>
+    </div>
+  </header>
+  <div class="nums">
+    <div><b>8종</b><span>분류하는 피부 질환 (악성 3 · 경계성 1 · 양성 4)</span></div>
+    <div><b>37,919장</b><span>학습 데이터 (ISIC 2019·2020·2024 + AI-Hub)</span></div>
+    <div><b>3개 역할</b><span>환자 · 의사 · 관리자 화면</span></div>
+    <div><b>4개 서비스</b><span>React · Django API · FastAPI 모델 서버 · MySQL</span></div>
+  </div>
+
+  <section id="what" aria-labelledby="h-what">
+    <h2 id="h-what"><small>01 · 무엇을 풀려고 했나</small>"이 점, 병원에 가 봐야 하나?"에 빨리 답하기</h2>
+    <p class="lead">흑색종 같은 피부암은 일찍 발견할수록 치료가 쉽지만, 대부분의 점과 반점은 양성이라 사람들은 병원에 갈지 망설입니다. EARLY DOT은 집에서 찍은 사진으로 먼저 위험도를 알려 주고, 위험해 보이면 담당 의사에게 바로 이어지게 하는 것을 목표로 했습니다.</p>
+    <ul class="plain" style="margin-top:12px">
+      <li><b>환자</b>는 찍어 올리고 결과와 근거를 봅니다.</li>
+      <li><b>의사</b>는 담당 환자의 AI 결과를 검토하고, 위험도를 다시 매기고, 후속 조치 의견을 남깁니다.</li>
+      <li><b>관리자</b>는 의사 계정 가입 신청을 확인하고 승인합니다.</li>
+    </ul>
+    <p class="src">모델은 진단을 대신하지 않고 '보조'합니다. 최종 판단은 의사가 하도록 화면과 흐름을 설계했습니다.</p>
+  </section>
+
+  <section id="flow" aria-labelledby="h-flow">
+    <h2 id="h-flow"><small>02 · 진단 흐름</small>사진 한 장이 의사 화면에 오기까지</h2>
+    <div class="steps" role="list">
+      <div class="step" role="listitem"><b>1. 촬영·업로드</b><span>신체 부위를 고르고 사진을 올림</span></div>
+      <div class="step" role="listitem"><b>2. 털 제거</b><span>U-Net으로 털 위치를 찾고 LaMa로 지움</span></div>
+      <div class="step" role="listitem"><b>3. 정규화</b><span>512×512로 맞추고 색 정규화</span></div>
+      <div class="step" role="listitem"><b>4. 하이브리드 예측</b><span>CNN 앙상블 + ViT 확률을 합침</span></div>
+      <div class="step" role="listitem"><b>5. 위험도·근거</b><span>위험도 계산, Grad-CAM 히트맵</span></div>
+      <div class="step" role="listitem"><b>6. 의사 검토</b><span>저장된 결과를 의사가 보고 소견 작성</span></div>
+    </div>
+    <h3>위험도는 이렇게 매깁니다</h3>
+    <div class="risk">
+      <div class="r1"><b>높음</b>흑색종·기저세포암·편평세포암·광선각화증 같은 악성·전암성 질환이 가장 높은 확률이고, 그 확률이 0.7 이상</div>
+      <div class="r2"><b>중간</b>악성·전암성 질환 확률이 0.4 이상</div>
+      <div class="r3"><b>낮음 ~ 중간</b>양성 질환(모반·피부섬유종·혈관종 등)이 가장 높은 확률일 때</div>
+    </div>
+  </section>
+
+  <section id="users" aria-labelledby="h-users">
+    <h2 id="h-users"><small>03 · 사용자별 기능</small>같은 기록을 세 사람이 다르게 봅니다</h2>
+    <div class="grid3">
+      <div class="card"><span class="tag p">환자</span><b>찍고, 확인하고, 연결하기</b><ul><li>신체 부위 선택 후 사진 촬영·업로드</li><li>질병명·위험도·확률 분포·Grad-CAM 히트맵 확인</li><li>과거 진단 기록 조회와 상세 보기</li><li>담당 의사 지정과 후속 조치 요청</li></ul></div>
+      <div class="card"><span class="tag d">의사</span><b>검토하고, 판단하고, 남기기</b><ul><li>담당 환자 목록(성별·소견 필요 여부·AI 심각도 표시, 필터)</li><li>환자별 진단 내역과 AI 결과 검토</li><li>위험도 재평가와 후속 조치 의견 작성</li></ul></div>
+      <div class="card"><span class="tag a">관리자</span><b>믿을 수 있는 의사만</b><ul><li>의사 가입 신청(면허 증빙) 검토</li><li>승인·거부</li><li>사용자와 데이터 관리</li></ul></div>
+    </div>
+    <p class="src">로그인은 역할 기반 인증(JWT)으로 나누고, 화면은 휴대폰과 PC 모두에서 쓰도록 반응형으로 만들었습니다.</p>
+  </section>
+</main>
+
+<section class="night" id="tech" aria-labelledby="h-tech">
+  <div class="wrap">
+    <h2 id="h-tech"><small>04 · 시스템 구조</small>모델을 웹 서버에서 떼어 낸 4개 서비스</h2>
+    <p class="lead">무거운 AI 모델이 웹 API와 같이 있으면, 모델이 바쁠 때 로그인이나 목록 조회까지 느려집니다. 그래서 모델 추론만 하는 FastAPI 서버를 따로 두고, 네 서비스를 Docker Compose로 함께 띄웠습니다.</p>
+    <div class="arch" role="img" aria-label="React 화면이 Django API를 부르고, Django API가 FastAPI 모델 서버에 예측을 요청하며, 결과는 MySQL에 저장되는 구조">
+      <div class="box"><b>React</b><small>화면 · TypeScript · Tailwind</small><ul><li>환자·의사·관리자 화면</li><li>촬영·업로드·결과·대시보드</li></ul></div>
+      <div class="arrow">→</div>
+      <div class="box"><b>Django REST</b><small>API · SimpleJWT</small><ul><li>사용자·인증</li><li>진단·대시보드·관리자 앱</li><li>사진·히트맵 파일 관리</li></ul></div>
+      <div class="arrow">→</div>
+      <div class="box"><b>FastAPI</b><small>모델 서버 · PyTorch · OpenCV</small><ul><li>털 제거 전처리</li><li>하이브리드 예측</li><li>Grad-CAM 생성</li></ul></div>
+      <div class="arrow">↔</div>
+      <div class="box"><b>MySQL 8</b><small>DB</small><ul><li>사용자·진단 기록</li><li>후속 조치 이력</li></ul></div>
+    </div>
+    <ul style="margin-top:20px;padding-left:18px">
+      <li>쿠버네티스 배포 구조도 함께 설계·검토했습니다: Ingress 게이트웨이, Nginx API 게이트웨이, 사진·히트맵을 담는 영구 볼륨, 자가 복구되는 Deployment. 서비스에는 학습 코드 없이 <b>추론 API만</b> 배포합니다.</li>
+      <li>CNN과 ViT의 합치는 비율은 환경 변수로 바꿀 수 있게 두었습니다(기본 0.5 : 0.5, 합이 1이 되도록 자동 정규화).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="night" id="model" aria-labelledby="h-model" style="margin-top:0;padding-top:10px">
+  <div class="wrap">
+    <h2 id="h-model"><small>05 · 모델 (팀 공동 설계)</small>CNN은 국소 무늬를, ViT는 전체 맥락을</h2>
+    <div class="model">
+      <div class="box"><b>1단계 · CNN 특징 결합 (Feature-Level Fusion)</b>
+        <div class="flow"><i>ResNet50 · 2048</i><em>+</em><i>EfficientNet-B4 · 1792</i><em>→</em><i>이어 붙여 3840</i><em>→</em><i>분류기 → 8</i></div>
+        <p style="margin-top:10px;font-size:14px">구조가 다른 두 백본의 특징을 이어 붙이면, 고정 평균보다 분류기가 학습으로 더 잘 조합합니다.</p></div>
+      <div class="box"><b>2단계 · ViT와 확률 평균 (Soft Voting)</b>
+        <div class="flow"><i>CNN 확률</i><em>×0.5 +</em><i>ViT-B/16 확률</i><em>×0.5</em></div>
+        <p style="margin-top:10px;font-size:14px">병변 경계의 미세한 무늬를 보려고 ViT 입력을 224에서 512px로 넓혔습니다(위치 임베딩 보간).</p></div>
+    </div>
+    <h3 style="color:#fff">데이터와 학습</h3>
+    <ul style="padding-left:18px">
+      <li>ISIC 2019·2020·2024에 AI-Hub 한국인 피부 데이터를 더해 37,919장으로 다시 구성. 가장 적은 클래스와 많은 클래스가 약 17배 차이 → 소수 클래스를 AI-Hub로 보강</li>
+      <li>불균형은 가중 Focal Loss(흑색종 가중치 12.0 등)로, 학습은 백본을 먼저 얼렸다가 단계적으로 푸는 2단계 미세조정으로</li>
+      <li>전처리: 초해상도(BSRGAN) → 털 마스크(U-Net) → 털 지우기(LaMa)</li>
+      <li>근거 보여 주기: Grad-CAM++ 히트맵과 정량 평가(Gini 계수, 상위 10% 에너지·커버리지)</li>
+    </ul>
+    <h3 style="color:#fff">결과 (클래스별 F1)</h3>
+    <div class="f1">
+      <div class="mel"><b>85%</b>흑색종</div><div><b>92%</b>기저세포암</div><div><b>93%</b>광선각화증</div><div><b>96%</b>모반</div><div><b>99%</b>혈관종</div><div><b>100%</b>피부섬유종</div>
+    </div>
+    <p style="margin-top:14px">가장 어렵고 가장 중요한 악성 흑색종에서 CNN 단독 65.10% → 하이브리드 84.55%로 19.45%p 올랐습니다.</p>
+    <h3 style="color:#fff">솔직한 한계</h3>
+    <ul style="padding-left:18px">
+      <li>두 CNN과 ViT를 모두 512px로 돌려 추론 비용이 큽니다.</li>
+      <li>합치는 비율(0.5 : 0.5)은 검증셋으로 더 다듬을 여지가 있습니다.</li>
+      <li>Grad-CAM은 CNN 쪽만 반영하므로 앙상블 전체 판단을 완전히 설명하지는 못합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<main class="wrap">
+  <section id="me" aria-labelledby="h-me">
+    <h2 id="h-me"><small>06 · 내가 한 일</small>팀장으로 일을 나누고, 의사 화면과 연결을 맡았습니다</h2>
+    <div class="grid3">
+      <div class="card"><b>팀 운영</b><p>GitHub 조직에서 브랜치·PR로 협업하도록 정하고, 앱 단위로 역할을 나눴습니다. 모델·백엔드·프론트 담당자가 주고받을 API 응답 모양을 맞추는 일을 주도했습니다.</p></div>
+      <div class="card"><b>의사 화면과 API</b><p>의사 대시보드와 진단 흐름 화면(React), 담당 환자 목록 API, 진단 내역 정렬, Grad-CAM 결과 표시 연동을 맡았습니다.</p></div>
+      <div class="card"><b>실행 환경</b><p>네 서비스를 Docker로 띄우는 환경을 구성하고, 컨테이너 사이에서 나던 오류를 정리했습니다.</p></div>
+    </div>
+    <h3>저장소에 남은 내 커밋 (발췌)</h3>
+    <ul class="commits">
+      <li><time>2025.10.22</time><span>모델 파일 경로 정리, 업로드·인증서·히트맵 저장 폴더 구성, 필요한 라이브러리 추가</span></li>
+      <li><time>2025.11.04</time><span>진단 내역 페이지 구현과 화면 개선, 사진 저장 기능 1차</span></li>
+      <li><time>2025.11.05</time><span>Docker 관련 오류 전부 수정</span></li>
+      <li><time>2025.11.18</time><span>사진 저장·프로필 기능 개선, 이미지 주소 처리와 Grad-CAM 표시 조건 개선, 의사 진단 내역 정렬</span></li>
+      <li><time>2025.11.19</time><span>의사 담당 환자 목록에 성별·소견 필요 여부·AI 진단 심각도 표시, 업로드 응답 로직을 충돌 없게 정리</span></li>
+      <li><time>2025.11.20~22</time><span>의사 대시보드 필터, 의사 대시보드·환자 목록 버그 수정, 화면 디자인 통일과 이미지 표시</span></li>
+    </ul>
+    <p class="honest">솔직히 적습니다. 저장소의 커밋은 팀원 4명 계정 중 제 것이 20개이고, 모델과 백엔드 코드 비중은 다른 팀원이 더 컸습니다. 저는 모델을 함께 설계하고 구조를 끝까지 이해한 뒤, 그 결과가 의사 화면에 제대로 보이도록 화면·API·실행 환경을 맡았습니다.</p>
+    <h3>배운 것</h3>
+    <ul class="plain">
+      <li>정확도 숫자만큼, 의사가 "왜 이렇게 판단했는지" 볼 수 있는 화면이 신뢰를 만듭니다.</li>
+      <li>모델을 별도 서버로 떼어 두면 모델을 바꿔도 웹 서비스는 그대로 둘 수 있습니다. 이 감각은 이후 프로모터에서 백엔드를 통째로 바꿀 때 어댑터 계층을 두는 결정으로 이어졌습니다.</li>
+    </ul>
+  </section>
+</main>
+<footer><div class="wrap"><a href="../#work">← 포트폴리오로 돌아가기</a><span>양혁준 · yhjun5413@gmail.com</span></div></footer>
+<script>
+const links = [...document.querySelectorAll('.toc a')];
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('cur', a.hash === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+['what', 'flow', 'users', 'tech', 'model', 'me'].forEach(id => io.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
