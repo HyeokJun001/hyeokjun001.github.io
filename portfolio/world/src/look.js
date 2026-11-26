@@ -66,8 +66,11 @@ export function createLook({ canvas, camera, player, occluders }) {
     want.copy(head).addScaledVector(dir, -near).addScaledVector(right, mouseMode ? 0.5 * (near / dist) : 0);
     camera.position.copy(want);
     camera.position.y = Math.max(want.y, groundY(want.x, want.z) + 0.35);
-    camera.lookAt(camera.position.clone().addScaledVector(dir, 10));
+    // 전광판이 켜지면 그만큼 위를 올려다본다(캐릭터는 화면 아래쪽에 남는다)
+    camera.lookAt(camera.position.clone().addScaledVector(dir, 10).add(lookUp.set(0, lift * 2.1, 0)));
   }
+  let lift = 0;
+  const lookUp = new THREE.Vector3();
 
   return {
     mouseMode,
@@ -77,6 +80,7 @@ export function createLook({ canvas, camera, player, occluders }) {
     turn: v => (yaw = v),
     lock: () => canvas.requestPointerLock?.()?.catch?.(() => {}),
     unlock: () => document.pointerLockElement === canvas && document.exitPointerLock(),
+    setLift: v => (lift = v),
     update,
   };
 }

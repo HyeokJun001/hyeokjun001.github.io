@@ -5,6 +5,7 @@ import { createPlayer } from './player.js';
 import { createLook } from './look.js';
 import { createTouch } from './touch.js';
 import { BOOTHS } from './booths.js';
+import { createBillboards } from './billboard.js';
 
 const $ = s => document.querySelector(s);
 
@@ -56,6 +57,7 @@ for (const b of BOOTHS) {
 const manager = new THREE.LoadingManager();
 manager.onProgress = (_u, done, total) => { $('#bar i').style.width = `${Math.round((done / total) * 100)}%`; };
 const world = buildWorld(scene, BOOTHS, CZ);
+const boards = createBillboards(scene, BOOTHS);
 
 let player, look, touch, figure;
 let entered = false;
@@ -179,6 +181,7 @@ function update(dt, t) {
   const dir = keyDirection();
   player.update(dt, t, dir, dir?.run);
   look.update(dt);
+  look.setLift(boards.update(dt, t, player.pos, camera));
   const b = nearBooth();
   if (b !== lastAct) {
     lastAct = b;
