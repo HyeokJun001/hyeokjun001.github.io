@@ -74,6 +74,20 @@
   .sec-head { padding: 100px 0 10px; }
   .sec-head h2 { font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -0.04em; line-height: 1.2; }
   .sec-head p { color: var(--muted); margin-top: 10px; font-size: 17px; max-width: 40em; }
+  .kick { display: block; margin-bottom: 10px; font-size: 15px; font-weight: 700; line-height: 1; color: var(--violet); }
+  .kick.code { font: 700 13px/1 "JetBrains Mono", Consolas, monospace; letter-spacing: .16em; }
+  .night .kick { color: #b9a4ff; }
+  .proj { margin-top: 110px; padding-top: 26px; border-top: 2px solid var(--ink); display: grid; grid-template-columns: 1fr minmax(280px, 360px); gap: 18px 56px; align-items: start; }
+  .proj-no { grid-column: 1 / -1; font: 700 13px/1 "JetBrains Mono", Consolas, monospace; letter-spacing: .16em; color: var(--violet); }
+  .proj h2 { font-size: clamp(44px, 6vw, 76px); letter-spacing: -0.05em; line-height: 1.05; }
+  .proj h2 + p { margin-top: 16px; font-size: 18px; color: #3a3550; max-width: 34em; }
+  .proj-meta { border-top: 1px solid var(--line); }
+  .proj-meta div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .proj-meta dt { color: var(--muted); }
+  .proj-meta dd { font-weight: 600; }
+  .proj-meta a { color: var(--violet); }
+  .proj + .sec-head { padding-top: 64px; }
+  @media (max-width: 760px) { .proj { grid-template-columns: 1fr; margin-top: 72px; } .proj h2 + p { font-size: 16px; } }
 
   /* story */
   .story { display: grid; grid-template-columns: 1fr 360px; gap: 64px; padding-top: 20px; padding-bottom: 20px; }
@@ -367,7 +381,19 @@
 </div>
 
 <div class="wrap" id="story">
-  <div class="sec-head"><h2>구직자가 쓰는 다섯 화면</h2><p>스크롤하면 오른쪽 휴대폰 화면이 실제 프로모터 화면으로 바뀝니다. 화면 이미지는 데모 데이터로 찍었습니다.</p></div>
+  <header class="proj" aria-labelledby="p1">
+    <span class="proj-no">PROJECT 01</span>
+    <div><h2 id="p1">프로모터</h2>
+      <p>행사 인력이 필요한 기업과 일할 사람을 잇는 플랫폼입니다. 공고 등록부터 지원, 근로계약, 출퇴근, 정산까지 한 서비스에서 처리합니다. 저는 프론트엔드를 맡아 구직자·기업·관리자 화면을 만들고 운영했습니다.</p></div>
+    <dl class="proj-meta">
+      <div><dt>기간</dt><dd>2026.05 – 11</dd></div>
+      <div><dt>내 역할</dt><dd>프론트엔드 단독 · 화면 47개</dd></div>
+      <div><dt>협업</dt><dd>백엔드 · 디자이너 · 대표</dd></div>
+      <div><dt>기술</dt><dd>React · Vite · TanStack Query · Capacitor</dd></div>
+      <div><dt>서비스</dt><dd><a href="https://promotor.kr" target="_blank" rel="noopener">promotor.kr</a> · Android · iOS</dd></div>
+    </dl>
+  </header>
+  <div class="sec-head"><span class="kick">프로모터 · 구직자</span><h2>구직자가 쓰는 다섯 화면</h2><p>스크롤하면 오른쪽 휴대폰 화면이 실제 프로모터 화면으로 바뀝니다. 화면 이미지는 데모 데이터로 찍었습니다.</p></div>
   <div class="story">
     <div class="chapters">
       <article class="chapter" data-img="worker-2-jobs"><span class="n">1 / 5</span><h3>행사를 찾는다</h3><p>모집 중인 행사를 역할로 찾아보고, 상세에서 일정과 급여를 확인합니다.</p><p class="how"><b>만든 방식</b> 목록 데이터는 React Query로 캐시해 다시 열 때 바로 보이고, 공고 사진은 WebP로 줄여 올립니다.</p></article>
@@ -396,7 +422,7 @@
 </div>
 
 <section aria-labelledby="co">
-  <div class="wrap sec-head row-head"><div><h2 id="co">기업 담당자 화면</h2><p>공고 등록부터 정산까지 기업 화면도 모두 만들었습니다. 옆으로 끌거나 버튼으로 넘겨 보세요.</p></div>
+  <div class="wrap sec-head row-head"><div><span class="kick">프로모터 · 기업</span><h2 id="co">기업 담당자 화면</h2><p>공고 등록부터 정산까지 기업 화면도 모두 만들었습니다. 옆으로 끌거나 버튼으로 넘겨 보세요.</p></div>
     <div class="strip-ctl"><button type="button" data-dir="-1" aria-label="이전 화면">‹</button><button type="button" data-dir="1" aria-label="다음 화면">›</button></div></div>
   <div class="strip" id="strip" tabindex="0" aria-label="기업 화면 모음, 좌우로 스크롤">
     <figure><img src="img/guide/company-2-jobs.webp" alt="기업 공고 관리 화면"><figcaption>공고 등록과 관리</figcaption></figure>
@@ -410,7 +436,7 @@
 
 <section class="night" id="ops" aria-labelledby="opsh">
   <div class="wrap">
-    <div class="sec-head"><h2 id="opsh">만든 뒤에는, 멈추지 않게 운영했습니다</h2><p>배포는 명령 한 줄로 묶었고, 장애가 나면 원인을 끝까지 찾았습니다.</p></div>
+    <div class="sec-head"><span class="kick">프로모터 · 운영</span><h2 id="opsh">만든 뒤에는, 멈추지 않게 운영했습니다</h2><p>배포는 명령 한 줄로 묶었고, 장애가 나면 원인을 끝까지 찾았습니다.</p></div>
     <div class="ops">
       <div>
         <div class="term" role="img" aria-label="배포 명령이 자동 점검, 빌드, 업로드, 운영 반영 확인 순서로 실행되는 재현 화면">
@@ -443,7 +469,7 @@
 </section>
 
 <div class="wrap" id="ai">
-  <div class="sec-head"><h2>AI 컴퍼니: 에이전트 13명의 사내 제작팀</h2><p>대표는 지시와 승인만 하고, Claude Code로 만든 AI 직원들이 하루 세 번 회의하며 기획서·PPT·사이트를 만듭니다. 대표가 실제로 일을 맡겼고, 그 기록은 픽셀 사무실 화면에서 재생됩니다.</p>
+  <div class="sec-head"><span class="kick code">PROJECT 02</span><h2>AI 컴퍼니: 에이전트 13명의 사내 제작팀</h2><p>대표는 지시와 승인만 하고, Claude Code로 만든 AI 직원들이 하루 세 번 회의하며 기획서·PPT·사이트를 만듭니다. 대표가 실제로 일을 맡겼고, 그 기록은 픽셀 사무실 화면에서 재생됩니다.</p>
     <div class="btns" style="margin-top:18px"><a class="btn solid" href="ai-company/">왜 만들었고 어떻게 일하는지 자세히 보기</a></div></div>
   <div class="ai">
     <figure><img src="img/ai_company_05_meeting.png" alt="AI 컴퍼니 사무실 화면: 회의 진행, 프로젝트 보드, 최근 결과물" loading="lazy"><figcaption>사무실 화면: 회의 진행, 프로젝트 보드, 대표 결정 대기, 최근 결과물</figcaption></figure>
