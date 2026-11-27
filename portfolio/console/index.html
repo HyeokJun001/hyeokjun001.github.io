@@ -58,6 +58,19 @@
   section { padding: 72px 0; border-top: 1px solid var(--line); }
   h2 { font-size: 28px; letter-spacing: -0.03em; line-height: 1.25; }
   .sub { color: var(--slate); margin-top: 6px; }
+  .kick { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 700; color: var(--run); }
+  section.proj { border-top: 2px solid var(--ink); display: grid; grid-template-columns: 1fr minmax(280px, 360px); gap: 16px 56px; align-items: start; }
+  .proj-no, .pno { font: 700 13px/1 "JetBrains Mono", Consolas, monospace; letter-spacing: .16em; color: var(--run); }
+  .proj-no { grid-column: 1 / -1; }
+  .pno { display: block; margin-bottom: 6px; font-size: 11px; }
+  .proj h2 { font-size: clamp(40px, 5.4vw, 64px); letter-spacing: -0.05em; line-height: 1.05; }
+  .proj h2 + p { margin-top: 14px; font-size: 17px; color: #33414d; max-width: 34em; }
+  .proj-meta { border-top: 1px solid var(--line); }
+  .proj-meta div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .proj-meta dt { color: var(--slate); }
+  .proj-meta dd { font-weight: 600; }
+  .proj-meta a { color: var(--run); }
+  @media (max-width: 860px) { section.proj { grid-template-columns: 1fr; } }
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 32px; position: relative; }
   .steps::before { content: ""; position: absolute; top: 15px; left: 10%; right: 10%; height: 2px; background: var(--line); }
   .step { background: none; border: 0; font: inherit; text-align: left; cursor: pointer; padding: 0 12px 0 0; position: relative; color: var(--slate); }
@@ -188,7 +201,21 @@
     </div>
   </header>
 
+  <section class="proj" aria-labelledby="p1">
+    <span class="proj-no">PROJECT 01</span>
+    <div><h2 id="p1">프로모터</h2>
+      <p>행사 인력이 필요한 기업과 일할 사람을 잇는 플랫폼입니다. 공고 등록부터 지원, 근로계약, 출퇴근, 정산까지 한 서비스에서 처리합니다. 저는 프론트엔드를 맡아 구직자·기업·관리자 화면을 만들고 운영했습니다.</p></div>
+    <dl class="proj-meta">
+      <div><dt>기간</dt><dd>2026.05 – 11</dd></div>
+      <div><dt>내 역할</dt><dd>프론트엔드 단독 · 화면 47개</dd></div>
+      <div><dt>협업</dt><dd>백엔드 · 디자이너 · 대표</dd></div>
+      <div><dt>기술</dt><dd>React · Vite · TanStack Query · Capacitor</dd></div>
+      <div><dt>서비스</dt><dd><a href="https://promotor.kr" target="_blank" rel="noopener">promotor.kr</a> · Android · iOS</dd></div>
+    </dl>
+  </section>
+
   <section aria-labelledby="inc">
+    <span class="kick">프로모터 · 장애 대응</span>
     <h2 id="inc">신규 가입이 실패하던 날, 원인은 두 겹이었습니다</h2>
     <p class="sub">단계를 누르면 그때 본 로그와 한 일을 볼 수 있습니다.</p>
     <div class="steps" role="tablist" aria-label="장애 추적 단계">
@@ -202,6 +229,7 @@
   </section>
 
   <section aria-labelledby="arch">
+    <span class="kick">프로모터 · 구조</span>
     <h2 id="arch">프로모터 구조</h2>
     <p class="sub">화면 코드 하나로 웹과 앱을 내고, 백엔드를 바꿔도 화면은 다시 쓰지 않았습니다.</p>
     <figure class="flow" aria-label="React 화면, 데이터 훅과 어댑터, API 클라이언트, Spring Boot REST API, DB 순서. 웹 화면은 Capacitor로 포장해 Google Play와 App Store에 출시">
@@ -215,9 +243,9 @@
     <h2 id="pj">작업</h2>
     <p class="sub">줄에 마우스를 올리면 화면이 보입니다.</p>
     <div class="rows">
-      <a class="row has-apps" href="https://promotor.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#monitor-smartphone"/></svg>프로모터</h3><p>3개 포털 화면 47개 · Supabase에서 REST API로 무중단 전환 · 웹과 앱 인증 통합 · Google Play·App Store 출시</p><span class="meta">2026.05–11<br>프론트엔드 단독</span><img src="../img/promotor-pc.png" alt=""></a>
+      <a class="row has-apps" href="https://promotor.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#monitor-smartphone"/></svg>프로모터</h3><p>3개 포털 화면 47개 · Supabase에서 REST API로 무중단 전환 · 웹과 앱 인증 통합 · Google Play·App Store 출시</p><span class="meta"><b class="pno">PROJECT 01</b>2026.05–11<br>프론트엔드 단독</span><img src="../img/promotor-pc.png" alt=""></a>
       <div class="row-apps"><span class="stores"><a class="store" href="https://play.google.com/store/apps/details?id=com.jucompany.promotor" target="_blank" rel="noopener" aria-label="프로모터 Android 앱 (Google Play)"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#android"/></svg><span>Android<small>Google Play</small></span></a><a class="store" href="https://apps.apple.com/kr/app/id6827445911" target="_blank" rel="noopener" aria-label="프로모터 iOS 앱 (App Store)"><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#ios"/></svg><span>iOS<small>App Store</small></span></a></span><div class="qrs" aria-hidden="true"><figure class="qr"><img src="../img/qr/promotor-android.svg" alt="" width="92" height="92" loading="lazy"><figcaption>Android</figcaption></figure><figure class="qr"><img src="../img/qr/promotor-ios.svg" alt="" width="92" height="92" loading="lazy"><figcaption>iOS</figcaption></figure><p class="qr-cap">휴대폰 카메라로 찍으면<br>설치 화면으로 갑니다</p></div></div>
-      <a class="row" href="../#ai"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#bot"/></svg>AI 컴퍼니</h3><p>Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀과, 그 기록을 재생하는 픽셀 사무실 화면</p><span class="meta">2026.09–<br>설계·구현 단독</span><img src="../img/ai_company_05_meeting.png" alt=""></a>
+      <a class="row" href="../#ai"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#bot"/></svg>AI 컴퍼니</h3><p>Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀과, 그 기록을 재생하는 픽셀 사무실 화면</p><span class="meta"><b class="pno">PROJECT 02</b>2026.09–<br>설계·구현 단독</span><img src="../img/ai_company_05_meeting.png" alt=""></a>
       <a class="row" href="https://jucompany.co.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#globe"/></svg>회사 홈페이지</h3><p>시안 3개 중 선택안 제작 · 문의 메일 직송과 전송 제한 · 문의함·실적 관리자 화면</p><span class="meta">2026.11<br>기획–오픈</span><img src="../img/jucompany-pc.png" alt=""></a>
       <a class="row" href="https://valora.kr"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#package"/></svg>VALORA 브랜드 사이트</h3><p>12개 페이지 한·영 · Three.js 제품 3D · Supabase 관리자 화면과 행 단위 접근 권한</p><span class="meta">2026.11<br>기획–배포</span><img src="../img/valora-pc.png" alt=""></a>
       <a class="row has-apps" href="https://tarosoli.com"><h3><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#sparkles"/></svg>솔이</h3><p>사주·타로 AI 상담 서비스 · 결제와 환불까지 직접 운영 · 누적 약 40명, 실결제 발생</p><span class="meta">2026–<br>1인 운영</span><img src="../img/soli-pc.png" alt=""></a>
