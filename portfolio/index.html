@@ -44,10 +44,12 @@
   .hero { display: flex; flex-direction: column; justify-content: center; min-height: calc(100vh - 62px); padding: 24px 0 40px; }
   .hero .who { font-size: 16px; color: var(--muted); margin-bottom: 22px; }
   .hero .who b { color: var(--ink); }
-  .hero h1 { font-size: clamp(34px, 4.7vw, 66px); line-height: 1.18; letter-spacing: -0.045em; font-weight: 800; max-width: 17em; }
-  /* 문장 속 보라 단어: 마우스를 올리거나 누르면 아래 칸에 근거가 나온다 */
-  .hero h1 .cw { color: var(--violet); background: var(--violet-soft); border-radius: .18em; padding: 0 .12em; margin: 0 .04em; cursor: pointer; outline-offset: 4px; transition: background .2s, color .2s; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  .hero h1 .cw:hover, .hero h1 .cw[aria-pressed="true"] { background: var(--violet); color: #fff; }
+  .hero h1 { font-size: clamp(30px, 3.6vw, 52px); line-height: 1.22; letter-spacing: -0.045em; font-weight: 800; }
+  .hero h1 .nw { white-space: nowrap; }   /* 구절과 조사를 한 줄에 */
+  /* 문장 속 밑줄 구절: 마우스를 올리거나 누르면 아래 칸에 근거가 나오고, 그 구절만 형광펜이 칠해진다 */
+  .hero h1 .cw { cursor: pointer; outline-offset: 4px; text-decoration: underline; text-decoration-color: #c9b8f5; text-decoration-thickness: .06em; text-underline-offset: .14em; transition: background .2s, text-decoration-color .2s; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hero h1 .cw:hover, .hero h1 .cw[aria-pressed="true"] { background: linear-gradient(transparent 58%, #e6dcff 58%); text-decoration-color: transparent; }
+  @media (max-width: 760px) { .hero h1 br.br-pc { display: none; } .hero h1 .nw { white-space: normal; } .hero h1 .nw:last-child { white-space: nowrap; } }
   .proof { margin-top: 30px; max-width: 660px; min-height: 84px; display: flex; gap: 16px; align-items: center; padding: 14px 20px; border-radius: 16px; background: var(--ink); color: #fff; box-shadow: 0 24px 40px -28px rgba(26,21,48,.8); }
   .proof > div { display: flex; gap: 16px; align-items: center; animation: proof-in .3s cubic-bezier(.2,.8,.2,1); }
   .proof > div[hidden] { display: none; }
@@ -373,6 +375,12 @@
   .vswitch a[aria-current="page"] { background: #fff; color: #1a1530; }
   .vswitch a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   @media print { .vswitch { display: none; } }
+  /* 휴대폰: 아래에 두면 첫 화면 제목을 가려서 위쪽 머리줄 오른편으로 옮긴다 */
+  @media (max-width: 760px) {
+    .vswitch { top: 10px; bottom: auto; left: auto; right: 12px; font-size: 12px; box-shadow: none; }
+    .vswitch span { display: none; }
+    .vswitch a { padding: 7px 9px; }
+  }
 </style>
 </head>
 <body>
@@ -385,9 +393,9 @@
   <section class="hero" aria-label="소개">
     <div>
       <p class="who"><b>양혁준</b> · 프론트엔드 개발자 · 서울</p>
-      <h1>양혁준은 <span class="cw" role="button" tabindex="0" aria-controls="proof-0" aria-pressed="false">실제 사용자가 쓰는 화면</span>을 만들고, <span class="cw" role="button" tabindex="0" aria-controls="proof-1" aria-pressed="true">팀이 믿고 배포하는 장치</span>를 만들어 <span class="cw" role="button" tabindex="0" aria-controls="proof-2" aria-pressed="false">멈추지 않게</span> 운영하는 프론트엔드 개발자입니다.</h1>
+      <h1>양혁준은 <span class="nw"><span class="cw" role="button" tabindex="0" aria-controls="proof-0" aria-pressed="false">실제 사용자가 쓰는 화면</span>을</span> 만들고,<br class="br-pc"> <span class="nw"><span class="cw" role="button" tabindex="0" aria-controls="proof-1" aria-pressed="true">팀이 믿고 배포하는 장치</span>를</span> 만들어<br class="br-pc"> <span class="nw"><span class="cw" role="button" tabindex="0" aria-controls="proof-2" aria-pressed="false">멈추지 않게</span></span> 운영하는 프론트엔드 개발자입니다.</h1>
       <div class="proof" aria-live="polite"><div id="proof-0" hidden><img src="img/guide/worker-2-jobs.webp" alt="" width="52" height="113"><div><small>프로모터 · 구직자·기업·관리자 화면 47개</small><b>실제 이용 1,500명+, 채용 확정 100건+</b><a href="#story">화면 보기 →</a></div></div><div id="proof-1"><div><small>배포 전 자동 점검 187개</small><b>누가 배포해도 점검이 실패하면 운영에 올라가지 않습니다</b><a href="#ops">운영 기록 →</a></div></div><div id="proof-2" hidden><div><small>장애 대응</small><b>신규 가입 장애를 응답 코드부터 추적해 두 겹 원인을 찾아 고쳤습니다</b><a href="#ops">자세히 →</a></div></div></div>
-      <p class="lead">행사 인력 플랫폼 '프로모터'에서 구직자·기업·관리자 화면 47개를 맡아, 백엔드·디자인과 함께 웹과 앱으로 출시하고 운영했습니다. 보라색 글자를 누르거나 마우스를 올리면 근거가 나옵니다.</p>
+      <p class="lead">행사 인력 플랫폼 '프로모터'에서 구직자·기업·관리자 화면 47개를 맡아, 백엔드·디자인과 함께 웹과 앱으로 출시하고 운영했습니다. 밑줄 친 구절을 누르거나 마우스를 올리면 근거가 나옵니다.</p>
       <div class="btns"><a class="btn solid" href="#story">화면 넘겨 보기</a><a class="btn line" href="mailto:yhjun5413@gmail.com">메일 보내기</a><a class="btn line" href="yanghyeokjun-portfolio.pdf" download>PDF 받기</a></div>
     </div>
   </section>
