@@ -145,14 +145,14 @@
   .ar { display: grid; place-items: center; color: #b9b2cf; }
   .ar .ic { width: 18px; height: 18px; }
   /* 흐름 재생: 단계가 왼쪽부터 차례로 켜지고, 끝에서 잠깐 멈췄다 다시 */
-  .flow.run .nd { transition: background .35s, box-shadow .35s, transform .35s; }
+  .flow.run .nd { transition: background .2s, box-shadow .2s, transform .2s; }
   .flow.run .nd.hot:not(.on):not(.done) { background: #f6f4fb; box-shadow: none; } /* 재생 중엔 고정 강조 대신 지나간 칸만 표시 */
   .flow.run .nd.done { box-shadow: inset 0 0 0 1.5px #cbbcf5; }
   .flow.run .nd.on { background: var(--violet-soft); box-shadow: inset 0 0 0 2px var(--violet), 0 10px 22px -14px rgba(108,74,222,.7); transform: translateY(-3px); }
-  .flow.run .ar { transition: color .3s; }
+  .flow.run .ar { transition: color .2s; }
   .flow.run .ar.done { color: #a594e6; }
   .flow.run .ar.on { color: var(--violet); }
-  .flow.run .ar.on .ic { animation: nudge .5s cubic-bezier(.2,.8,.2,1); }
+  .flow.run .ar.on .ic { animation: nudge .3s cubic-bezier(.2,.8,.2,1); }
   @keyframes nudge { from { transform: translateX(-7px); opacity: .2; } }
   .flow-play { margin-left: auto; font: inherit; font-size: 12.5px; font-weight: 600; padding: 3px 12px 3px 10px; border-radius: 99px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; transition: border-color .15s; }
   .flow-play::before { content: ""; display: inline-block; width: 8px; height: 9px; box-sizing: border-box; border-left: 3px solid; border-right: 3px solid; margin-right: 6px; vertical-align: -0.5px; }
@@ -620,7 +620,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const items = [...fig.querySelectorAll('.flow-row > *')], btn = fig.querySelector('.flow-play');
   let i = -1, timer = null, seen = false, paused = false;
   const step = () => { i = (i + 1) % (items.length + 2); items.forEach((el, k) => { el.classList.toggle('on', k === i); el.classList.toggle('done', k < i); }); };
-  const sync = () => { clearInterval(timer); timer = !paused && seen ? setInterval(step, 900) : null; btn.setAttribute('aria-pressed', String(paused)); btn.textContent = paused ? '재생' : '멈춤'; };
+  const sync = () => { clearInterval(timer); timer = !paused && seen ? setInterval(step, 450) : null; btn.setAttribute('aria-pressed', String(paused)); btn.textContent = paused ? '재생' : '멈춤'; };
   btn.hidden = false;
   btn.addEventListener('click', () => { paused = !paused; sync(); });
   // 화면에 보일 때만 돈다
