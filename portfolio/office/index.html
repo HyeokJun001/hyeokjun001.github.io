@@ -138,7 +138,7 @@
   </section>
   <div class="stats">
     <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#users"/></svg>1,500+</b><span>프로모터 실제 이용자</span></div>
-    <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layout-dashboard"/></svg>47</b><span>혼자 만든 화면</span></div>
+    <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#layout-dashboard"/></svg>47</b><span>맡아서 만든 화면</span></div>
     <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#shield-check"/></svg>187</b><span>배포 전 자동 점검</span></div>
     <div><b><svg class="ic" aria-hidden="true"><use href="../img/icons.svg#bot"/></svg>13</b><span>AI 에이전트 팀원</span></div>
   </div>
@@ -157,13 +157,13 @@ const STORE_S = [['android', 'Android', 'Google Play', 'https://play.google.com/
 // 스토어 배지(링크) + PC에서만 보이는 QR
 const APPS = (name, list) => `<span class="stores">${list.map(([ic, os, shop, url]) => `<a class="store" href="${url}" target="_blank" rel="noopener" aria-label="${name} ${os} 앱 (${shop})">${IC(ic)}<span>${os}<small>${shop}</small></span></a>`).join('')}</span><div class="qrs" aria-hidden="true">${list.map(s => `<figure class="qr"><img src="../img/qr/${s[4]}.svg" alt="" width="92" height="92" loading="lazy"><figcaption>${s[1]}</figcaption></figure>`).join('')}<p class="qr-cap">휴대폰 카메라로 찍으면<br>설치 화면으로 갑니다</p></div>`;
 const P = {
-  promotor: { ic: 'monitor-smartphone', t: '프로모터', img: '../img/promotor-pc.png', url: 'https://promotor.kr', li: ['기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포', '실제 이용 1,500명 이상, 채용 확정 100건 이상 (회사 공개 수치)', 'Supabase에서 REST API로 바꿀 때 화면 코드는 그대로 두고 전환', '배포 전 자동 점검 187개, 실패하면 운영에 올라가지 않음'],
+  promotor: { ic: 'monitor-smartphone', t: '프로모터', img: '../img/promotor-pc.png', url: 'https://promotor.kr', li: ['기업·구직자·관리자 화면 47개를 맡아 설계·구현·배포', '실제 이용 1,500명 이상, 채용 확정 100건 이상 (회사 공개 수치)', 'Supabase에서 REST API로 바꿀 때 화면 코드는 그대로 두고 전환', '배포 전 자동 점검 187개, 실패하면 운영에 올라가지 않음'],
     extra: () => APPS('프로모터', STORE_P) + flow('구조', [[['monitor-smartphone', 'React 화면', '47개'], ['layers', '어댑터', '백엔드 교체 흡수', true], ['server', 'REST API'], ['database', 'DB']], [['globe', '웹'], ['package', 'Capacitor', '앱으로 포장', true], [['android', 'ios'], '2개 스토어']]]) },
   ai: { ic: 'bot', t: 'AI 컴퍼니', img: '../img/ai_company_05_meeting.png', url: '../#ai', li: ['Claude Code 에이전트 13명이 하루 세 번 회의하며 일하는 사내 제작팀', '8주 동안 프로젝트 15건, 업무 완료 262건', '업무 기록 2,487건을 Canvas 픽셀 사무실에서 재생', '이 페이지의 사무실도 같은 방식으로 그림'],
     extra: () => flow('일이 흘러가는 순서', [[['user-check', '대표 지시'], ['messages-square', '회의', '09·13·17시'], ['pen-line', '기획·제작', '6개 팀', true], ['shield-check', '검증팀'], ['circle-check', '대표 승인']]]) },
   ju: { ic: 'globe', t: '회사 홈페이지', img: '../img/jucompany-pc.png', url: 'https://jucompany.co.kr', li: ['방향이 다른 시안 3개를 제안하고 선택안 제작·오픈', '문의는 서버에서 담당자 메일로 바로 전달, IP당 분당 5회 제한', '문의함·실적 관리자 화면, 1년 지난 문의 자동 삭제'] },
   valora: { ic: 'package', t: 'VALORA', img: '../img/valora-pc.png', url: 'https://valora.kr', li: ['12개 페이지를 한국어·영어로 구성', 'Three.js로 제품 디스펜서 3D', 'Supabase 관리자 화면, 행 단위 접근 권한(RLS)'] },
-  soli: { ic: 'sparkles', t: '솔이', img: '../img/soli-pc.png', url: 'https://tarosoli.com', li: ['사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 혼자 운영', '누적 약 40명 이용, 실결제 발생', '실결제 첫날 결제 검증 401을 추적해 원인 해결'],
+  soli: { ic: 'sparkles', t: '솔이', img: '../img/soli-pc.png', url: 'https://tarosoli.com', li: ['사주·타로 AI 상담 서비스를 기획부터 결제·환불까지 직접 운영', '누적 약 40명 이용, 실결제 발생', '실결제 첫날 결제 검증 401을 추적해 원인 해결'],
     extra: () => APPS('솔이', STORE_S) + flow('구조', [[['monitor-smartphone', 'React 화면'], ['server', 'FastAPI 서버', '', true], [['database', 'sparkles', 'credit-card'], 'DB · LLM · 결제']]]) },
 };
 // logical canvas 320x150

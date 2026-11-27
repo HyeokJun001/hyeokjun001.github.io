@@ -18,7 +18,7 @@ export const BOOTHS = [
   {
     id: 'promotor', staff: 'Ranger', angle: -20, color: '#6d3ce0', title: '프로모터', sub: '행사 인력 플랫폼 · 화면 47개', poster: '../img/promotor-pc.png', more: '../#story',
     reel: { images: [['../img/guide/worker-2-jobs.webp', '행사 찾기'], ['../img/guide/worker-3-applications.webp', '역할 하나로 지원'], ['../img/guide/worker-4-contract.webp', '근로계약서 서명'], ['../img/guide/worker-5-attendance.webp', '현장 출근 체크'], ['../img/guide/worker-6-salary.webp', '급여 내역'], ['../img/promotor-pc.png', '실제 이용 1,500명+ · 채용 확정 100건+']] },
-    html: `<p class="lead">행사 인력이 필요한 기업과 일할 사람을 잇는 플랫폼입니다. 기업·구직자·관리자 화면 47개를 혼자 설계·구현·배포했습니다.</p>
+    html: `<p class="lead">행사 인력이 필요한 기업과 일할 사람을 잇는 플랫폼입니다. 기업·구직자·관리자 화면 47개를 맡아 설계·구현·배포했습니다.</p>
       <ul class="nums"><li><span class="ico">${I('users')}</span><b>1,500명+</b>실제 이용자 (2026.11.11, 회사 공개 수치)</li><li><span class="ico">${I('file-pen-line')}</span><b>100건+</b>채용 확정</li><li><span class="ico">${I('smartphone')}</span><b>2개 스토어</b>같은 웹 코드로 앱 출시${STORES}</li></ul>
       <div class="shots">${img('guide/worker-2-jobs.webp', '행사 찾기 화면', '행사 찾기')}${img('guide/worker-4-contract.webp', '근로계약서 화면', '계약 서명')}${img('guide/worker-5-attendance.webp', '출퇴근 화면', '출퇴근')}</div>
       ${flow('구조: 화면 하나로 웹·앱, 백엔드를 바꿔도 화면은 그대로', [
@@ -62,7 +62,7 @@ export const BOOTHS = [
   },
   {
     id: 'about', staff: 'Rogue_Hooded', x: 7.2, z: 9.5, color: '#e5654a', title: '안내소', sub: '소개 · 연락처', poster: null, more: '../#about',
-    reel: { type: 'card', images: [['../img/photo.jpg', '']], name: '양혁준', role: '프론트엔드 개발자', lines: ['프로모터 화면 47개 단독 개발·운영', 'AI 에이전트 팀 설계·운영', 'yhjun5413@gmail.com'], caption: '서울 근무 가능 · 메일로 연락 주세요' },
+    reel: { type: 'card', images: [['../img/photo.jpg', '']], name: '양혁준', role: '프론트엔드 개발자', lines: ['프로모터 화면 47개 개발·운영 담당', 'AI 에이전트 팀 설계·운영', 'yhjun5413@gmail.com'], caption: '서울 근무 가능 · 메일로 연락 주세요' },
     html: `<div class="about"><img src="../img/photo.jpg" alt="양혁준 증명사진" width="120" height="168"><div>
       <p class="lead">프론트엔드 개발자 양혁준입니다. 만든 화면을 실제 사용자가 쓰고, 그 사용자가 겪는 문제를 끝까지 추적해 고치는 일을 가장 좋아합니다.</p>
       <ul><li>제이유컴퍼니 개발팀장(프론트엔드 단독) · 2026.05–11</li><li>광주 인공지능사관학교 6기 · 최종 프로젝트 최우수상</li><li>2025 건양 헬스 데이터톤(KHD) 장려상</li><li>React · TypeScript · Next.js · Three.js · Claude Code</li></ul>
@@ -71,7 +71,7 @@ export const BOOTHS = [
   {
     id: 'soli', staff: 'Mage', x: 12.4, z: 3.2, color: '#3b2669', ink: '#ffd98a', title: '솔이 · SOLI', sub: '사주·타로 AI 상담 · 1인 운영', poster: '../img/soli-pc.png', more: 'https://tarosoli.com', moreLabel: '솔이 열어 보기',
     reel: { images: [['../img/soli/home-mo.webp', '가입 없이 무료 사주 풀이'], ['../img/soli-pc.png', '정밀 만세력 + AI 상담'], ['../img/soli/ilju.webp', '60일주 풀이 페이지'], ['../img/soli/tools.webp', '무료 도구 · 만세력 계산기'], ['../img/soli/blog.webp', '명리·타로 지식창고'], ['../img/soli/pricing.webp', '포스 충전 · 카카오페이 결제']] },
-    html: `<p class="lead">기획, 개발, 배포, 결제, 고객 응대까지 혼자 만들고 운영하는 사주·타로 AI 상담 서비스입니다. 생년월일과 태어난 시각을 넣으면 실제 천체력 기준 만세력으로 사주를 계산하고, 그 위에 AI 상담을 얹습니다.</p>
+    html: `<p class="lead">기획, 개발, 배포, 결제, 고객 응대까지 직접 만들고 운영하는 사주·타로 AI 상담 서비스입니다. 생년월일과 태어난 시각을 넣으면 실제 천체력 기준 만세력으로 사주를 계산하고, 그 위에 AI 상담을 얹습니다.</p>
       ${nums([['users', '약 40명', '누적 이용자'], ['credit-card', '실결제', '카카오페이 등 간편결제(포트원)'], ['user-check', '1인', '기획부터 고객 응대까지']])}
       <div class="app-get">${APPS('솔이', STORE_S)}</div>
       <div class="shots">${img('soli/home-mo.webp', '솔이 첫 화면', '첫 화면: 가입 없이 무료 풀이')}${img('soli/ilju.webp', '갑진일주 풀이 페이지', '60일주 풀이')}${img('soli/tools.webp', '무료 도구 모음', '무료 도구')}</div>
